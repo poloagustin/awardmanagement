@@ -9,7 +9,7 @@ import org.hibernate.*;
 import ar.com.donpepe.awardmanagement.daos.GenericDao;
 import ar.com.donpepe.awardmanagement.daos.session.HibernateSessionFactory;
 
-public class GenericHibernateDao<T, TId extends Serializable> implements
+public abstract class GenericHibernateDao<T, TId extends Serializable> implements
 		GenericDao<T, TId> {
 	private Class<T> persistentClass;
 

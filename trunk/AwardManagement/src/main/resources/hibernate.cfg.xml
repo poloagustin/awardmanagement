@@ -12,5 +12,11 @@
 
 		<!-- ESTO CREA LA BASE A PARTIR DE LAS ENTIDADES -->
 		<property name="hibernate.hbm2ddl.auto">create</property>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.Product"></mapping>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.EntityWithId"></mapping>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.Sale"></mapping>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.SaleCommission"></mapping>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.SaleItem"></mapping>
+		<mapping class="ar.com.donpepe.awardmanagement.domain.User"></mapping>
 	</session-factory>
 </hibernate-configuration>

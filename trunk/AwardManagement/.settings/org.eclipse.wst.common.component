@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="OrmPractice"/>
+        <property name="context-root" value="AwardManagement"/>
         <property name="java-output-path" value="/AwardManagement/target/classes"/>
     </wb-module>
 </project-modules>

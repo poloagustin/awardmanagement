@@ -2,6 +2,11 @@ package ar.com.donpepe.awardmanagement.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
 public class SaleItem extends EntityWithId implements Serializable {
 
 	/**
@@ -11,7 +16,7 @@ public class SaleItem extends EntityWithId implements Serializable {
 
 	public SaleItem() {
 	}
-	
+
 	public Product getProduct() {
 		return product;
 	}
@@ -28,7 +33,9 @@ public class SaleItem extends EntityWithId implements Serializable {
 		this.amount = amount;
 	}
 
+	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, targetEntity = Product.class)
 	private Product product;
-	
+
+	@Column
 	private Integer amount;
 }

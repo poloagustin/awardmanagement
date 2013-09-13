@@ -2,6 +2,10 @@ package ar.com.donpepe.awardmanagement.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class SaleCommission extends EntityWithId implements Serializable {
 
 	/**
@@ -36,9 +40,12 @@ public class SaleCommission extends EntityWithId implements Serializable {
 		this.saleCommission = saleCommission;
 	}
 
+	@Column
 	private Integer minimumSalesAmount;
 
+	@Column
 	private Integer maximumSalesAmount;
 
+	@Column
 	private Float saleCommission;
 }
