@@ -2,6 +2,12 @@ package ar.com.donpepe.awardmanagement.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Entity
 public class User extends EntityWithId implements Serializable {
 
 	/**
@@ -12,16 +18,23 @@ public class User extends EntityWithId implements Serializable {
 	public User() {
 	}
 	
+	@Column
 	private String firstName;
 	
+	@Column
 	private String lastName;
 	
+	@Column
 	private String dni;
 	
+	@Column
 	private String username;
 	
+	@Column
 	private String password;
 	
+	@Column
+	@Enumerated(EnumType.ORDINAL)
 	private Role role;
 	
 	public String getFullName() {

@@ -1,7 +1,10 @@
 package ar.com.donpepe.awardmanagement.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class EntityWithId implements Serializable{
 
 	/**
@@ -12,6 +15,7 @@ public class EntityWithId implements Serializable{
 	public EntityWithId() {
 	}
 	
+	@Id
 	private Integer Id;
 
 	public Integer getId() {

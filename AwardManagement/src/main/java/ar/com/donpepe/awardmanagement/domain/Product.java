@@ -2,6 +2,10 @@ package ar.com.donpepe.awardmanagement.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Product extends EntityWithId implements Serializable{
 
 	/**
@@ -12,8 +16,10 @@ public class Product extends EntityWithId implements Serializable{
 	public Product() {
 	}
 
+	@Column
 	private String name;
 	
+	@Column
 	private Float saleCommission;
 
 	public String getName() {
