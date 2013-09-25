@@ -15,7 +15,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sale> getSalesByUserUserId(Integer userId) {
+	public List<Sale> getSalesByUserId(Integer userId) {
 		List<Sale> salesByUser = null;
 		
 		Date firstDayOfMonth = null;
@@ -34,7 +34,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		try {
 			Criteria criteria = session.createCriteria(Sale.class);
 			criteria = criteria.add(
-				Restrictions.or(
+				Restrictions.and(
 					Restrictions.eq("user", userId),
 					Restrictions.and(
 						Restrictions.ge("date", firstDayOfMonth),
