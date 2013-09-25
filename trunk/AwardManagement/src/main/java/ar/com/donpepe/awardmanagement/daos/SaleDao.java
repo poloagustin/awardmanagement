@@ -5,5 +5,5 @@ import java.util.List;
 import ar.com.donpepe.awardmanagement.domain.Sale;
 
 public interface SaleDao extends EntityWithIdDao<Sale>{
-	List<Sale> getSalesByUserUserId(Integer userId); 
+	List<Sale> getSalesByUserId(Integer userId); 
 }
