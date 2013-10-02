@@ -2,9 +2,12 @@ package ar.com.donpepe.awardmanagement.daos.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import ar.com.donpepe.awardmanagement.daos.GenericDao;
 import ar.com.donpepe.awardmanagement.daos.session.HibernateSessionFactory;
@@ -12,6 +15,7 @@ import ar.com.donpepe.awardmanagement.daos.session.HibernateSessionFactory;
 public abstract class GenericHibernateDao<T, TId extends Serializable> implements
 		GenericDao<T, TId> {
 	private Class<T> persistentClass;
+//	private HibernateTemplate  
 
 	@SuppressWarnings("unchecked")
 	public GenericHibernateDao() {

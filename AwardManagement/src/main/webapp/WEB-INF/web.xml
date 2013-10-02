@@ -4,15 +4,13 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>AwardManagement</display-name>
-<!-- 	<welcome-file-list> -->
-<!-- 		<welcome-file>menu.jsp</welcome-file> -->
-<!-- 	</welcome-file-list> -->
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DeleteServlet</servlet-name> -->
-<!-- 		<servlet-class>com.poloagustin.ormpractice.web.servlets.DeleteServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DeleteServlet</servlet-name> -->
-<!-- 		<url-pattern>/Delete</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/ApplicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
 </web-app>
