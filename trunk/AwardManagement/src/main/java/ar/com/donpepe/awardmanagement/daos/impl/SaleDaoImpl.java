@@ -4,14 +4,19 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
-import org.hibernate.*;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
-import ar.com.donpepe.awardmanagement.daos.session.HibernateSessionFactory;
 import ar.com.donpepe.awardmanagement.domain.Sale;
 
 public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1120189426185910853L;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -29,10 +34,8 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
 		firstDayOfMonth = calendar.getTime();
 
-		Session session = HibernateSessionFactory.getInstance().createSession();
-
 		try {
-			Criteria criteria = session.createCriteria(Sale.class);
+			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
 			criteria = criteria.add(
 				Restrictions.and(
 					Restrictions.eq("user", userId),
@@ -42,13 +45,10 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 					)
 				)
 			);
-			salesByUser = (List<Sale>)criteria.list();
-		} catch (HibernateException exception) {
+			salesByUser = super.getHibernateTemplate().findByCriteria(criteria);
+		} catch (DataAccessException exception) {
 			exception.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
-
 		return salesByUser;
 	}
 }
