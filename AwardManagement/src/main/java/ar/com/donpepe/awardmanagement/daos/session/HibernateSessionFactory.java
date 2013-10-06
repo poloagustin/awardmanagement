@@ -1,10 +1,17 @@
 package ar.com.donpepe.awardmanagement.daos.session;
 
+import java.io.Serializable;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateSessionFactory {
+public class HibernateSessionFactory implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8960570148142942807L;
+
 	private HibernateSessionFactory() {
 		this.factory = new Configuration().configure().buildSessionFactory();
 	}

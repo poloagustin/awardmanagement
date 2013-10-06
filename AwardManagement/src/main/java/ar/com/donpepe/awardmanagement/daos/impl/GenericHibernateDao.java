@@ -5,17 +5,21 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.donpepe.awardmanagement.daos.GenericDao;
-import ar.com.donpepe.awardmanagement.daos.session.HibernateSessionFactory;
 
-public abstract class GenericHibernateDao<T, TId extends Serializable> implements
-		GenericDao<T, TId> {
+public abstract class GenericHibernateDao<T, TId extends Serializable>
+		implements GenericDao<T, TId> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 809515827287293892L;
 	private Class<T> persistentClass;
-//	private HibernateTemplate  
+
+	private HibernateTemplate hibernateTemplate;
 
 	@SuppressWarnings("unchecked")
 	public GenericHibernateDao() {
@@ -23,123 +27,92 @@ public abstract class GenericHibernateDao<T, TId extends Serializable> implement
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		Session session = HibernateSessionFactory.getInstance().createSession();
 		List<T> objs = new ArrayList<T>();
 		try {
-			objs = (List<T>) session.createCriteria(this.persistentClass)
-					.list();
-		} catch (HibernateException exception) {
+			objs = this.hibernateTemplate.loadAll(this.persistentClass);
+		} catch (DataAccessException exception) {
 			exception.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
 		return objs;
 	}
 
-	@SuppressWarnings("unchecked")
 	public T get(TId id) {
-		Session session = HibernateSessionFactory.getInstance().createSession();
 		T obj = null;
 		try {
-			obj = (T) session.get(this.persistentClass, id);
-		} catch (HibernateException exception) {
+			obj = this.hibernateTemplate.get(this.persistentClass, id);
+		} catch (DataAccessException exception) {
 			exception.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
 		return obj;
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public TId save(T obj) {
-		Session session = HibernateSessionFactory.getInstance().createSession();
 		TId id = null;
-		Transaction transaction = null;
-
 		try {
-			transaction = session.beginTransaction();
-			id = (TId) session.save(obj);
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
+			id = (TId) this.hibernateTemplate.save(obj);
+		} catch (DataAccessException e) {
 			e.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
 		return id;
 	}
 
+	@Transactional
 	public void update(T obj) {
-		Session session = HibernateSessionFactory.getInstance().createSession();
-		Transaction transaction = null;
-
 		try {
-			transaction = session.beginTransaction();
-			session.update(obj);
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
+			this.hibernateTemplate.update(obj);
+		} catch (DataAccessException e) {
 			e.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
 	}
 
+	@Transactional
 	public void delete(T obj) {
-		Session session = HibernateSessionFactory.getInstance().createSession();
-		Transaction transaction = null;
-
 		try {
-			transaction = session.beginTransaction();
-			session.delete(obj);
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
+			this.hibernateTemplate.delete(obj);
+		} catch (DataAccessException e) {
 			e.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
 	}
 
-	public static List<Serializable> doBulkAction(
-			List<Serializable> objs, BulkOperation bulkOperation) {
-		Session session = HibernateSessionFactory.getInstance().createSession();
+	@Transactional
+	public List<Serializable> doBulkAction(List<Serializable> objs,
+			BulkOperation bulkOperation) {
 		List<Serializable> insertedIds = new ArrayList<Serializable>();
-		Transaction transaction = null;
-
 		try {
-			transaction = session.beginTransaction();
-
 			switch (bulkOperation) {
 			case INSERT:
 				for (Serializable obj : objs) {
-					insertedIds.add(session.save(obj));
+					insertedIds.add(this.hibernateTemplate.save(obj));
 				}
 				break;
 			case DELETE:
 				for (Serializable obj : objs) {
-					session.delete(obj);
+					this.hibernateTemplate.delete(obj);
 				}
 				break;
 			case UPDATE:
 				for (Serializable obj : objs) {
-					session.update(obj);
+					this.hibernateTemplate.update(obj);
 				}
 				break;
 			default:
 				break;
 			}
 
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
+		} catch (DataAccessException e) {
 			e.printStackTrace();
-		} finally {
-			HibernateSessionFactory.getInstance().destroySession(session);
 		}
-
 		return insertedIds;
+	}
+
+	public HibernateTemplate getHibernateTemplate() {
+		return hibernateTemplate;
+	}
+
+	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+		this.hibernateTemplate = hibernateTemplate;
 	}
 }
