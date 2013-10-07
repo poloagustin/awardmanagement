@@ -32,14 +32,32 @@
 
 	<!-- Daos -->
 	<bean id="genericHibernateDao"
-		class="ar.com.donpepe.awardmanagement.daos.impl.GenericHibernateDao">
+		class="ar.com.donpepe.awardmanagement.daos.impl.GenericHibernateDao"
+		abstract="true">
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
-	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDao">
+	<!-- <bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"> -->
+	<!-- </bean> -->
+	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl">
 	</bean>
 	<!-- End of Daos -->
-	<bean id="salesService"
-		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
-		<property name="saleDao" ref="saleDao"></property>
+	<!-- Services -->
+	<!-- <bean id="salesService" -->
+	<!-- class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl"> -->
+	<!-- <property name="saleDao" ref="saleDao"></property> -->
+	<!-- </bean> -->
+	<bean id="userService"
+		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
 	</bean>
+	<!-- End of Services -->
+	<!-- Servlets -->
+<!-- 	<bean id="userServlet" abstract="true"> -->
+<!-- 		<property name="userService" ref="userService"></property> -->
+<!-- 	</bean> -->
+	<bean id="userIndexServlet" 
+		class="ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- End of Servlets -->
 </beans>
