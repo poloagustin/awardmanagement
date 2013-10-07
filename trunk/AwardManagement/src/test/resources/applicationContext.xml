@@ -4,7 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!-- Hibernate configuration for usage within Spring -->
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	<bean id="hibernateTemplate" 
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory">
 			<ref bean="mySessionFactory" />
 		</property>
@@ -37,9 +38,22 @@
 	</bean>
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDao">
 	</bean>
+	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDao">
+	</bean>
 	<!-- End of Daos -->
+	<!-- Services -->
 	<bean id="salesService"
 		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
 		<property name="saleDao" ref="saleDao"></property>
 	</bean>
+	<bean id="userService"
+		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<!-- End of Services -->
+	<!-- Servlets -->
+	<bean id="userServlet" class="ar.com.donpepe.awardmanagement.web.servlets.UserServlet">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- End of Servlets -->
 </beans>
