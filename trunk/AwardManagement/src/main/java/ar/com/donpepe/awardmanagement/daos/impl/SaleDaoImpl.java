@@ -3,12 +3,12 @@ package ar.com.donpepe.awardmanagement.daos.impl;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
+import ar.com.donpepe.awardmanagement.daos.impl.EntityWithIdDaoImpl;
 import ar.com.donpepe.awardmanagement.domain.Sale;
 
 public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
@@ -34,15 +34,13 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
 		firstDayOfMonth = calendar.getTime();
 
+		
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
 			criteria = criteria.add(
 				Restrictions.and(
 					Restrictions.eq("user", userId),
-					Restrictions.and(
-						Restrictions.ge("date", firstDayOfMonth),
-						Restrictions.le("date", lastDayOfMonth)
-					)
+					Restrictions.between("date", firstDayOfMonth, lastDayOfMonth)
 				)
 			);
 			salesByUser = super.getHibernateTemplate().findByCriteria(criteria);
