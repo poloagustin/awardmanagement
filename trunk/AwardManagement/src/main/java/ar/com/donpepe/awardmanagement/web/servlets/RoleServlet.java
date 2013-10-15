@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import ar.com.donpepe.awardmanagement.services.UserService;
 import ar.com.donpepe.awardmanagement.web.servlets.helpers.ServletHelper;
 
@@ -38,15 +40,8 @@ public class RoleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> roles = this.userService.getRoles();
-		StringBuilder builder = new StringBuilder();
-		
-		for (String role : roles) {
-			builder.append(";");
-			builder.append(role);
-		}
-		
-		String resp = builder.toString().replaceFirst(";", "");
-		
+		String resp = new Gson().toJson(roles); 
+
 		response.getWriter().write(resp);
 	}
 }
