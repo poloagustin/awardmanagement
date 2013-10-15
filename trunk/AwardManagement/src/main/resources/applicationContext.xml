@@ -29,7 +29,6 @@
 		</property>
 	</bean>
 	<!-- End of Hibernate configuration for usage within Spring -->
-
 	<!-- Daos -->
 	<bean id="genericHibernateDao"
 		class="ar.com.donpepe.awardmanagement.daos.impl.GenericHibernateDao"
@@ -38,7 +37,8 @@
 	</bean>
 	<!-- <bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"> -->
 	<!-- </bean> -->
-	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl">
+	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl"
+		parent="genericHibernateDao">
 	</bean>
 	<!-- End of Daos -->
 	<!-- Services -->
@@ -51,13 +51,4 @@
 		<property name="userDao" ref="userDao"></property>
 	</bean>
 	<!-- End of Services -->
-	<!-- Servlets -->
-<!-- 	<bean id="userServlet" abstract="true"> -->
-<!-- 		<property name="userService" ref="userService"></property> -->
-<!-- 	</bean> -->
-	<bean id="userIndexServlet" 
-		class="ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet">
-		<property name="userService" ref="userService"></property>
-	</bean>
-	<!-- End of Servlets -->
 </beans>

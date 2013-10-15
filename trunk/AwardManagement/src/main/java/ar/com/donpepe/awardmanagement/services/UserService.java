@@ -2,12 +2,14 @@ package ar.com.donpepe.awardmanagement.services;
 
 import java.util.List;
 
-import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.UserDto;
+import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 
 public interface UserService {
-	List<User> getAll();
-	void newUser(User user);
-	void updateUser(User user);
-	void deleteUser(User user);
-	List<User> getUsersByUsername(String username);
+	List<UserIndexDto> getIndex();
+	Boolean newUser(UserDto user);
+	Boolean updateUser(UserDto user);
+	Boolean deleteUser(UserDto user);
+	List<UserIndexDto> getUsersByUsername(String username);
+	List<String> getRoles();
 }
