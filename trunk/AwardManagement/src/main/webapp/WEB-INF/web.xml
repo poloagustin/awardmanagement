@@ -1,121 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>AwardManagement</display-name>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/classes/ApplicationContext.xml</param-value>
-  </context-param>
-  <listener>
-    <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
-<<<<<<< .mine
-    </listener>
-    <welcome-file-list>
-    	<welcome-file>/home/index.jsp</welcome-file>
-    </welcome-file-list>
-    <servlet>
-    	<servlet-name>UserIndex</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>UserEdit</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserEditServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>UserSearch</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserSearchServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>UserDelete</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserDeleteServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>UserCreate</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserCreateServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>SaleCreate</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesServlet</servlet-class>  
-    </servlet>
-    <servlet>
-    	<servlet-name>SaleIndex</servlet-name>
-  		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>  
-    </servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>AwardManagement</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/ApplicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<welcome-file-list>
+		<welcome-file>/home/index.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>UserIndex</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserEdit</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserEditServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserSearch</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserSearchServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserDelete</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserDeleteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserCreate</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserCreateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SaleCreate</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SaleIndex</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UserIndex</servlet-name>
 		<url-pattern>/user/index</url-pattern>
-	</servlet-mapping>    
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserEdit</servlet-name>
 		<url-pattern>/user/edit</url-pattern>
-	</servlet-mapping>    
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserSearch</servlet-name>
 		<url-pattern>/user/search</url-pattern>
-	</servlet-mapping>    
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserDelete</servlet-name>
 		<url-pattern>/user/delete</url-pattern>
-	</servlet-mapping>    
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserCreate</servlet-name>
 		<url-pattern>/user/create</url-pattern>
-	</servlet-mapping>    
-=======
-  </listener>
-  <welcome-file-list>
-    <welcome-file>/home/index.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <servlet-name>UserIndex</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UserEdit</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserEditServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UserSearch</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserSearchServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UserDelete</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserDeleteServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UserCreate</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserCreateServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>Start</servlet-name>
-    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.StartServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserIndex</servlet-name>
-    <url-pattern>/user/index</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserEdit</servlet-name>
-    <url-pattern>/user/edit</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserSearch</servlet-name>
-    <url-pattern>/user/search</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserDelete</servlet-name>
-    <url-pattern>/user/delete</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserCreate</servlet-name>
-    <url-pattern>/user/create</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Start</servlet-name>
-    <url-pattern>/test</url-pattern>
-  </servlet-mapping>
->>>>>>> .r24
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>SaleCreate</servlet-name>
 		<url-pattern>/sale/create</url-pattern>
