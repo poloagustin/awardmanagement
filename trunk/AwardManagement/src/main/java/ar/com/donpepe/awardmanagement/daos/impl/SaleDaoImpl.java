@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
-
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
 import ar.com.donpepe.awardmanagement.daos.impl.EntityWithIdDaoImpl;
 import ar.com.donpepe.awardmanagement.domain.Sale;
@@ -48,5 +47,18 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 			exception.printStackTrace();
 		}
 		return salesByUser;
+	}
+
+	@Override
+	public Sale getSaleByNumber(String number) {
+		// TODO Auto-generated method stub
+		Sale sale = new Sale();
+		try {
+			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.eq("number", number));
+			sale = (Sale)super.getHibernateTemplate().findByCriteria(criteria);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return sale;
 	}
 }

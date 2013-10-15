@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import ar.com.donpepe.awardmanagement.domain.SaleItem;
+import ar.com.donpepe.awardmanagement.domain.User;
 
 
 public class SaleDto implements Serializable {
@@ -16,6 +17,7 @@ public class SaleDto implements Serializable {
 	
 	private Date date;
 	private String number;
+	private User salesMan;
 	private List<SaleItem> saleItems;
 
 	
@@ -42,5 +44,15 @@ public class SaleDto implements Serializable {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
+	public User getSalesMan() {
+		return salesMan;
+	}
+
+	public void setSalesMan(User salesMan) {
+		this.salesMan = salesMan;
+	}
+	
+	
 	
 }
