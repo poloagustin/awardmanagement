@@ -9,6 +9,9 @@
 <title>Nueva Venta</title>
 </head>
 <body>
-	
+<form action="<%=request.getContextPath()%>" method="get">
+<input type="text" name="txtSaleNumber" size="20">	
+<input type="submit" name="btnIngresar">
+</form>
 </body>
 </html>
