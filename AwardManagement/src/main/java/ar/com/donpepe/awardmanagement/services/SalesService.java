@@ -10,5 +10,5 @@ public interface SalesService {
 	List<SaleIndexDto> getSalesReport(Integer userId);
 	Boolean verifySaleNumber(String saleNumber);
 	List<Sale> getSales();
-	Sale getSaleByNumber(Integer number);
+	Sale getSaleByNumber(String salenumber);
 }
