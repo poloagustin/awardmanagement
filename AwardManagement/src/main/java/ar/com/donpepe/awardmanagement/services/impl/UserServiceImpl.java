@@ -1,38 +1,19 @@
 package ar.com.donpepe.awardmanagement.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.donpepe.awardmanagement.daos.UserDao;
+import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.UserDto;
+import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 import ar.com.donpepe.awardmanagement.services.UserService;
+import ar.com.donpepe.awardmanagement.services.mappers.UserMapper;
 
 public class UserServiceImpl implements UserService {
+
 	private UserDao userDao;
-	
-	@Override
-	public List<User> getAll() {
-		return this.userDao.getAll();
-	}
-
-	@Override
-	public void newUser(User user) {
-		this.userDao.save(user);
-	}
-
-	@Override
-	public void updateUser(User user) {
-		this.updateUser(user);
-	}
-
-	@Override
-	public void deleteUser(User user) {
-		this.userDao.delete(user);
-	}
-
-	@Override
-	public List<User> getUsersByUsername(String username) {
-		return this.userDao.getByUsername(username);
-	}
 
 	public UserDao getUserDao() {
 		return userDao;
@@ -40,5 +21,75 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	@Override
+	public List<UserIndexDto> getIndex() {
+		List<User> users = this.userDao.getAll();
+		List<UserIndexDto> dtos = new ArrayList<UserIndexDto>();
+
+		for (User user : users) {
+			dtos.add(UserMapper.getUserIndexDto(user));
+		}
+
+		return dtos;
+	}
+
+	@Override
+	public Boolean newUser(UserDto user) {
+		Boolean success = false;
+		try {
+			this.userDao.save(UserMapper.getUser(user));
+			success = true;
+		} catch (Exception e) {
+			success = false;
+		}
+		return success;
+	}
+
+	@Override
+	public Boolean updateUser(UserDto user) {
+		Boolean success = false;
+		try {
+			success = true;
+		} catch (Exception e) {
+			success = false;
+		}
+		return success;
+	}
+
+	@Override
+	public Boolean deleteUser(UserDto user) {
+		Boolean success = false;
+		try {
+			success = true;
+		} catch (Exception e) {
+			success = false;
+		}
+		return success;
+	}
+
+	@Override
+	public List<UserIndexDto> getUsersByUsername(String username) {
+		List<User> users = this.userDao.getByUsername(username);
+		List<UserIndexDto> dtos = new ArrayList<UserIndexDto>();
+
+		for (User user : users) {
+			dtos.add(UserMapper.getUserIndexDto(user));
+		}
+
+		return dtos;
+	}
+
+	@Override
+	public List<String> getRoles() {
+		Role[] roles = Role.values();
+		List<String> values = new ArrayList<String>();
+
+		for (Role role : roles) {
+			values.add(UserMapper.getRoleAsString(role));
+		}
+
+		return values;
 	}
 }

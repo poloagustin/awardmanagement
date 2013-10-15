@@ -2,6 +2,7 @@ package ar.com.donpepe.awardmanagement.services.mappers;
 
 import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 
 public class UserMapper {
@@ -15,7 +16,7 @@ public class UserMapper {
 		return dto;
 	}
 
-	private static String getRoleAsString(Role role) {
+	public static String getRoleAsString(Role role) {
 		switch (role) {
 			case ADMINISTRATOR:
 				return "Administrador";
@@ -28,7 +29,7 @@ public class UserMapper {
 		}
 	}
 	
-	private static Role getRoleAsEnum(String role) {
+	public static Role getRoleAsEnum(String role) {
 		switch (role) {
 			case "Administrador":
 				return Role.ADMINISTRATOR;
@@ -39,5 +40,17 @@ public class UserMapper {
 			default:
 				return null;
 		}
+	}
+
+	public static User getUser(UserDto user) {
+		User dom = new User();
+		dom.setDni(user.getDni());
+		dom.setFirstName(user.getFirstName());
+		dom.setId(user.getId());
+		dom.setLastName(user.getLastName());
+		dom.setPassword(user.getPassword());
+		dom.setRole(getRoleAsEnum(user.getRole()));
+		dom.setUsername(user.getUserName());
+		return dom;
 	}
 }

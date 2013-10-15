@@ -1,20 +1,20 @@
 package ar.com.donpepe.awardmanagement.web.servlets;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import ar.com.donpepe.awardmanagement.services.UserService;
+import ar.com.donpepe.awardmanagement.web.servlets.helpers.*;
 
 public abstract class UserServlet extends BaseServlet {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4052365037469132107L;
-	
-	private UserService userService;
 
-	public UserService getUserService() {
-		return userService;
-	}
+	protected UserService userService;
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		this.userService = (UserService)ServletHelper.getBean(config, "userService");
+	}	
 }
