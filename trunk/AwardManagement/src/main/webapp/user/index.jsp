@@ -34,7 +34,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="<%=request.getContextPath()%>/user/new">Nuevo Usuario</a>
+	<a href="<%=request.getContextPath()%>/user/create">Nuevo Usuario</a>
 	<form method="get" action="<%=request.getContextPath()%>/user/search">
 		<input type="text" required="required" name="username"/>
 		<input type="submit" value="Buscar" />

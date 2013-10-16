@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class User extends EntityWithId implements Serializable {
@@ -77,5 +80,15 @@ public class User extends EntityWithId implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 }

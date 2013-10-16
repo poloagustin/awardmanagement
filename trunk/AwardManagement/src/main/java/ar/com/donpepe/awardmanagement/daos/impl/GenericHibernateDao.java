@@ -49,7 +49,7 @@ public abstract class GenericHibernateDao<T, TId extends Serializable>
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional
+	// @Transactional
 	public TId save(T obj) {
 		TId id = null;
 		try {
@@ -60,7 +60,7 @@ public abstract class GenericHibernateDao<T, TId extends Serializable>
 		return id;
 	}
 
-	@Transactional
+	// @Transactional
 	public void update(T obj) {
 		try {
 			this.hibernateTemplate.update(obj);

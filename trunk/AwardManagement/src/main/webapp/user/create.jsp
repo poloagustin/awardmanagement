@@ -9,7 +9,7 @@
 <title>Crear Usuario</title>
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/user/create" method="put">
+	<form action="<%=request.getContextPath()%>/user/create" method="post">
 		<fieldset>
 			<table>
 				<tr>
