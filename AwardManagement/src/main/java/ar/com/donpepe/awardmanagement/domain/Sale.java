@@ -8,8 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Sale extends EntityWithId implements Serializable {
@@ -21,6 +23,20 @@ public class Sale extends EntityWithId implements Serializable {
 
 	public Sale() {
 	}
+
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
 	public Date getDate() {
 		return date;
@@ -45,7 +61,7 @@ public class Sale extends EntityWithId implements Serializable {
 	public void setSaleItems(List<SaleItem> saleItems) {
 		this.saleItems = saleItems;
 	}
-	
+
 	public User getSalesman() {
 		return salesman;
 	}
@@ -57,10 +73,9 @@ public class Sale extends EntityWithId implements Serializable {
 	@Column(nullable = false)
 	private Date date;
 
-	@Id
-	@Column(name="number",length=13,nullable = false)
+	@Column(length = 13, nullable = false)
 	private String number;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 

@@ -1,11 +1,10 @@
 package ar.com.donpepe.awardmanagement.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class EntityWithId implements Serializable{
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class EntityWithId implements Serializable {
 
 	/**
 	 * 
@@ -14,15 +13,24 @@ public class EntityWithId implements Serializable{
 
 	public EntityWithId() {
 	}
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	private Integer id;
+
+	public abstract Integer getId();
+
+	public abstract void setId(Integer id);
 	
-	@Id
-	private Integer Id;
-
-	public Integer getId() {
-		return Id;
-	}
-
-	public void setId(Integer id) {
-		Id = id;
+	@Override
+	public boolean equals(Object arg0) {
+		EntityWithId entity = null;
+		if (arg0 instanceof EntityWithId) {
+			entity = (EntityWithId)arg0;
+			if (entity.getId() != null) {
+				return entity.getId().equals(this.getId());				
+			}
+		} 
+		return false;
 	}
 }

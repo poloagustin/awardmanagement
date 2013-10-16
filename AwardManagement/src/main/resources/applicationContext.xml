@@ -17,15 +17,20 @@
 		<property name="password" value="thestral" />
 	</bean>
 	<bean id="mySessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mappingResources">
+		<property name="annotatedClasses">
 			<list>
-				<value>hibernate.cfg.xml</value>
+				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
+				<value>ar.com.donpepe.awardmanagement.domain.User</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
-			<value>hibernate.dialect=org.hibernate.dialect.MySQL5Dialect</value>
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
 		</property>
 	</bean>
 	<!-- End of Hibernate configuration for usage within Spring -->
