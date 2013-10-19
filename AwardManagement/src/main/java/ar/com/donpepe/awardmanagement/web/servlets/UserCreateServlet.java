@@ -49,10 +49,10 @@ public class UserCreateServlet extends UserServlet {
 		user.setRole(role);
 		user.setUserName(username);
 		
-		Boolean success = this.userService.newUser(user);
+		Integer id = this.userService.newUser(user);
 		
 		req.setAttribute("afterSaveBean", true);
-		req.setAttribute("successBean", success);
+		req.setAttribute("successBean", id != null);
 		
 		this.doGet(req, resp);
 	}

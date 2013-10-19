@@ -8,6 +8,8 @@ public class UserIndexDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 207745603021816033L;
 
+	private Integer id;
+	
 	private String firstName;
 
 	private String lastName;
@@ -56,5 +58,13 @@ public class UserIndexDto implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
