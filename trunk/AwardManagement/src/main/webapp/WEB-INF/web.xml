@@ -12,7 +12,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<welcome-file-list>
-		<welcome-file>/home/index.jsp</welcome-file>
+		<welcome-file>/user/index</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>UserIndex</servlet-name>
@@ -42,6 +42,10 @@
 		<servlet-name>SaleIndex</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Role</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.RoleServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UserIndex</servlet-name>
 		<url-pattern>/user/index</url-pattern>
@@ -69,5 +73,9 @@
 	<servlet-mapping>
 		<servlet-name>SaleIndex</servlet-name>
 		<url-pattern>/sale/index</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Role</servlet-name>
+		<url-pattern>/roles</url-pattern>
 	</servlet-mapping>
 </web-app>

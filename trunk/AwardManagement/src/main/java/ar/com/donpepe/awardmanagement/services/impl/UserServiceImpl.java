@@ -36,21 +36,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean newUser(UserDto user) {
-		Boolean success = false;
+	public Integer newUser(UserDto user) {
+		Integer result = null;
 		try {
-			this.userDao.save(UserMapper.getUser(user));
-			success = true;
+			Integer id = this.userDao.save(UserMapper.getUser(user));
+			result = id;
 		} catch (Exception e) {
-			success = false;
+			result = null;
 		}
-		return success;
+		return result;
 	}
 
 	@Override
 	public Boolean updateUser(UserDto user) {
 		Boolean success = false;
 		try {
+			this.userDao.update(UserMapper.getUser(user));;
 			success = true;
 		} catch (Exception e) {
 			success = false;
@@ -91,5 +92,19 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return values;
+	}
+
+	@Override
+	public UserDto getById(Integer id) {
+		UserDto user = new UserDto();
+		
+		try {
+			User u =this.userDao.get(id);
+			user = UserMapper.getUserFormDto(u);
+		} catch (Exception e) {
+			user = null;
+		}
+		
+		return user;
 	}
 }

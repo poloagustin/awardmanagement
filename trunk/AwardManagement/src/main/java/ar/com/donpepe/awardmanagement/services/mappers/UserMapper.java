@@ -8,6 +8,7 @@ import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 public class UserMapper {
 	public static UserIndexDto getUserIndexDto(User user) {
 		UserIndexDto dto = new UserIndexDto();
+		dto.setId(user.getId());
 		dto.setDni(user.getDni());
 		dto.setFirstName(user.getFullName());
 		dto.setLastName(user.getLastName());
@@ -52,5 +53,17 @@ public class UserMapper {
 		dom.setRole(getRoleAsEnum(user.getRole()));
 		dom.setUsername(user.getUserName());
 		return dom;
+	}
+
+	public static UserDto getUserFormDto(User user) {
+		UserDto dto = new UserDto();
+		dto.setDni(user.getDni());
+		dto.setFirstName(user.getFirstName());
+		dto.setId(user.getId());
+		dto.setLastName(user.getLastName());
+		dto.setPassword(user.getPassword());
+		dto.setRole(getRoleAsString(user.getRole()));
+		dto.setUserName(user.getUsername());
+		return dto;
 	}
 }

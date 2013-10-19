@@ -1,0 +1,6 @@
+$(
+	function() {
+		initUtils();
+		setRoles();
+	}
+);
