@@ -19,6 +19,8 @@ public class SaleDto implements Serializable {
 	private String number;
 	private User salesMan;
 	private List<SaleItem> saleItems;
+	Float total;
+	
 
 	
 	public List<SaleItem> getSaleItems() {
@@ -53,6 +55,18 @@ public class SaleDto implements Serializable {
 		this.salesMan = salesMan;
 	}
 	
+	public Float getTotal() {
+		//saco total
+		Float total = null;
+		for (SaleItem item : saleItems ) {
+			total = total + item.getAmount();
+		}
 	
-	
+		return total;
+	}
+
+	public void setTotal(Float total) {
+		this.total = total;
+	}
+
 }

@@ -12,6 +12,11 @@
 <form action="<%=request.getContextPath()%>" method="get">
 <input type="text" name="txtSaleNumber" size="20">	
 <input type="submit" name="btnIngresar">
+<select>
+<c:forEach items="${usersBean}" var="user"> 
+<option value="${user.username}">${user.username}</option>
+</c:forEach>
+</select>
 </form>
 </body>
 </html>

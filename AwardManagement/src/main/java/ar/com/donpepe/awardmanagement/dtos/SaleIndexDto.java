@@ -1,7 +1,7 @@
 package ar.com.donpepe.awardmanagement.dtos;
+
 import java.io.Serializable;
 import java.util.Date;
-
 import ar.com.donpepe.awardmanagement.domain.User;
 
 public class SaleIndexDto implements Serializable {
@@ -14,6 +14,7 @@ public class SaleIndexDto implements Serializable {
 	private Date date;
 	private String number;
 	private User salesMan;
+	private Float total;
 	
 	public Date getDate() {
 		return date;
@@ -33,6 +34,11 @@ public class SaleIndexDto implements Serializable {
 	public void setSalesMan(User salesMan) {
 		this.salesMan = salesMan;
 	}
+	public Float getTotal() {
+		return total;
+	}
+	public void setTotal(Float total) {
+		this.total = total;
+	}
 	
-
 }
