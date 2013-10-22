@@ -23,6 +23,7 @@
 			<list>
 				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
 				<value>ar.com.donpepe.awardmanagement.domain.User</value>
+				<value>ar.com.donpepe.awardmanagement.domain.Sale</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,6 +46,11 @@
 	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
+	
+	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
+		parent="genericHibernateDao">
+	
+	</bean>
 	<!-- End of Daos -->
 	<!-- Services -->
 	<!-- <bean id="salesService" -->
@@ -54,6 +60,12 @@
 	<bean id="userService"
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="saleService" 
+		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
+		<property name="saleDao" ref="saleDao"></property>
+		
 	</bean>
 	<!-- End of Services -->
 </beans>
