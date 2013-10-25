@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
+import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 
 public interface UserService {
 	List<UserIndexDto> getIndex();
@@ -13,4 +14,5 @@ public interface UserService {
 	List<UserIndexDto> getUsersByUsername(String username);
 	List<String> getRoles();
 	UserDto getById(Integer id);
+	UserCredentialDto getCredentials(String username, String password);
 }

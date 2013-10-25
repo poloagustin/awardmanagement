@@ -10,6 +10,11 @@ import ar.com.donpepe.awardmanagement.dtos.UserDto;
 
 public class UserDeleteServlet extends UserServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5954801712802946553L;
+
 	@Override
 	protected void doAction(HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
@@ -25,7 +30,5 @@ public class UserDeleteServlet extends UserServlet {
 			user.setId(id);
 			this.userService.deleteUser(user);
 		}
-		req.getRequestDispatcher("/user/index").forward(req, resp);
 	}
-
 }

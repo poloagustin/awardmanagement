@@ -69,5 +69,7 @@
 			<c:if test="${!successBean}">Ha habido un error al guardar el usuario.</c:if>
 		</c:if>
 	</b>
+	<br/>
+	<a href="<%=request.getContextPath()%>/user/index">&lt;== VOLVER</a>
 </body>
 </html>

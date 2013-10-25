@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import ar.com.donpepe.awardmanagement.services.UserService;
-import ar.com.donpepe.awardmanagement.web.servlets.helpers.ServletHelper;
+import ar.com.donpepe.awardmanagement.web.helpers.WebHelper;
 
 /**
  * Servlet implementation class RoleServlet
@@ -32,7 +32,7 @@ public class RoleServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-    	this.userService = (UserService)ServletHelper.getBean(config, "userService");
+    	this.userService = (UserService)WebHelper.getBean(config, "userService");
     }
     
 	/**

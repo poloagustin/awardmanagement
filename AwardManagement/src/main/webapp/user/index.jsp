@@ -25,17 +25,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${users}" var="user">
-				<tr>
-					<td>${user.username}</td>
-					<td>${user.firstName}</td>
-					<td>${user.lastName}</td>
-					<td>${user.dni}</td>
-					<td><a
-						href="<%=request.getContextPath()%>/user/edit?id=${user.id}">Editar</a></td>
-					<td><a href="#" onclick="deleteUser(${user.id})">Eliminar</a></td>
-				</tr>
-			</c:forEach>
+<%-- 			<c:forEach items="${users}" var="user"> --%>
+<!-- 				<tr> -->
+<%-- 					<td>${user.username}</td> --%>
+<%-- 					<td>${user.firstName}</td> --%>
+<%-- 					<td>${user.lastName}</td> --%>
+<%-- 					<td>${user.dni}</td> --%>
+<!-- 					<td><a -->
+<%-- 						href="<%=request.getContextPath()%>/user/edit?id=${user.id}">Editar</a></td> --%>
+<%-- 					<td><a href="#" onclick="deleteUser(${user.id})">Eliminar</a></td> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
 		</tbody>
 	</table>
 	<a href="<%=request.getContextPath()%>/user/create">Nuevo Usuario</a>
