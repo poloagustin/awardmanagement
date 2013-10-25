@@ -36,7 +36,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>SaleCreate</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesCreateServlet</servlet-class>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>SaleIndex</servlet-name>

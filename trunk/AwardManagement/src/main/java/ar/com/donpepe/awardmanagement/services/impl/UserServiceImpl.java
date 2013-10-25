@@ -6,6 +6,7 @@ import java.util.List;
 import ar.com.donpepe.awardmanagement.daos.UserDao;
 import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 import ar.com.donpepe.awardmanagement.services.UserService;
@@ -63,6 +64,8 @@ public class UserServiceImpl implements UserService {
 	public Boolean deleteUser(UserDto user) {
 		Boolean success = false;
 		try {
+			User u = this.userDao.get(user.getId());
+			this.userDao.delete(u);
 			success = true;
 		} catch (Exception e) {
 			success = false;
@@ -106,5 +109,11 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return user;
+	}
+
+	@Override
+	public UserCredentialDto getCredentials(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
