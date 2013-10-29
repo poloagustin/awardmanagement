@@ -70,7 +70,6 @@ public class Sale extends EntityWithId implements Serializable {
 		this.salesman = salesman;
 	}
 
-	@Column(nullable = false)
 	private Date date;
 
 	@Column(length = 13, nullable = false)
@@ -79,6 +78,6 @@ public class Sale extends EntityWithId implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 
-	@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class)
+	@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class )
 	private List<SaleItem> saleItems;
 }

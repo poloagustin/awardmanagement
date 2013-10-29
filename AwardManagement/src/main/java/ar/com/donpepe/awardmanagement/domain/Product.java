@@ -38,6 +38,17 @@ public class Product extends EntityWithId implements Serializable {
 
 	@Column
 	private Float saleCommission;
+	
+	@Column
+	private Float ammount;
+
+	public Float getAmmount() {
+		return ammount;
+	}
+
+	public void setAmmount(Float ammount) {
+		this.ammount = ammount;
+	}
 
 	public String getName() {
 		return name;

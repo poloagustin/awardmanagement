@@ -46,6 +46,10 @@
 		<servlet-name>Role</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.RoleServlet</servlet-class>
 	</servlet>
+	<servlet>
+	<servlet-name>ProductAdd</servlet-name>
+	<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.ProductServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UserIndex</servlet-name>
 		<url-pattern>/user/index</url-pattern>
@@ -77,5 +81,9 @@
 	<servlet-mapping>
 		<servlet-name>Role</servlet-name>
 		<url-pattern>/roles</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductAdd</servlet-name>
+		<url-pattern>/sale/AddSaleItem</url-pattern>
 	</servlet-mapping>
 </web-app>

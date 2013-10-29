@@ -9,6 +9,6 @@
 <title>Ventas Realizadas</title>
 </head>
 <body>
-
+<input type="hidden" id="serverUrl" value="<%=request.getContextPath()%>" />
 </body>
 </html>

@@ -52,7 +52,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	@Override
 	public Sale getSaleByNumber(String number) {
 		// TODO Auto-generated method stub
-		Sale sale = new Sale();
+		Sale sale = null;
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.eq("number", number));
 			sale = (Sale)super.getHibernateTemplate().findByCriteria(criteria);
