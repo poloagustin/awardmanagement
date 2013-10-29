@@ -16,6 +16,18 @@ public class UserMapper {
 		dto.setUsername(user.getUsername());
 		return dto;
 	}
+	
+	public static User getUsersIndexDto(UserIndexDto users){
+		User user = new User();
+		user.setDni(users.getDni());
+		user.setFirstName(users.getFirstName());
+		user.setId(users.getId());
+		user.setLastName(users.getLastName());
+		user.setRole(UserMapper.getRoleAsEnum(users.getRole()));
+		user.setUsername(users.getUsername());
+		
+		return user;
+	}
 
 	public static String getRoleAsString(Role role) {
 		switch (role) {
