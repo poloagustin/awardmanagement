@@ -13,8 +13,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
-		<property name="username" value="root" />
-		<property name="password" value="thestral" />
+		<property name="username" value="ocio" />
+		<property name="password" value="ocio" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -24,6 +24,7 @@
 				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
 				<value>ar.com.donpepe.awardmanagement.domain.User</value>
 <!-- 				<value>ar.com.donpepe.awardmanagement.domain.Sale</value> -->
+				<value>ar.com.donpepe.awardmanagement.domain.SaleCommission</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -47,11 +48,12 @@
 	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
-
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
-
+	<bean id="SaleCommissionDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
+		parent="genericHibernateDao">
+	</bean>
 	<!-- End of Daos -->
 	<!-- Services -->
 	<!-- <bean id="salesService" -->
@@ -63,9 +65,9 @@
 		<property name="userDao" ref="userDao"></property>
 	</bean>
 
-	<bean id="saleService"
+	<!-- <bean id="saleService"
 		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
 		<property name="saleDao" ref="saleDao"></property>
-	</bean>
+	</bean> -->
 	<!-- End of Services -->
 </beans>
