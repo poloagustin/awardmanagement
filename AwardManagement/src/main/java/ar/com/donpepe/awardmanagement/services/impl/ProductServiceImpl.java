@@ -1,5 +1,6 @@
 package ar.com.donpepe.awardmanagement.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import ar.com.donpepe.awardmanagement.daos.ProductDao;
 import ar.com.donpepe.awardmanagement.domain.Product;
@@ -15,23 +16,23 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDto getProductById(Integer id) {
 		// TODO Auto-generated method stub
-		ProductDto product = new ProductDto();
+		ProductDto productDto = new ProductDto();
 		
 		try {
-			product = ProductMapper.getProductDto(this.productDao.get(id));
+			Product p = this.productDao.get(id);
+			productDto = ProductMapper.getProductDto(p);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			productDto = null;
 		}
-		return product;
+		return productDto;
 	}
 
-	@SuppressWarnings("null")
+	
 	@Override
 	public List<ProductoIndexDto> getProductIndex() {
 		// TODO Auto-generated method stub
-		List<ProductoIndexDto> products = null;  
+		List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();  
 		try {
 			for (Product product : this.productDao.getAll()) {
 				products.add(ProductMapper.getProductoIndex(product));
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			products = null;
 		}
 		return products;
 	}

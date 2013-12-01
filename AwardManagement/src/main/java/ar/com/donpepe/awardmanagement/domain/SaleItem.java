@@ -52,7 +52,7 @@ public class SaleItem extends EntityWithId implements Serializable {
 		this.amount = amount;
 	}
 
-	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, targetEntity = Product.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
 	private Product product;
 
 	@Column

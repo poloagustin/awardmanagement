@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import ar.com.donpepe.awardmanagement.domain.SaleItem;
-import ar.com.donpepe.awardmanagement.domain.User;
-
 
 public class SaleDto implements Serializable {
 
@@ -17,17 +14,14 @@ public class SaleDto implements Serializable {
 	
 	private Date date;
 	private String number;
-	private User salesMan;
-	private List<SaleItem> saleItems;
-	Float total;
-	
-
-	
-	public List<SaleItem> getSaleItems() {
+	private Integer salesmanId;
+	private List<SaleItemDto> saleItems;
+		
+	public List<SaleItemDto> getSaleItems() {
 		return saleItems;
 	}
 	
-	public void setSaleItems(List<SaleItem> saleItems) {
+	public void setSaleItems(List<SaleItemDto> saleItems) {
 		this.saleItems = saleItems;
 	}
 	
@@ -46,27 +40,27 @@ public class SaleDto implements Serializable {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-
-	public User getSalesMan() {
-		return salesMan;
-	}
-
-	public void setSalesMan(User salesMan) {
-		this.salesMan = salesMan;
-	}
 	
-	public Float getTotal() {
-		//saco total
-		Float total = null;
-		for (SaleItem item : saleItems ) {
-			total = total + item.getAmount();
-		}
-	
-		return total;
+//	public Float getTotal() {
+//		//saco total
+//		Float total = null;
+//		for (SaleItem item : saleItems ) {
+//			total = total + item.getAmount();
+//		}
+//	
+//		return total;
+//	}
+
+//	public void setTotal(Float total) {
+//		this.total = total;
+//	}
+
+	public Integer getSalesmanId() {
+		return salesmanId;
 	}
 
-	public void setTotal(Float total) {
-		this.total = total;
+	public void setSalesmanId(Integer salesmanId) {
+		this.salesmanId = salesmanId;
 	}
 
 }

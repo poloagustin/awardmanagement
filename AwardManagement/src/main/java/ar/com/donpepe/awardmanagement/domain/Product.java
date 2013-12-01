@@ -41,7 +41,7 @@ public class Product extends EntityWithId implements Serializable {
 	
 	@Column
 	private Float ammount;
-
+	
 	public Float getAmmount() {
 		return ammount;
 	}

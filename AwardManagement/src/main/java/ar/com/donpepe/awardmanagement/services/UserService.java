@@ -15,4 +15,5 @@ public interface UserService {
 	List<String> getRoles();
 	UserDto getById(Integer id);
 	UserCredentialDto getCredentials(String username, String password);
+	List<UserIndexDto> getSalerMan();
 }
