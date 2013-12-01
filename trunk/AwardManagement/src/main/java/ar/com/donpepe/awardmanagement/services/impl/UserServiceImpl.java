@@ -113,7 +113,35 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserCredentialDto getCredentials(String username, String password) {
+		User user = this.userDao.getByUsernameAndPassword(username, password);
+		UserCredentialDto credential = null;
+		if (user != null) {
+			credential = UserMapper.getCredentialDto(user);
+		}
+		return credential;
+	}
+
+@Override
+	public List<UserIndexDto> getSalerMan() {
 		// TODO Auto-generated method stub
-		return null;
+		List<UserIndexDto> usersDto = new ArrayList<UserIndexDto>();
+		List<User>  users = null;
+		try {
+			users = this.userDao.getUsersSalerMans();
+			
+			for (User user : users) {
+				if (user!=null) {
+					usersDto.add(UserMapper.getUserIndexDto(user));	
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return usersDto;
+		
 	}
 }

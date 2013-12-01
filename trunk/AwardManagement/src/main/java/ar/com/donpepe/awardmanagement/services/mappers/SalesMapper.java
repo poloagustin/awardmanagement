@@ -1,38 +1,50 @@
 package ar.com.donpepe.awardmanagement.services.mappers;
 
+import java.util.List;
 import ar.com.donpepe.awardmanagement.domain.Sale;
+import ar.com.donpepe.awardmanagement.domain.SaleItem;
+import ar.com.donpepe.awardmanagement.domain.User;
 import ar.com.donpepe.awardmanagement.dtos.SaleDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
 
 public class SalesMapper {
-	
-	public static SaleDto getSaleDto(Sale sale){
+
+	public static SaleDto getSaleDto(Sale sale) {
 		SaleDto saleDto = new SaleDto();
+
 		saleDto.setNumber(sale.getNumber());
 		saleDto.setDate(sale.getDate());
-		saleDto.setSalesMan(sale.getSalesman());
-		
+		saleDto.setSaleItems(SaleItemMapper.getSaleItemDto(sale.getSaleItems()));
+		saleDto.setSalesmanId(sale.getSalesman().getId());
 		return saleDto;
-		
+
 	}
-	
-	public static Sale getSale(SaleDto saleDto){
+
+	public static Sale getSale(SaleDto saleDto) {
 		Sale sale = new Sale();
+		User user = new User();
+		List<SaleItem> s = null;
+
 		sale.setDate(saleDto.getDate());
 		sale.setNumber(saleDto.getNumber());
-		sale.setSaleItems(saleDto.getSaleItems());
-		sale.setSalesman(saleDto.getSalesMan());
+
+		s = SaleItemMapper.getSaleItem(saleDto.getSaleItems());
+		user.setId(saleDto.getSalesmanId());
+
+		sale.setSaleItems(s);
+		sale.setSalesman(user);
+		
 		return sale;
-		
+
 	}
-	
-	public static SaleIndexDto getSaleIndexDto(Sale sale){
+
+	public static SaleIndexDto getSaleIndexDto(Sale sale) {
+
 		SaleIndexDto saleIndexDto = new SaleIndexDto();
-		
 		saleIndexDto.setNumber(sale.getNumber());
 		saleIndexDto.setDate(sale.getDate());
-		saleIndexDto.setSalesMan(sale.getSalesman());
-		
+		saleIndexDto.setSalerman(sale.getId());
+
 		return saleIndexDto;
 	}
 

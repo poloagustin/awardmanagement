@@ -13,8 +13,16 @@ public class SaleIndexDto implements Serializable {
 	
 	private Date date;
 	private String number;
-	private User salesMan;
+	private Integer salerman;
 	private Float total;
+	
+	public Integer getSalerman() {
+		return salerman;
+	}
+	public void setSalerman(Integer salerman) {
+		this.salerman = salerman;
+	}
+	
 	
 	public Date getDate() {
 		return date;
@@ -27,12 +35,6 @@ public class SaleIndexDto implements Serializable {
 	}
 	public void setNumber(String number) {
 		this.number = number;
-	}
-	public User getSalesMan() {
-		return salesMan;
-	}
-	public void setSalesMan(User salesMan) {
-		this.salesMan = salesMan;
 	}
 	public Float getTotal() {
 		return total;

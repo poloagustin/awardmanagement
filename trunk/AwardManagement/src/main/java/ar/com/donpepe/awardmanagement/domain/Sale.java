@@ -3,7 +3,9 @@ package ar.com.donpepe.awardmanagement.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,7 +13,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 @Entity
 public class Sale extends EntityWithId implements Serializable {
@@ -78,6 +84,8 @@ public class Sale extends EntityWithId implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 
-	@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class )
+	//@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class)
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER,targetEntity = SaleItem.class)
+	@JoinTable(name = "Sale_SaleItem",joinColumns = @JoinColumn(name="SaleId"),inverseJoinColumns=@JoinColumn(name="SaleItemID"))
 	private List<SaleItem> saleItems;
 }

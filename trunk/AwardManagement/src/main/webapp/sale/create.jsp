@@ -7,52 +7,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Nueva Venta</title>
+<script type="application/javascript"
+	src="<%=request.getContextPath()%>/ScriptsSale/jquery-2.0.3.js"></script>
+<script type="application/javascript"
+	src="<%=request.getContextPath()%>/ScriptsSale/addProduct.js"></script>
+
 </head>
 <body>
-	<input type="hidden" id="serverUrl" value="<%=request.getContextPath()%>"/>
-	<form id="newSale" action="<%=request.getContextPath()%>/sale/create"  method="post"> 
+	<input type="hidden" id="serverUrl"
+		value="<%=request.getContextPath()%>" />
+	<form id="newSale" action="<%=request.getContextPath()%>/sale/create"
+		method="post">
 		<table id="SaleTable" class="newSale">
 			<tbody>
 				<tr>
 					<td>Numero de Venta:</td>
-					<td><input type="text" name="txtNumberSale" size="20" required="required"></td>
-				</tr>
-				<tr>
-					<td>Fecha:</td>
-					<td><input type="date" name="datetime" required="required"></td>
+					<td><input type="text" name="txtNumberSale" size="20"
+						required="required"></td>
 				</tr>
 				<tr>
 					<td>Vendedor:</td>
 					<td><select id="salerman" name="salerman">
-							<c:forEach items="${usersBean}" var="user">
+							<c:forEach items="${UsersBean}" var="user">
 								<option value="${user.username}">${user.username}</option>
 							</c:forEach>
 					</select></td>
 				</tr>
+				<tr>
+					<td>Fecha de Venta:</td>
+					<td> ${dateBean}<input type="hidden"
+						name="dateSale" value="${dateBean}" id="dateSale"></td>
+				</tr>
 			</tbody>
 		</table>
-		
-	<!--  	<strong>Items</strong>
-		<table id="tableSaleItem">
+		<br>
+		<table>
+			<tbody>
+				<tr>
+					<td><strong>Seleccione Item:</strong> <select id="prod"
+						name="prod">
+							<c:forEach items="${ProductsBean}" var="prod">
+								<option value="${prod.id}">${prod.id}</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+				<tr>
+					<td><strong>Seleccione Cantidad de Items</strong> <input
+						type="number" id="cant" name="cant" value="1"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<table id="SalesItem" border="1" hidden="false">
 			<thead>
 				<tr>
-					<td>Producto</td>
-					<td>Precio</td>
-					<td>Cantidad</td>
-					<td>Total</td>
+					<th>N Item</th>
+					<th>Producto</th>
+					<th>Importe</th>
+					<th>Cantidad</th>
+					<th>Precio Total</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><select id="productoId"></select></td>
-					<td><input type="text" name="monto" size="20" required></td>
-					<td><input type="number" name="cantidad" size="20" required></td>
-					<td><input type="text" name="totalParcial" size="20" readonly></td>
-				</tr>
 			</tbody>
 		</table>
-		-->
-		<div><a href="<%=request.getContextPath()%>/sale/AddSaleItem">Agregar Productos</a></div>
+		<br>
+		<div>
+			<input type="button" id="btnAgregarItem" name="btnAgregarItem"
+				value="Agregar Item">
+			<!--  <input type="button" value="Eliminar Item" class="EliminarItem">-->
+		</div>
+
 		<table id="tableEnviar">
 			<tr>
 			</tr>
@@ -69,7 +94,7 @@
 			<c:if test="${!successBean}">Ha habido un error guardar la venta.</c:if>
 		</c:if>
 	</b>
-	<br/>
+	<br />
 	<a href="<%=request.getContextPath()%>/sale/index">&gt;== VOLVER</a>
 </body>
 </html>

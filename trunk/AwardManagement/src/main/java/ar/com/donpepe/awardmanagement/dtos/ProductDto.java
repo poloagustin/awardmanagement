@@ -5,7 +5,14 @@ public class ProductDto {
 	private Integer id;
 	private String name;
 	private Float saleCommission;
+	private Float ammount;
 	
+	public Float getAmmount() {
+		return ammount;
+	}
+	public void setAmmount(Float ammount) {
+		this.ammount = ammount;
+	}
 	public Integer getId() {
 		return id;
 	}

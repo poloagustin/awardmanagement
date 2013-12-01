@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.ProductoIndexDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleDto;
+import ar.com.donpepe.awardmanagement.dtos.SaleItemDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
-import ar.com.donpepe.awardmanagement.services.mappers.UserMapper;
 
 public class SalesCreateServlet extends SalesServlet {
 
@@ -36,8 +36,22 @@ public class SalesCreateServlet extends SalesServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("usersBean", getSalerMans());
-		request.getRequestDispatcher("/sale/create.jsp").forward(request,
+	List<UserIndexDto> users = new ArrayList<UserIndexDto>();
+	List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();
+	
+	users = this.userService.getSalerMan();
+	products = this.productService.getProductIndex();
+	
+	//get current date time with Date()
+	Calendar cal = Calendar.getInstance();
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	String dateSale = dateFormat.format(cal.getTime());
+	
+	request.setAttribute("dateBean", dateSale);
+	request.setAttribute("UsersBean", users);
+	request.setAttribute("ProductsBean", products);
+	
+	request.getRequestDispatcher("/sale/create.jsp").forward(request,
 				response);
 	}
 
@@ -47,35 +61,46 @@ public class SalesCreateServlet extends SalesServlet {
 		// TODO Auto-generated method stub
 		String saler = request.getParameter("salerman");
 		String number = request.getParameter("txtNumberSale");
-		String date = request.getParameter("datetime");
+		String dateSale = request.getParameter("dateSale");
+		List<String[]> paramsProd = new ArrayList<String[]>();
+		boolean prodEnded = false;
+		Integer i = 0;
+		SaleDto sale = new SaleDto();
+		
+		while (!prodEnded) {
+			String prod = request.getParameter("prod" + i.toString());
+			String cant = request.getParameter("cant" + i.toString());
+			if (prod != null && cant != null) {
+				paramsProd.add(new String[]{prod, cant});
+				i++;
+			} else {
+				prodEnded = true;
+			}
+		}
 
-		if ((!saler.isEmpty()) && (!number.isEmpty()) && (!date.isEmpty())) {
-
-			try {
-
-				SaleDto sale = new SaleDto();
+		try {
 				
-				// converting date
-				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");				
-				Date nuevo = (Date)formatter.parse(date);
+				//insertamos fecha de creacion de venta				
 				
-				// finding user
-				List<UserIndexDto> users = null;
-				users = this.userService.getUsersByUsername(saler);
-
-				User user = new User();
-				user = UserMapper.getUsersIndexDto(users.get(0));
-
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = dateFormat.parse(dateSale);
+				//fin
+				
 				sale.setNumber(number);
-				sale.setSalesMan(user);
-
-				// check sale existent
+				sale.setSalesmanId(Integer.parseInt(saler));
+				sale.setDate(date);
+				List<SaleItemDto> items = new ArrayList<SaleItemDto>();
+				
+				for (String[] strings : paramsProd) {
+					SaleItemDto dto = new SaleItemDto();
+					dto.setProductId(Integer.parseInt(strings[0]));
+					dto.setAmount(Integer.parseInt(strings[1]));
+					items.add(dto);
+				}
+				sale.setSaleItems(items);
 				Boolean check = null;
-				//this.saleService.verifySaleNumber(number);
-
-				//if (!this.saleService.verifySaleNumber(number)) {
-					check = this.saleService.addSale(sale);
-				//}
+				
+				check = this.saleService.addSale(sale);
 				
 				request.setAttribute("afterSaveBean", true);
 				request.setAttribute("succesBean", check != null);
@@ -89,18 +114,3 @@ public class SalesCreateServlet extends SalesServlet {
 		}
 	}
 	
-	/**
-	 * Agrego los usuarios vendedores para mostrar despues
-	 */
-	public List<UserIndexDto> getSalerMans(){
-		List<UserIndexDto> salerMans = new ArrayList<UserIndexDto>();
-		List<UserIndexDto> users = this.userService.getIndex();
-		
-		for (UserIndexDto userIndexDto : users) {
-			if (userIndexDto.getRole().equals("Vendedor"))
-				salerMans.add(userIndexDto);
-			}
-		
-		return salerMans;
-	}
-}

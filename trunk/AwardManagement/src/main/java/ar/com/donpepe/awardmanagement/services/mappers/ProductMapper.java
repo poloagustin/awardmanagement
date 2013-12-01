@@ -9,8 +9,6 @@ public class ProductMapper {
 	public static Product getProduct(ProductDto productDto){
 		Product product = new Product();
 		product.setId(productDto.getId());
-		product.setName(productDto.getName());
-		product.setSaleCommission(productDto.getSaleCommission());
 		return product;
 		
 	}
@@ -19,6 +17,7 @@ public class ProductMapper {
 		ProductDto productDto = new ProductDto();
 		productDto.setId(product.getId());
 		productDto.setName(product.getName());
+		productDto.setAmmount(product.getAmmount());
 		productDto.setSaleCommission(product.getSaleCommission());
 		return productDto;
 		
