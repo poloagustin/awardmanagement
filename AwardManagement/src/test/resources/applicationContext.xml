@@ -14,8 +14,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
-		<property name="username" value="root" />
-		<property name="password" value="thestral" />
+		<property name="username" value="ocio" />
+		<property name="password" value="ocio" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -40,6 +40,8 @@
 	</bean>
 	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDao">
 	</bean>
+	<bean id="saleCommissionDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDao">
+	</bean>
 	<!-- End of Daos -->
 	<!-- Services -->
 	<bean id="salesService"
@@ -49,6 +51,10 @@
 	<bean id="userService"
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="saleCommission"
+		class="ar.com.donpepe.awardmanagement.services.impl.SaleCommissionServiceImpl">
+		<property name="saleCommissionDao" ref="saleCommissionDao"></property>
 	</bean>
 	<!-- End of Services -->
 	<!-- Servlets -->
