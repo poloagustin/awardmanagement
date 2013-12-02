@@ -1,5 +1,6 @@
 package ar.com.donpepe.awardmanagement.services;
 
+import java.util.Date;
 import java.util.List;
 import ar.com.donpepe.awardmanagement.dtos.*;
 
@@ -10,4 +11,5 @@ public interface SalesService {
 	List<SaleIndexDto> getIndex();
 	SaleDto getSaleByNumber(String salenumber);
 	SaleDto getById(Integer id);
+	List<SaleIndexDto> getSalesByPeriod(Date dateFrom , Date dateTo, Integer userId);
 }
