@@ -1,5 +1,6 @@
 package ar.com.donpepe.awardmanagement.services.mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 import ar.com.donpepe.awardmanagement.domain.Sale;
 import ar.com.donpepe.awardmanagement.domain.SaleItem;
@@ -46,6 +47,14 @@ public class SalesMapper {
 		saleIndexDto.setSalerman(sale.getId());
 
 		return saleIndexDto;
+	}
+	
+	public static List<SaleIndexDto> getSaleIndexDto(List<Sale> sales){
+		List<SaleIndexDto> s = new ArrayList<SaleIndexDto>();
+		for (Sale sale : sales) {
+			s.add(getSaleIndexDto(sale));
+		}
+		return s;
 	}
 
 }

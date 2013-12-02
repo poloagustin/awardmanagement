@@ -13,8 +13,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
-		<property name="username" value="ocio" />
-		<property name="password" value="ocio" />
+		<property name="username" value="root" />
+		<property name="password" value="thestral" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -23,16 +23,17 @@
 			<list>
 				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
 				<value>ar.com.donpepe.awardmanagement.domain.User</value>
-<!-- 				<value>ar.com.donpepe.awardmanagement.domain.Sale</value> -->
-				<value>ar.com.donpepe.awardmanagement.domain.SaleCommission</value>
+				<value>ar.com.donpepe.awardmanagement.domain.Product</value>
+				<value>ar.com.donpepe.awardmanagement.domain.SaleItem</value>
+				<value>ar.com.donpepe.awardmanagement.domain.Sale</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-<!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 			</props>
 		</property>
 	</bean>
@@ -48,12 +49,13 @@
 	<bean id="userDao" class="ar.com.donpepe.awardmanagement.daos.impl.UserDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
+	<bean id="productDao" class="ar.com.donpepe.awardmanagement.daos.impl.ProductDaoImpl"
+		parent="genericHibernateDao" />
+
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
-	<bean id="SaleCommissionDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
-		parent="genericHibernateDao">
-	</bean>
+
 	<!-- End of Daos -->
 	<!-- Services -->
 	<!-- <bean id="salesService" -->
@@ -64,10 +66,14 @@
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
+	<bean id="productService"
+		class="ar.com.donpepe.awardmanagement.services.impl.ProductServiceImpl">
+		<property name="productDao" ref="productDao" />
+	</bean>
 
-	<!-- <bean id="saleService"
+	<bean id="saleService"
 		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
 		<property name="saleDao" ref="saleDao"></property>
-	</bean> -->
+	</bean>
 	<!-- End of Services -->
 </beans>

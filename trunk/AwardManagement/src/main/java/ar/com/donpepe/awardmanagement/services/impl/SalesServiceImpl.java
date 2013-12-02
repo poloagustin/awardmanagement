@@ -4,6 +4,7 @@
 package ar.com.donpepe.awardmanagement.services.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
@@ -113,6 +114,15 @@ public class SalesServiceImpl implements SalesService {
 
 	public void setSaleDao(SaleDao saleDao) {
 		this.saleDao = saleDao;
+	}
+
+	@Override
+	public List<SaleIndexDto> getSalesByPeriod(Date dateFrom, Date dateTo,
+			Integer userId) {
+		// TODO Auto-generated method stub
+		List<Sale> sales = null;
+		sales = this.saleDao.getSalesByPeriod(dateFrom, dateTo, userId);
+		return SalesMapper.getSaleIndexDto(sales);
 	}
 	
 	

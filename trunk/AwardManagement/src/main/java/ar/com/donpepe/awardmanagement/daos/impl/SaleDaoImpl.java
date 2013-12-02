@@ -199,4 +199,21 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 
 		return saleCommissionReports;
 	}
+
+	@Override
+	public List<Sale> getSalesByPeriod(Date dateFrom, Date dateTo, Integer userId) {
+		// TODO Auto-generated method stub
+		List<Sale> salesByUser = null;
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
+			criteria = criteria.add(Restrictions.and(Restrictions.eq("user",
+					userId), Restrictions.between("date", dateFrom,
+					dateTo)));
+			salesByUser = super.getHibernateTemplate().findByCriteria(criteria);
+		} catch (DataAccessException exception) {
+			exception.printStackTrace();
+		}
+		return salesByUser;
+
+	}
 }
