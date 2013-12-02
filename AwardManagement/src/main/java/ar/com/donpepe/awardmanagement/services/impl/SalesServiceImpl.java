@@ -53,10 +53,15 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public Boolean verifySaleNumber(String saleNumber) {
 		// TODO Auto-generated method stub
-		Sale sale = new Sale();
+		List<Sale> sale = null;
+		Boolean check = null;
 		sale = this.saleDao.getSaleByNumber(saleNumber);
-
-		return (sale == null ? false : true);
+		if (sale.isEmpty()) {
+			check = true;
+		} else{
+			check = false;
+	}
+		return check;
 	}
 
 	@Override
@@ -77,8 +82,13 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public SaleDto getSaleByNumber(String saleNumber) {
 		// TODO Auto-generated method stub
-		return SalesMapper
-				.getSaleDto(this.saleDao.getSaleByNumber(saleNumber));
+		List<Sale> sale = null;
+		SaleDto saleDto = null;
+		sale = this.saleDao.getSaleByNumber(saleNumber);
+		if(sale!=null){
+			saleDto = SalesMapper.getSaleDto(sale.get(0));
+		}
+		return saleDto;
 	}
 
 	@Override

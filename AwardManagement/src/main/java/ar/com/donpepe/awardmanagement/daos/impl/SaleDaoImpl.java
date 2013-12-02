@@ -55,13 +55,13 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	}
 
 	@Override
-	public Sale getSaleByNumber(String number) {
+	public List<Sale> getSaleByNumber(String number) {
 		// TODO Auto-generated method stub
-		Sale sale = null;
+		List<Sale> sale = null;
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(
 					Restrictions.eq("number", number));
-			sale = (Sale) super.getHibernateTemplate().findByCriteria(criteria);
+			sale = (List<Sale>) super.getHibernateTemplate().findByCriteria(criteria);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
