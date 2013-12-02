@@ -36,22 +36,22 @@ public class SalesCreateServlet extends SalesServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	List<UserIndexDto> users = new ArrayList<UserIndexDto>();
-	List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();
-	
-	users = this.userService.getSalerMan();
-	products = this.productService.getProductIndex();
-	
-	//get current date time with Date()
-	Calendar cal = Calendar.getInstance();
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	String dateSale = dateFormat.format(cal.getTime());
-	
-	request.setAttribute("dateBean", dateSale);
-	request.setAttribute("UsersBean", users);
-	request.setAttribute("ProductsBean", products);
-	
-	request.getRequestDispatcher("/sale/create.jsp").forward(request,
+		List<UserIndexDto> users = new ArrayList<UserIndexDto>();
+		List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();
+
+		users = this.userService.getSalerMan();
+		products = this.productService.getProductIndex();
+
+		// get current date time with Date()
+		Calendar cal = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String dateSale = dateFormat.format(cal.getTime());
+
+		request.setAttribute("dateBean", dateSale);
+		request.setAttribute("UsersBean", users);
+		request.setAttribute("ProductsBean", products);
+
+		request.getRequestDispatcher("/sale/create.jsp").forward(request,
 				response);
 	}
 
@@ -66,12 +66,12 @@ public class SalesCreateServlet extends SalesServlet {
 		boolean prodEnded = false;
 		Integer i = 0;
 		SaleDto sale = new SaleDto();
-		
+
 		while (!prodEnded) {
 			String prod = request.getParameter("prod" + i.toString());
 			String cant = request.getParameter("cant" + i.toString());
 			if (prod != null && cant != null) {
-				paramsProd.add(new String[]{prod, cant});
+				paramsProd.add(new String[] { prod, cant });
 				i++;
 			} else {
 				prodEnded = true;
@@ -79,38 +79,48 @@ public class SalesCreateServlet extends SalesServlet {
 		}
 
 		try {
-				
-				//insertamos fecha de creacion de venta				
-				
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date date = dateFormat.parse(dateSale);
-				//fin
-				
-				sale.setNumber(number);
-				sale.setSalesmanId(Integer.parseInt(saler));
-				sale.setDate(date);
-				List<SaleItemDto> items = new ArrayList<SaleItemDto>();
-				
-				for (String[] strings : paramsProd) {
-					SaleItemDto dto = new SaleItemDto();
-					dto.setProductId(Integer.parseInt(strings[0]));
-					dto.setAmount(Integer.parseInt(strings[1]));
-					items.add(dto);
-				}
-				sale.setSaleItems(items);
-				Boolean check = null;
-				
+
+			// insertamos fecha de creacion de venta
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = dateFormat.parse(dateSale);
+			// fin
+
+			sale.setNumber(number);
+			sale.setSalesmanId(Integer.parseInt(saler));
+			sale.setDate(date);
+			List<SaleItemDto> items = new ArrayList<SaleItemDto>();
+
+			for (String[] strings : paramsProd) {
+				SaleItemDto dto = new SaleItemDto();
+				dto.setProductId(Integer.parseInt(strings[0]));
+				dto.setAmount(Integer.parseInt(strings[1]));
+				items.add(dto);
+			}
+			sale.setSaleItems(items);
+			boolean check = false;
+
+			/*
+			 * Verifico que no exita una venta registrada
+			 */
+			if (this.saleService.verifySaleNumber(number)) {
 				check = this.saleService.addSale(sale);
-				
-				request.setAttribute("afterSaveBean", true);
-				request.setAttribute("succesBean", check != null);
+				System.out.println(check);
+			} else {
 
-				this.doGet(request, response);
+				SaleDto saleExist = this.saleService.getSaleByNumber(number);
+				request.setAttribute("SaleBean", saleExist);
 
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 
+			request.setAttribute("afterSaveBean", true);
+			request.setAttribute("succesBean", check);
+
+			this.doGet(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 	}
-	
+}

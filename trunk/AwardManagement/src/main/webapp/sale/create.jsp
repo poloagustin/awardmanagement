@@ -11,11 +11,30 @@
 	src="<%=request.getContextPath()%>/ScriptsSale/jquery-2.0.3.js"></script>
 <script type="application/javascript"
 	src="<%=request.getContextPath()%>/ScriptsSale/addProduct.js"></script>
-
+<script type="application/javascript"
+	src="<%=request.getContextPath()%>/ScriptsSale/validateSale.js"></script>
 </head>
 <body>
 	<input type="hidden" id="serverUrl"
 		value="<%=request.getContextPath()%>" />
+
+	<div style="color: red;">
+		<c:if test="${not empty SaleBean}">
+			<b>El venta ya se encuentra registrada!</b>
+			<ul>
+				<li><b>Numero de Vendedor: </b>${SaleBean.salesmanId}</li>
+				<li><b>Fecha de venta registrada:</b> ${SaleBean.date}</li>
+			</ul>
+		</c:if>
+	</div>
+	<b style="color: red;"> <c:if test="${afterSaveBean}">
+			<c:if test="${!successBean}">Ha habido un error guardar la venta.</c:if>
+		</c:if>
+	</b>
+	<b style="color: green;"> <c:if test="${afterSaveBean}">
+			<c:if test="${successBean}">La venta ha sido creada.</c:if>
+		</c:if>
+	</b>
 	<form id="newSale" action="<%=request.getContextPath()%>/sale/create"
 		method="post">
 		<table id="SaleTable" class="newSale">
@@ -35,8 +54,8 @@
 				</tr>
 				<tr>
 					<td>Fecha de Venta:</td>
-					<td> ${dateBean}<input type="hidden"
-						name="dateSale" value="${dateBean}" id="dateSale"></td>
+					<td>${dateBean}<input type="hidden" name="dateSale"
+						value="${dateBean}" id="dateSale"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -71,7 +90,6 @@
 			<tbody>
 			</tbody>
 		</table>
-		<br>
 		<div>
 			<input type="button" id="btnAgregarItem" name="btnAgregarItem"
 				value="Agregar Item">
@@ -82,18 +100,14 @@
 			<tr>
 			</tr>
 			<tr>
-				<td><input type="submit" name="btnGuardar" value="Guardar"></td>
+				<td><input type="submit" name="btnGuardar" id="btnGuardar"
+					value="Guardar"></td>
 				<td><input type="reset" name="btnCancelar" value="Cancelar"></td>
 			</tr>
 
 		</table>
 	</form>
 	<br />
-	<b style="color: red;"> <c:if test="${afterSaveBean}">
-			<c:if test="${successBean}">La venta ha sido creada.</c:if>
-			<c:if test="${!successBean}">Ha habido un error guardar la venta.</c:if>
-		</c:if>
-	</b>
 	<br />
 	<a href="<%=request.getContextPath()%>/sale/index">&gt;== VOLVER</a>
 </body>
