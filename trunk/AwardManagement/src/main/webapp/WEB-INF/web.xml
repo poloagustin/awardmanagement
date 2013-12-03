@@ -59,10 +59,14 @@
     <servlet-name>Role</servlet-name>
     <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.RoleServlet</servlet-class>
   </servlet>
-	<!-- <filter-mapping>
+	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
+	<servlet>
+	<servlet-name>ProductAdd</servlet-name>
+	<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.ProductServlet</servlet-class>
+	</servlet>
   <servlet>
     <servlet-name>CommissionCreate</servlet-name>
     <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionCreateServlet</servlet-class>
@@ -111,6 +115,10 @@
 		<servlet-name>GetUsers</servlet-name>
 		<url-pattern>/user/getusers</url-pattern>
   </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetUsers</servlet-name>
+		<url-pattern>/user/getusers</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ProductIndex</servlet-name>
 		<url-pattern>/product</url-pattern>

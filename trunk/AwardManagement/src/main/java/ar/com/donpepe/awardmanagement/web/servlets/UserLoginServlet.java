@@ -42,15 +42,11 @@ public class UserLoginServlet extends UserServlet {
 			if (user != null) {
 				loginFailed = false;
 				request.getSession().setAttribute("user", user);
-			} else {
-				loginFailed = true;
 			}
-		} else {
-			loginFailed = true;
 		}
 		
 		if (!loginFailed) {
-			
+			request.getRequestDispatcher("/home/index.jsp").forward(request, response);
 		}
 	}
 }

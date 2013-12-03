@@ -7,8 +7,10 @@ public class UserCredentialDto implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3838467013206650283L;
+	private Integer userId;
 	private String username;
 	private String password;
+
 	public String getUsername() {
 		return username;
 	}
@@ -21,4 +23,10 @@ public class UserCredentialDto implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	} 
 }

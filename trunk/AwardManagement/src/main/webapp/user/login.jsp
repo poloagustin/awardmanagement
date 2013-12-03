@@ -26,26 +26,6 @@
 					<td><input type="password" name="password" required="required" /></td>
 				</tr>
 				<tr>
-					<td>Nombre:</td>
-					<td><input type="text" name="firstName" required="required" /></td>
-				</tr>
-				<tr>
-					<td>Apellido:</td>
-					<td><input type="text" name="lastName" required="required" /></td>
-				</tr>
-				<tr>
-					<td>DNI:</td>
-					<td><input type="text" name="dni" required="required" /></td>
-				</tr>
-				<tr>
-					<td>Role:</td>
-					<td><select name="role" id="role">
-							<%-- 							<c:forEach items="${rolesBean}" var="role"> --%>
-							<%-- 								<option value="${role}">${role}</option> --%>
-							<%-- 							</c:forEach> --%>
-					</select></td>
-				</tr>
-				<tr>
 					<td><input type="submit" value="Guardar" /></td>
 				</tr>
 			</table>

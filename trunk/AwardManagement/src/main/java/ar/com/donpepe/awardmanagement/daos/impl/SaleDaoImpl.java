@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
@@ -54,6 +55,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		return salesByUser;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sale> getSaleByNumber(String number) {
 		// TODO Auto-generated method stub
@@ -61,7 +63,8 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(
 					Restrictions.eq("number", number));
-			sale = (List<Sale>) super.getHibernateTemplate().findByCriteria(criteria);
+			sale = (List<Sale>) super.getHibernateTemplate().findByCriteria(
+					criteria);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -184,12 +187,9 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 			for (int i = 0; i < list.size(); i++) {
 				List<Object> item = list.get(i);
 				SaleCommissionReport saleCommissionReport = new SaleCommissionReport();
-				saleCommissionReport
-						.setSalesmanId((Integer) item.get(0));
-				saleCommissionReport.setSalesmanName((String) item
-						.get(1));
-				saleCommissionReport
-						.setSaleAmount((Integer) item.get(2));
+				saleCommissionReport.setSalesmanId((Integer) item.get(0));
+				saleCommissionReport.setSalesmanName((String) item.get(1));
+				saleCommissionReport.setSaleAmount((Integer) item.get(2));
 				saleCommissionReport.setCommissionAmount((Float) item.get(3));
 				saleCommissionReports.add(saleCommissionReport);
 			}
@@ -200,19 +200,52 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		return saleCommissionReports;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sale> getSalesByPeriod(Date dateFrom, Date dateTo, Integer userId) {
+	public List<Sale> getSalesByPeriod(Date dateFrom, Date dateTo,
+			Integer userId) {
 		// TODO Auto-generated method stub
 		List<Sale> salesByUser = null;
 		try {
-			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.and(Restrictions.eq("id",
-					userId), Restrictions.between("date", dateFrom,
-					dateTo)));
-			salesByUser = (List<Sale>) super.getHibernateTemplate().findByCriteria(criteria);
+			DetachedCriteria criteria = super.getMyCriteria().add(
+					Restrictions.and(Restrictions.eq("id", userId),
+							Restrictions.between("date", dateFrom, dateTo)));
+			salesByUser = (List<Sale>) super.getHibernateTemplate()
+					.findByCriteria(criteria);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();
 		}
 		return salesByUser;
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Sale> getSalesByPeriod(List<Integer> userIds, int month,
+			int year) {
+		List<Sale> sales = null;
+		Date firstDayOfMonth = null;
+		Date lastDayOfMonth = null;
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.set(year, month, 1);
+		firstDayOfMonth = calendar.getTime();
+
+		calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance()
+				.getActualMaximum(Calendar.DAY_OF_MONTH));
+		lastDayOfMonth = calendar.getTime();
+		
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
+			criteria = criteria.add(Restrictions.and(Restrictions.in("user",
+					userIds), Restrictions.between("date", firstDayOfMonth,
+					lastDayOfMonth)));
+			criteria.setFetchMode("saleItems", FetchMode.JOIN);
+			sales = (List<Sale>)super.getHibernateTemplate().findByCriteria(criteria);
+		} catch (DataAccessException exception) {
+			exception.printStackTrace();
+		}
+		return sales;
 	}
 }
