@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	getProduct($("#prod").val());
 	$("#btnAgregarItem").click(function() {
 		if ($("#SalesItem tbody tr").length == 0) {
 			createTable();			
@@ -6,6 +7,11 @@ $(document).ready(function() {
 			addTable();
 		}
 	});
+	
+	$("#prod").change(function(){
+		getProduct($("#prod").val());	
+	});
+	
 });
 
 $(document).on('click','.EliminarItem',function(){
@@ -23,24 +29,22 @@ function deleteRow() {
 	        	 
 	        	 OrderTable();
 	         }
-	          
 }
 
 function OrderTable(){
-	$("#SalesItem tbody tr").each(function(index) {
-		$(this).children("td").each(function (index2) {
-			
-			alert($(this));
-		});
-	});
-
+	
 }
 
 $(document).ready(function() {
 	getProduct($("#prod").val());
+	$("#prod").change(function(){
+		getProduct($("#prod").val());	
+	});
 });
 
-function getProduct(id){	var serverUrl = $("#serverUrl").val();
+
+function getProduct(id){	
+	var serverUrl = $("#serverUrl").val();
 	$.getJSON(serverUrl+ "/product",
 	{	idProd:id
 		
@@ -59,15 +63,13 @@ function addTable() {
 	var sumProd = parseInt(lastProdName.substr(4, 5)) + 1;
 	var sumCant = parseInt(lastCantName.substr(4, 5)) + 1;
 	var sumItem = parseInt(lastItemName.substr(5, 6)) + 1;
-	getProduct(productoSelected);
-	
 	var ammountSelected = product.ammount;
 	var subTotal = ammountSelected * cantSelected;
 	var row = '<tr>' + '<td id="' + (lastItemName.substr(0, 5) + sumItem)
 			+ '">' + sumItem + '</td><td><input class="product" type="hidden" value="'
 			+ productoSelected + '" id="'
 			+ (lastProdName.substr(0, 4) + sumProd) + '" name="'
-			+ (lastProdName.substr(0, 4) + sumProd) + '">' + productoSelected
+			+ (lastProdName.substr(0, 4) + sumProd) + '">' + product.name
 			+ '</td>' + '<td>$ '+ammountSelected+'</td><td><input class="cantidad" type="hidden" value="'
 			+ cantSelected + '" id="' + (lastCantName.substr(0, 4) + sumCant)
 			+ '" name="' + (lastCantName.substr(0, 4) + sumCant) + '">'
@@ -85,7 +87,6 @@ function createTable() {
 	var lastItemName = "nItem1";
 	var productoSelected = $("#prod").val();
 	var cantSelected = $("#cant").val();
-	getProduct(productoSelected);
 	var ammountSelected = product.ammount;
 	var subTotal = ammountSelected * cantSelected;
 	var row = '<tr>' + '<td id="'
@@ -99,7 +100,7 @@ function createTable() {
 			+ '" name="'
 			+ lastProdName
 			+ '">'
-			+ productoSelected
+			+ product.name
 			+ '</td>'
 			+ '<td>$ '+ammountSelected+'</td><td><input class="cantidad" type="hidden" value="'
 			+ cantSelected

@@ -10,9 +10,15 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
+
+import ar.com.donpepe.awardmanagement.domain.User;
 import ar.com.donpepe.awardmanagement.dtos.ProductoIndexDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleItemDto;
+import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 
 public class SalesCreateServlet extends SalesServlet {
@@ -46,6 +52,9 @@ public class SalesCreateServlet extends SalesServlet {
 		Calendar cal = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String dateSale = dateFormat.format(cal.getTime());
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("txtNumberSaleSave", " ");
 
 		request.setAttribute("dateBean", dateSale);
 		request.setAttribute("UsersBean", users);
@@ -81,7 +90,8 @@ public class SalesCreateServlet extends SalesServlet {
 		try {
 
 			// insertamos fecha de creacion de venta
-
+			
+			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = dateFormat.parse(dateSale);
 			// fin
@@ -109,10 +119,16 @@ public class SalesCreateServlet extends SalesServlet {
 			} else {
 
 				SaleDto saleExist = this.saleService.getSaleByNumber(number);
+				UserDto salerMan = this.userService.getById(saleExist.getSalesmanId());
 				request.setAttribute("SaleBean", saleExist);
+				request.setAttribute("SalerManExist", salerMan);
+
+				HttpSession session = request.getSession(true);
+				session.setAttribute("txtNumberSaleSave", number);
+				session.setAttribute("paramsProd", paramsProd);
 
 			}
-
+			
 			request.setAttribute("afterSaveBean", true);
 			request.setAttribute("succesBean", check);
 

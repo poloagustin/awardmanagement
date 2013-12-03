@@ -34,7 +34,7 @@ public class SalesMapper {
 
 		sale.setSaleItems(s);
 		sale.setSalesman(user);
-		
+
 		return sale;
 
 	}
@@ -45,16 +45,33 @@ public class SalesMapper {
 		saleIndexDto.setNumber(sale.getNumber());
 		saleIndexDto.setDate(sale.getDate());
 		saleIndexDto.setSalerman(sale.getId());
-
+		saleIndexDto.setTotal(getTotalOfSale(sale.getSaleItems()));
 		return saleIndexDto;
 	}
-	
-	public static List<SaleIndexDto> getSaleIndexDto(List<Sale> sales){
+
+	public static List<SaleIndexDto> getSaleIndexDto(List<Sale> sales) {
 		List<SaleIndexDto> s = new ArrayList<SaleIndexDto>();
 		for (Sale sale : sales) {
 			s.add(getSaleIndexDto(sale));
 		}
 		return s;
+	}
+
+	/*
+	 * create detail and total of sale
+	 */
+
+	public static Float getTotalOfSale(List<SaleItem> items) {
+		Float total = new Float(0);
+		for (SaleItem saleItem : items) {
+			Integer cant = saleItem.getAmount();
+			Float precio = saleItem.getProduct().getAmmount();
+
+			total = total + (cant * precio);
+		}
+
+		return total;
+
 	}
 
 }
