@@ -1,111 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
-	<display-name>AwardManagement</display-name>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/ApplicationContext.xml</param-value>
-	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>AwardManagement</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/classes/ApplicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>ar.com.donpepe.awardmanagement.web.filters.LoginFilter</filter-class>
 	</filter>
-	<welcome-file-list>
-		<welcome-file>/user/index</welcome-file>
-	</welcome-file-list>
-	<servlet>
+  <welcome-file-list>
+    <welcome-file>/user/index</welcome-file>
+  </welcome-file-list>
+  <servlet>
 		<servlet-name>GetUsers</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.GetUsersServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>UserIndex</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet</servlet-class>
-	</servlet>
-	<servlet>
+    <servlet-name>UserIndex</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserIndexServlet</servlet-class>
+  </servlet>
+  <servlet>
 		<servlet-name>UserLogin</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserLoginServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>UserEdit</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserEditServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>UserSearch</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserSearchServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>UserDelete</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserDeleteServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>UserCreate</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserCreateServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>SaleCreate</servlet-name>
+    <servlet-name>UserEdit</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserEditServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserSearch</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserSearchServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserDelete</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserDeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserCreate</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserCreateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SaleCreate</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesCreateServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>SaleIndex</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>
-	</servlet>
-	<servlet>
+  </servlet>
+  <servlet>
+    <servlet-name>SaleIndex</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>
+  </servlet>
+  <servlet>
 		<servlet-name>ProductIndex</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.GetProductServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Role</servlet-name>
-		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.RoleServlet</servlet-class>
-	</servlet>
+    <servlet-name>Role</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.RoleServlet</servlet-class>
+  </servlet>
 	<!-- <filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping> -->
-	<servlet-mapping>
-		<servlet-name>UserIndex</servlet-name>
-		<url-pattern>/user/index</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserEdit</servlet-name>
-		<url-pattern>/user/edit</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserSearch</servlet-name>
-		<url-pattern>/user/search</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserDelete</servlet-name>
-		<url-pattern>/user/delete</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserCreate</servlet-name>
-		<url-pattern>/user/create</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SaleCreate</servlet-name>
-		<url-pattern>/sale/create</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SaleIndex</servlet-name>
-		<url-pattern>/sale/index</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
+  <servlet>
+    <servlet-name>CommissionCreate</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionCreateServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>CommissionCreate</servlet-name>
+    <url-pattern>/commission/create</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserIndex</servlet-name>
+    <url-pattern>/user/index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserEdit</servlet-name>
+    <url-pattern>/user/edit</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserSearch</servlet-name>
+    <url-pattern>/user/search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserDelete</servlet-name>
+    <url-pattern>/user/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserCreate</servlet-name>
+    <url-pattern>/user/create</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaleCreate</servlet-name>
+    <url-pattern>/sale/create</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaleIndex</servlet-name>
+    <url-pattern>/sale/index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
 		<servlet-name>UserLogin</servlet-name>
 		<url-pattern>/user/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Role</servlet-name>
-		<url-pattern>/roles</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
+    <servlet-name>Role</servlet-name>
+    <url-pattern>/roles</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
 		<servlet-name>GetUsers</servlet-name>
 		<url-pattern>/user/getusers</url-pattern>
-	</servlet-mapping>
+  </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ProductIndex</servlet-name>
 		<url-pattern>/product</url-pattern>

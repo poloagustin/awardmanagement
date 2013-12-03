@@ -5,7 +5,6 @@ import java.util.List;
 import ar.com.donpepe.awardmanagement.daos.SaleCommissionDao;
 import ar.com.donpepe.awardmanagement.domain.SaleCommission;
 import ar.com.donpepe.awardmanagement.dtos.SaleCommissionDto;
-import ar.com.donpepe.awardmanagement.dtos.SaleCommissionIndexDto;
 import ar.com.donpepe.awardmanagement.services.SaleCommissionService;
 import ar.com.donpepe.awardmanagement.services.mappers.SaleCommissionMapper;
 
@@ -54,27 +53,22 @@ public class SaleCommissionServiceImpl implements SaleCommissionService {
 	
 
 	@Override
-	public SaleCommission getSaleCommissionByNumber(String saleCommissionNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public SaleCommission getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public List<SaleCommissionIndexDto> getIndex() {
-		// TODO Auto-generated method stub
-		return null;
+	public SaleCommission getSaleCommissionByAmount(Integer amount) {
+		SaleCommission commission = this.saleCommissionDao.getCommission(amount);
+		return commission;
 	}
 
 	@Override
-	public SaleCommission getSaleCommissionByAmmount(Integer amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SaleCommission> getSalesCommissionByAmount(Integer amount) {
+		 List<SaleCommission> commissions = this.saleCommissionDao.getByAmmount(amount);
+		 return commissions;
 	}
 
 }

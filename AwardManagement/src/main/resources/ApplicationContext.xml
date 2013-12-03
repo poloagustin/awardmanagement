@@ -23,6 +23,7 @@
 			<list>
 				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
 				<value>ar.com.donpepe.awardmanagement.domain.User</value>
+				<value>ar.com.donpepe.awardmanagement.domain.SaleCommission</value>
 				<value>ar.com.donpepe.awardmanagement.domain.Product</value>
 				<value>ar.com.donpepe.awardmanagement.domain.SaleItem</value>
 				<value>ar.com.donpepe.awardmanagement.domain.Sale</value>
@@ -55,16 +56,19 @@
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
+	<bean id="saleCommissionDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
+		parent="genericHibernateDao">
+	</bean>
 
-	<!-- End of Daos -->
+<!-- End of Daos -->
 	<!-- Services -->
-	<!-- <bean id="salesService" -->
-	<!-- class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl"> -->
-	<!-- <property name="saleDao" ref="saleDao"></property> -->
-	<!-- </bean> -->
 	<bean id="userService"
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="saleCommissionService"
+		class="ar.com.donpepe.awardmanagement.services.impl.SaleCommissionServiceImpl">
+		<property name="saleCommissionDao" ref="saleCommissionDao"></property>
 	</bean>
 	<bean id="productService"
 		class="ar.com.donpepe.awardmanagement.services.impl.ProductServiceImpl">
