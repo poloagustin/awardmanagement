@@ -64,8 +64,8 @@ public class SaleCommissionServiceImpl implements SaleCommissionService {
 
 	@Override
 	public SaleCommission getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		SaleCommission commission = this.saleCommissionDao.get(id);
+		return commission;
 	}
 
 
@@ -79,6 +79,25 @@ public class SaleCommissionServiceImpl implements SaleCommissionService {
 	public List<SaleCommission> getSalesCommissionByAmount(Integer amount) {
 		 List<SaleCommission> commissions = this.saleCommissionDao.getByAmmount(amount);
 		 return commissions;
+	}
+
+	@Override
+	public Float getSaleCommissionFromList(List<SaleCommission> commissions, Integer amount ) {
+		
+		if (amount != 0){
+			for (SaleCommission sc : commissions){
+				if (amount >= sc.getMinimumSalesAmount() && amount <= sc.getMaximumSalesAmount()){
+					return sc.getSaleCommission();
+				}
+			}
+		}
+		
+		return (float) 0;
+	}
+
+	@Override
+	public List<SaleCommission> getAll() {
+		return this.saleCommissionDao.getAll();
 	}
 
 }

@@ -12,8 +12,10 @@ public interface SaleCommissionService {
 	Boolean deleteSaleCommission(SaleCommissionDto saleCommission);
 	Integer newSaleCommission(SaleCommissionDto saleCommission);
 	
+	
 	SaleCommission getById(Integer id);
 	SaleCommission getSaleCommissionByAmount(Integer amount);
 	List<SaleCommission>  getSalesCommissionByAmount(Integer amount);
-
+	Float getSaleCommissionFromList(List<SaleCommission> commissions, Integer amount);
+	List<SaleCommission>  getAll();
 }

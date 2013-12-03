@@ -6,36 +6,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Actiualizar Adicional</title>
+<title>Crear Comisión</title>
 <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/jquery-2.0.3.js"></script>
 <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/utils.js"></script>
 </head>
 <body>
 	<input type="hidden" id="serverUrl" value="<%=request.getContextPath()%>" />
-	<%-- <input type="hidden" id="idCom" value="${commission.id}" /> --%>
-	<h1>Actualizar Adicional</h1>
-	<form action="<%=request.getContextPath()%>/commission/edit?id=${commission.id}" method="post">
+	<form action="<%=request.getContextPath()%>/commission/create" method="post">
 		<fieldset>
 			<table>
 				<tr>
-					<td>Adicional:</td>
-					<td><input type="number" name="saleCommission" required="required" value="${commission.saleCommission}"/></td>
+					<td>Monto Mínimo:</td>
+					<td><input type="number" name="minimumSalesAmount" required="required" /></td>
 				</tr>
-			
+				<tr>
+					<td>Monto Máximo:</td>
+					<td><input type="number" name="maximumSalesAmount" required="required" /></td>
+				</tr>
+				<tr>
+					<td>Camisión:</td>
+					<td><input type="number" name="saleCommission" required="required" /></td>
+				</tr>
 				
 				<tr>
-					<td><input type="submit" value="Guardar Cambio" /></td>
+					<td><input type="submit" value="Guardar" /></td>
 				</tr>
 			</table>
 		</fieldset>
 	</form>
 	<br />
 	<b style="color: red;"> <c:if test="${afterSaveBean}">
-			<c:if test="${successBean}">La Comisión se ha modificado exitosamente.</c:if>
-			<c:if test="${!successBean}">Ha habido un error al modificar la Comisión.</c:if>
+			<c:if test="${successBean}">La Comisión se ha creado exitosamente.</c:if>
+			<c:if test="${!successBean}">Ha habido un error al guardar la Comisión.</c:if>
 		</c:if>
 	</b>
 	<br/>
+	
 	<a href="<%=request.getContextPath()%>/commission/index">&lt;== VOLVER</a>
 </body>
 </html>

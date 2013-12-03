@@ -71,9 +71,25 @@
     <servlet-name>CommissionCreate</servlet-name>
     <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionCreateServlet</servlet-class>
   </servlet>
+   <servlet>
+    <servlet-name>CommissionIndex</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionIndexServlet</servlet-class>
+  </servlet>
+     <servlet>
+    <servlet-name>CommissionEdit</servlet-name>
+    <servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionEditServlet</servlet-class>
+  </servlet>
    <servlet-mapping>
     <servlet-name>CommissionCreate</servlet-name>
     <url-pattern>/commission/create</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>CommissionIndex</servlet-name>
+    <url-pattern>/commission/index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommissionEdit</servlet-name>
+    <url-pattern>/commission/edit</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UserIndex</servlet-name>
@@ -115,10 +131,6 @@
 		<servlet-name>GetUsers</servlet-name>
 		<url-pattern>/user/getusers</url-pattern>
   </servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>GetUsers</servlet-name>
-		<url-pattern>/user/getusers</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ProductIndex</servlet-name>
 		<url-pattern>/product</url-pattern>
