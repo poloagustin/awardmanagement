@@ -40,4 +40,25 @@ public class SaleCommissionDaoImpl extends EntityWithIdDaoImpl<SaleCommission> i
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public SaleCommission getCommission(Integer salesAmount) {
+		List<SaleCommission> commissions = null;
+		String searchAmount = salesAmount.toString();
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
+			criteria = criteria.add(
+				Restrictions.and(
+					Restrictions.ge("minimumSalesAmount", searchAmount),
+					Restrictions.le("maximumSalesAmount", searchAmount
+							)
+				)
+			);
+			commissions = super.getHibernateTemplate().findByCriteria(criteria);
+		} catch (DataAccessException exception) {
+			exception.printStackTrace();
+		}
+		return commissions.get(0);
+	}
+
 }

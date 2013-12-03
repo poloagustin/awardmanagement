@@ -23,7 +23,7 @@ public class SaleCommissionDto implements Serializable {
 	public Integer getMaximumSalesAmount() {
 		return maximumSalesAmount;
 	}
-	public void setMaximunSalesAmount(Integer maximunSalesAmount) {
+	public void setMaximumSalesAmount(Integer maximunSalesAmount) {
 		this.maximumSalesAmount = maximunSalesAmount;
 	}
 	public Integer getMinimumSalesAmount() {

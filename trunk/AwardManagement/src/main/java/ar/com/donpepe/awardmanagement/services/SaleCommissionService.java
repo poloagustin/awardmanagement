@@ -4,9 +4,6 @@ import java.util.List;
 
 import ar.com.donpepe.awardmanagement.domain.SaleCommission;
 import ar.com.donpepe.awardmanagement.dtos.SaleCommissionDto;
-import ar.com.donpepe.awardmanagement.dtos.SaleCommissionIndexDto;
-
-
 
 
 public interface SaleCommissionService {
@@ -15,9 +12,8 @@ public interface SaleCommissionService {
 	Boolean deleteSaleCommission(SaleCommissionDto saleCommission);
 	Integer newSaleCommission(SaleCommissionDto saleCommission);
 	
-	SaleCommission getSaleCommissionByNumber(String saleCommissionNumber);
 	SaleCommission getById(Integer id);
-	List<SaleCommissionIndexDto> getIndex();
-	SaleCommission getSaleCommissionByAmmount(Integer amount);
+	SaleCommission getSaleCommissionByAmount(Integer amount);
+	List<SaleCommission>  getSalesCommissionByAmount(Integer amount);
 
 }
