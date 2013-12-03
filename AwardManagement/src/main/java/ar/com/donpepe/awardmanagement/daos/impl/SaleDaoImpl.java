@@ -238,7 +238,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
-			criteria = criteria.add(Restrictions.and(Restrictions.in("user",
+			criteria = criteria.add(Restrictions.and(Restrictions.in("salesman.id",
 					userIds), Restrictions.between("date", firstDayOfMonth,
 					lastDayOfMonth)));
 			criteria.setFetchMode("saleItems", FetchMode.JOIN);

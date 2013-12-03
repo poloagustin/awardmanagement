@@ -16,6 +16,8 @@
 				Realizadas</a></li>
 		<li><a href="<%=request.getContextPath()%>/commission/index">Ver
 				Comisiones y Premios</a></li>
+		<li><a href="<%=request.getContextPath()%>/commission/report">Generar
+				reporte de comisiones y premios</a></li>
 		<li><a href="<%=request.getContextPath()%>/user/index">Usuarios</a></li>
 	</ul>
 </body>
