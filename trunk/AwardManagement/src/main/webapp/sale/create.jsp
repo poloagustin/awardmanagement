@@ -17,24 +17,6 @@
 <body>
 	<input type="hidden" id="serverUrl"
 		value="<%=request.getContextPath()%>" />
-
-	<div style="color: red;">
-		<c:if test="${not empty SaleBean}">
-			<b>El venta ya se encuentra registrada!</b>
-			<ul>
-				<li><b>Numero de Vendedor: </b>${SaleBean.salesmanId}</li>
-				<li><b>Fecha de venta registrada:</b> ${SaleBean.date}</li>
-			</ul>
-		</c:if>
-	</div>
-	<b style="color: red;"> <c:if test="${afterSaveBean}">
-			<c:if test="${!successBean}">Ha habido un error guardar la venta.</c:if>
-		</c:if>
-	</b>
-	<b style="color: green;"> <c:if test="${afterSaveBean}">
-			<c:if test="${successBean}">La venta ha sido creada.</c:if>
-		</c:if>
-	</b>
 	<form id="newSale" action="<%=request.getContextPath()%>/sale/create"
 		method="post">
 		<table id="SaleTable" class="newSale">
@@ -42,6 +24,7 @@
 				<tr>
 					<td>Numero de Venta:</td>
 					<td><input type="text" name="txtNumberSale" size="20"
+						value="<%=request.getSession().getAttribute("txtNumberSaleSave")%>"
 						required="required"></td>
 				</tr>
 				<tr>
@@ -66,13 +49,13 @@
 					<td><strong>Seleccione Item:</strong> <select id="prod"
 						name="prod">
 							<c:forEach items="${ProductsBean}" var="prod">
-								<option value="${prod.id}">${prod.id}</option>
+								<option value="${prod.id}">${prod.name}</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
 					<td><strong>Seleccione Cantidad de Items</strong> <input
-						type="number" id="cant" name="cant" value="1"></td>
+						type="number" id="cant" name="cant" value="1" size="7"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -88,8 +71,10 @@
 				</tr>
 			</thead>
 			<tbody>
+			
 			</tbody>
 		</table>
+		<br>
 		<div>
 			<input type="button" id="btnAgregarItem" name="btnAgregarItem"
 				value="Agregar Item">
@@ -107,7 +92,24 @@
 
 		</table>
 	</form>
-	<br />
+	<div id="validation" style="color: red;">
+		<c:if test="${not empty SaleBean}">
+			<b>El venta ya se encuentra registrada!</b>
+			<ul>
+				<li><b>Nombre del Vendedor: </b>${SalerManExist.firstName} ${SalerManExist.lastName}</li>
+				<li><b>Fecha de venta registrada:</b> ${SaleBean.date}</li>
+			</ul>
+		</c:if>
+	</div>
+	<b style="color: red;"> <c:if test="${afterSaveBean}">
+			<c:if test="${!succesBean}">Ha habido un error guardar la venta.</c:if>
+		</c:if>
+	</b>
+	<b style="color: green;"> <c:if test="${afterSaveBean}">
+			<c:if test="${succesBean}">La venta ha sido creada.</c:if>
+		</c:if>
+	</b>
+	<br>
 	<br />
 	<a href="<%=request.getContextPath()%>/sale/index">&gt;== VOLVER</a>
 </body>
