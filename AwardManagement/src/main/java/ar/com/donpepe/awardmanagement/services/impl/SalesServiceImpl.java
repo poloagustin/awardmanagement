@@ -11,6 +11,7 @@ import ar.com.donpepe.awardmanagement.daos.SaleDao;
 import ar.com.donpepe.awardmanagement.domain.Sale;
 import ar.com.donpepe.awardmanagement.dtos.SaleDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
+import ar.com.donpepe.awardmanagement.dtos.SaleReportDto;
 import ar.com.donpepe.awardmanagement.services.SalesService;
 import ar.com.donpepe.awardmanagement.services.mappers.SalesMapper;
 
@@ -28,14 +29,14 @@ public class SalesServiceImpl implements SalesService {
 		Integer rows = null;
 		Sale sale = new Sale();
 		sale = SalesMapper.getSale(sales);
-		
+
 		try {
 			rows = this.saleDao.save(sale);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return (rows > 0 ? true : false);
 	}
 
@@ -59,9 +60,9 @@ public class SalesServiceImpl implements SalesService {
 		sale = this.saleDao.getSaleByNumber(saleNumber);
 		if (sale.isEmpty()) {
 			check = true;
-		} else{
+		} else {
 			check = false;
-	}
+		}
 		return check;
 	}
 
@@ -86,7 +87,7 @@ public class SalesServiceImpl implements SalesService {
 		List<Sale> sale = null;
 		SaleDto saleDto = null;
 		sale = this.saleDao.getSaleByNumber(saleNumber);
-		if(sale!=null){
+		if (sale != null) {
 			saleDto = SalesMapper.getSaleDto(sale.get(0));
 		}
 		return saleDto;
@@ -97,14 +98,14 @@ public class SalesServiceImpl implements SalesService {
 		// TODO Auto-generated method stub
 		SaleDto saleDto = null;
 		try {
-			
+
 			saleDto = SalesMapper.getSaleDto(this.saleDao.get(id));
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+
 		return saleDto;
 	}
 
@@ -124,6 +125,19 @@ public class SalesServiceImpl implements SalesService {
 		sales = this.saleDao.getSalesByPeriod(dateFrom, dateTo, userId);
 		return SalesMapper.getSaleIndexDto(sales);
 	}
-	
-	
+
+	@Override
+	public List<SaleReportDto> getSalesReport(List<Integer> ids, int period,
+			int year) {
+		List<SaleReportDto> report = null;
+		try {
+			List<Sale> sales = this.saleDao.getSalesByPeriod(ids, period, year);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return report;
+	}
+
 }

@@ -12,4 +12,5 @@ public interface SalesService {
 	SaleDto getSaleByNumber(String salenumber);
 	SaleDto getById(Integer id);
 	List<SaleIndexDto> getSalesByPeriod(Date dateFrom , Date dateTo, Integer userId);
+	List<SaleReportDto> getSalesReport(List<Integer> ids, int period, int year);
 }

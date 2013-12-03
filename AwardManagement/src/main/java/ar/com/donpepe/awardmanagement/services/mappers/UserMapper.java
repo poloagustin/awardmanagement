@@ -79,9 +79,9 @@ public class UserMapper {
 		dto.setUserName(user.getUsername());
 		return dto;
 	}
-
 	public static UserCredentialDto getCredentialDto(User user) {
 		UserCredentialDto credential = new UserCredentialDto();
+		credential.setUserId(user.getId());
 		credential.setUsername(user.getUsername());
 		credential.setPassword(user.getPassword());
 		return credential;

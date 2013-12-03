@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -43,17 +43,22 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
-		User user = (User)session.getAttribute("user");
+		UserCredentialDto user = (UserCredentialDto)session.getAttribute("user");
 		
+		boolean doFilter = false;
 		if (user == null) {
-			String isLoginRequest = (String)req.getParameter("isLoginRequest");
+			String isLoginRequest = (String)req.getAttribute("isLoginRequest");
 			
 			if (isLoginRequest != "true") {
 				req.setAttribute("isLoginRequest", "true");
 				req.getRequestDispatcher("/user/login").forward(req, resp);
 			}
+		} else {
+			doFilter = true;
 		}
-		chain.doFilter(request, response);
+		if (doFilter) {
+			chain.doFilter(request, response);
+		}
 	}
 
 	/**
