@@ -13,6 +13,16 @@ public class SaleCommissionServiceImpl implements SaleCommissionService {
 
 	private SaleCommissionDao saleCommissionDao;
 	
+	
+	
+	public SaleCommissionDao getSaleCommissionDao() {
+		return saleCommissionDao;
+	}
+
+	public void setSaleCommissionDao(SaleCommissionDao saleCommissionDao) {
+		this.saleCommissionDao = saleCommissionDao;
+	}
+
 	public SaleCommissionDao getSaleComissionDao() {
 		return saleCommissionDao;
 	}
