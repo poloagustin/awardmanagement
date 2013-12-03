@@ -206,7 +206,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		List<Sale> salesByUser = null;
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
-			criteria = criteria.add(Restrictions.and(Restrictions.eq("user",
+			criteria = criteria.add(Restrictions.and(Restrictions.eq("user.id",
 					userId), Restrictions.between("date", dateFrom,
 					dateTo)));
 			salesByUser = super.getHibernateTemplate().findByCriteria(criteria);
