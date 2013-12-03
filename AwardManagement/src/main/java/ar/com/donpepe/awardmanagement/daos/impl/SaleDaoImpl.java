@@ -41,7 +41,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 
 		calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance()
 				.getActualMaximum(Calendar.DAY_OF_MONTH));
-		firstDayOfMonth = calendar.getTime();
+		lastDayOfMonth = calendar.getTime();
 
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
