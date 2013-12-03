@@ -205,11 +205,10 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 		// TODO Auto-generated method stub
 		List<Sale> salesByUser = null;
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
-			criteria = criteria.add(Restrictions.and(Restrictions.eq("user.id",
+			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.and(Restrictions.eq("id",
 					userId), Restrictions.between("date", dateFrom,
 					dateTo)));
-			salesByUser = super.getHibernateTemplate().findByCriteria(criteria);
+			salesByUser = (List<Sale>) super.getHibernateTemplate().findByCriteria(criteria);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();
 		}
