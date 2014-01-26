@@ -20,7 +20,7 @@
 	<input type="hidden" id="serverUrl"
 		value="<%=request.getContextPath()%>" />
 	<input type="hidden" id="currentRole" value="${userBean.role}" />
-	<form action="<%=request.getContextPath()%>/user/edit" method="put">
+	<form action="<%=request.getContextPath()%>/user/edit" method="post">
 		<fieldset>
 			<input type="hidden" id="id" name="id" value="${userBean.id}" />
 			<table>

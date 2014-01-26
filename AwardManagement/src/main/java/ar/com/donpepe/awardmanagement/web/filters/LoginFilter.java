@@ -20,7 +20,7 @@ import ar.com.donpepe.awardmanagement.utils.BaseLogger;
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter("/LoginFilter")
-public class LoginFilter extends BaseLogger<LoginFilter> implements Filter{
+public class LoginFilter extends BaseLogger<LoginFilter> implements Filter {
 	/**
 	 * Default constructor.
 	 */
@@ -50,10 +50,8 @@ public class LoginFilter extends BaseLogger<LoginFilter> implements Filter{
 		boolean doFilter = false;
 		if (user == null) {
 			this.logger.debug("User not logged.");
-			String isLoginRequest = (String)req.getAttribute("isLoginRequest");
 			String requestUri = req.getRequestURI();
 			
-//			if (isLoginRequest != "true") {
 			if (!requestUri.contains("/user/login")) {
 				this.logger.debug("Redirecting to login page.");
 				req.setAttribute("isLoginRequest", "true");
