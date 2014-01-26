@@ -32,10 +32,8 @@
 		</fieldset>
 	</form>
 	<br />
-	<b style="color: red;"> <c:if test="${afterSaveBean}">
-			<c:if test="${successBean}">El usuario se ha creado exitosamente.</c:if>
-			<c:if test="${!successBean}">Ha habido un error al guardar el usuario.</c:if>
-		</c:if>
+	<b style="color: red;">
+		<c:if test="${requestFailed}">Los datos suministrados no fueron correctos.</c:if>
 	</b>
 	<br/>
 	<a href="<%=request.getContextPath()%>/user/index">&lt;== VOLVER</a>
