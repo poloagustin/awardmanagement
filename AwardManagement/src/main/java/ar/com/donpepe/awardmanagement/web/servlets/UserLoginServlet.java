@@ -47,6 +47,8 @@ public class UserLoginServlet extends UserServlet {
 		
 		if (!loginFailed) {
 			request.getRequestDispatcher("/home/index.jsp").forward(request, response);
+		} else {
+			this.doGet(request, response);
 		}
 	}
 }
