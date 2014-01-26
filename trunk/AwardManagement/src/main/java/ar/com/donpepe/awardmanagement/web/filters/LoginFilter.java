@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
+import ar.com.donpepe.awardmanagement.utils.BaseLogger;
 
 /**
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter("/LoginFilter")
-public class LoginFilter implements Filter {
+public class LoginFilter extends BaseLogger<LoginFilter> implements Filter{
 	/**
 	 * Default constructor.
 	 */
@@ -39,6 +40,7 @@ public class LoginFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		this.logger.debug("Begin doFilter");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
@@ -47,18 +49,26 @@ public class LoginFilter implements Filter {
 		
 		boolean doFilter = false;
 		if (user == null) {
+			this.logger.debug("User not logged.");
 			String isLoginRequest = (String)req.getAttribute("isLoginRequest");
+			String requestUri = req.getRequestURI();
 			
-			if (isLoginRequest != "true") {
+//			if (isLoginRequest != "true") {
+			if (!requestUri.contains("/user/login")) {
+				this.logger.debug("Redirecting to login page.");
 				req.setAttribute("isLoginRequest", "true");
 				req.getRequestDispatcher("/user/login").forward(req, resp);
+			} else {
+				doFilter = true;
 			}
 		} else {
+			this.logger.debug("The user is logged.");
 			doFilter = true;
 		}
 		if (doFilter) {
 			chain.doFilter(request, response);
 		}
+		this.logger.debug("end doFilter");
 	}
 
 	/**
