@@ -2,7 +2,6 @@ package ar.com.donpepe.awardmanagement.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
-import ar.com.donpepe.awardmanagement.domain.User;
 
 public class SaleIndexDto implements Serializable {
 

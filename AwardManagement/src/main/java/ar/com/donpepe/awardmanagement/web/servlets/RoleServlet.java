@@ -32,16 +32,24 @@ public class RoleServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-    	this.userService = (UserService)WebHelper.getBean(config, "userService");
+    	try {
+			this.userService = (UserService)WebHelper.getBean(config, "userService");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> roles = this.userService.getRoles();
-		String resp = new Gson().toJson(roles); 
+		try {
+			List<String> roles = this.userService.getRoles();
+			String resp = new Gson().toJson(roles); 
 
-		response.getWriter().write(resp);
+			response.getWriter().write(resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

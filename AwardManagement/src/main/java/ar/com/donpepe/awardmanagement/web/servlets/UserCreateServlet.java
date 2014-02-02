@@ -18,42 +18,50 @@ public class UserCreateServlet extends UserServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<String> roles = this.userService.getRoles();
+		try {
+			List<String> roles = this.userService.getRoles();
 
-		request.setAttribute("rolesBean", roles);
-		request.getRequestDispatcher("/user/create.jsp").forward(request,
-				response);
+			request.setAttribute("rolesBean", roles);
+			request.getRequestDispatcher("/user/create.jsp").forward(request,
+					response);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// Do nothing.
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
-		String username = req.getParameter("username");
-		String firstName = req.getParameter("firstName");
-		String lastName = req.getParameter("lastName");
-		String password = req.getParameter("password");
-		String dni = req.getParameter("dni");
-		String role = req.getParameter("role");
-				
-		UserDto user = new UserDto();
-		user.setDni(dni);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setPassword(password);
-		user.setRole(role);
-		user.setUserName(username);
-		
-		Integer id = this.userService.newUser(user);
-		
-		req.setAttribute("afterSaveBean", true);
-		req.setAttribute("successBean", id != null);
-		
-		this.doGet(req, resp);
+		try {
+			String username = req.getParameter("username");
+			String firstName = req.getParameter("firstName");
+			String lastName = req.getParameter("lastName");
+			String password = req.getParameter("password");
+			String dni = req.getParameter("dni");
+			String role = req.getParameter("role");
+					
+			UserDto user = new UserDto();
+			user.setDni(dni);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setPassword(password);
+			user.setRole(role);
+			user.setUserName(username);
+			
+			Integer id = this.userService.newUser(user);
+			
+			req.setAttribute("afterSaveBean", true);
+			req.setAttribute("successBean", id != null);
+			
+			this.doGet(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

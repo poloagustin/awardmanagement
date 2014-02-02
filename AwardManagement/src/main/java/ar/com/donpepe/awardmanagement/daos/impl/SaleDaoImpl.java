@@ -58,7 +58,6 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sale> getSaleByNumber(String number) {
-		// TODO Auto-generated method stub
 		List<Sale> sale = null;
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(
@@ -204,7 +203,6 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	@Override
 	public List<Sale> getSalesByPeriod(Date dateFrom, Date dateTo,
 			Integer userId) {
-		// TODO Auto-generated method stub
 		List<Sale> salesByUser = null;
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class); 

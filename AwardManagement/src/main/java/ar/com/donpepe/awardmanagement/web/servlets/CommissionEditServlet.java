@@ -16,61 +16,54 @@ public class CommissionEditServlet extends SaleCommissionServlet {
 	 */
 	private static final long serialVersionUID = -1137720204888366318L;
 
-
-
 	@Override
-	protected void doGet(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
-		
-		Integer id = Integer.parseInt(req.getParameter("id"));
-		SaleCommission sc = this.saleCommissionService.getById(id);
-		req.setAttribute("commission", sc);
-				
-		req.getRequestDispatcher("/commission/edit.jsp").forward(req,
-				resp);
-	}
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			SaleCommission sc = this.saleCommissionService.getById(id);
+			req.setAttribute("commission", sc);
 
-
-
-	@Override
-	protected void doPost(HttpServletRequest req,
-		HttpServletResponse resp) throws ServletException, IOException {
-		
-		Integer id = Integer.parseInt(req.getParameter("id"));
-		Float saleCommission = Float.parseFloat(req.getParameter("saleCommission"));
-		boolean save = false;
-		SaleCommission sc = this.saleCommissionService.getById(id);
-		
-		if (saleCommission != null){
-			
-		sc.setSaleCommission(saleCommission);
-		SaleCommissionDto scDto = new SaleCommissionDto();
-		
-		scDto.setId(id);
-		scDto.setMaximumSalesAmount(sc.getMaximumSalesAmount());
-		scDto.setMinimumSalesAmount(sc.getMinimumSalesAmount());
-		scDto.setSaleCommission(saleCommission);
-		
-		
-		save = this.saleCommissionService.updateSaleCommission(scDto);
+			req.getRequestDispatcher("/commission/edit.jsp").forward(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
-		req.setAttribute("commission", sc);
-		req.setAttribute("afterSaveBean", true);
-		req.setAttribute("successBean", save == true);
-		
-		req.getRequestDispatcher("/commission/edit.jsp").forward(req,
-				resp);
-			
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			Float saleCommission = Float.parseFloat(req
+					.getParameter("saleCommission"));
+			boolean save = false;
+			SaleCommission sc = this.saleCommissionService.getById(id);
 
+			if (saleCommission != null) {
+				sc.setSaleCommission(saleCommission);
+				SaleCommissionDto scDto = new SaleCommissionDto();
+
+				scDto.setId(id);
+				scDto.setMaximumSalesAmount(sc.getMaximumSalesAmount());
+				scDto.setMinimumSalesAmount(sc.getMinimumSalesAmount());
+				scDto.setSaleCommission(saleCommission);
+
+				save = this.saleCommissionService.updateSaleCommission(scDto);
+			}
+
+			req.setAttribute("commission", sc);
+			req.setAttribute("afterSaveBean", true);
+			req.setAttribute("successBean", save == true);
+
+			req.getRequestDispatcher("/commission/edit.jsp").forward(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//Do nothing 
-		}
-
+	}
 }

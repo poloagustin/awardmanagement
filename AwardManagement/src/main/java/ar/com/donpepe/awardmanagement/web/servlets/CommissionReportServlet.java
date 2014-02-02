@@ -19,7 +19,6 @@ public class CommissionReportServlet extends BaseServlet {
      */
     public CommissionReportServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	@Override

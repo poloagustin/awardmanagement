@@ -16,8 +16,11 @@ public class UserIndexServlet extends UserServlet {
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		List<UserIndexDto> users = super.userService.getIndex();
-//		request.setAttribute("users", users);
-		request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+		try {
+			request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 }

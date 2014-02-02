@@ -19,7 +19,11 @@ public abstract class SaleCommissionServlet extends BaseServlet {
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		this.saleCommissionService = (SaleCommissionService)WebHelper.getBean(config, "saleCommissionService");
+		try {
+			this.saleCommissionService = (SaleCommissionService)WebHelper.getBean(config, "saleCommissionService");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}	
 	
 		

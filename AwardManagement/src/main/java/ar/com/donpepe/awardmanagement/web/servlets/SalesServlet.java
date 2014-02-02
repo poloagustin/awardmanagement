@@ -1,10 +1,12 @@
 package ar.com.donpepe.awardmanagement.web.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import ar.com.donpepe.awardmanagement.services.ProductService;
 import ar.com.donpepe.awardmanagement.services.SalesService;
 import ar.com.donpepe.awardmanagement.services.UserService;
@@ -24,15 +26,16 @@ public abstract class SalesServlet extends BaseServlet{
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		this.saleService = (SalesService)WebHelper.getBean(config,"saleService");
-		this.userService = (UserService)WebHelper.getBean(config,"userService");
-		this.productService = (ProductService)WebHelper.getBean(config,"productService");
+		try {
+			this.saleService = (SalesService)WebHelper.getBean(config,"saleService");
+			this.userService = (UserService)WebHelper.getBean(config,"userService");
+			this.productService = (ProductService)WebHelper.getBean(config,"productService");
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
 	}	
 }

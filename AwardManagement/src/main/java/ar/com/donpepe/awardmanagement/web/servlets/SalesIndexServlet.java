@@ -3,7 +3,6 @@ package ar.com.donpepe.awardmanagement.web.servlets;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ar.com.donpepe.awardmanagement.dtos.SaleDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 
@@ -27,33 +25,32 @@ public class SalesIndexServlet extends SalesServlet {
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doAction(request, response);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<UserIndexDto> users = null;
-		users = this.userService.getSalerMan();
-		request.setAttribute("UsersBean", users);
-		request.getRequestDispatcher("/sale/index.jsp").forward(request,
-				response);
+		try {
+			List<UserIndexDto> users = null;
+			users = this.userService.getSalerMan();
+			request.setAttribute("UsersBean", users);
+			request.getRequestDispatcher("/sale/index.jsp").forward(request,
+					response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String firstDate = request.getParameter("dateFrom");
 		String lastDate = request.getParameter("dateTo");
 		String salerMan = request.getParameter("salerMan");
 		List<SaleIndexDto> sales = null;
 
 		try {
-
 			// paresamos fecha
 			Date dateTo = null;
 			Date dateFrom = null;
@@ -96,8 +93,7 @@ public class SalesIndexServlet extends SalesServlet {
 
 			this.doGet(request, response);
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 

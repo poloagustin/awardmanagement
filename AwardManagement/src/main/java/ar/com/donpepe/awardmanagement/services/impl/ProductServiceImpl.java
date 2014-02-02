@@ -15,7 +15,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductDto getProductById(Integer id) {
-		// TODO Auto-generated method stub
 		ProductDto productDto = new ProductDto();
 		
 		try {
@@ -31,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductoIndexDto> getProductIndex() {
-		// TODO Auto-generated method stub
 		List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();  
 		try {
 			for (Product product : this.productDao.getAll()) {
@@ -39,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			products = null;
 		}
 		return products;

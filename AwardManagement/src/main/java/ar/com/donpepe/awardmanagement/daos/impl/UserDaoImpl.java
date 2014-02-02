@@ -54,14 +54,14 @@ public class UserDaoImpl extends EntityWithIdDaoImpl<User> implements UserDao {
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> getUsersSalerMans() {
-		// TODO Auto-generated method stub
 		List<User> users = null;
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.like("role", UserMapper.getRoleAsEnum("Vendedor")));
 			users = (List<User>)super.getHibernateTemplate().findByCriteria(criteria);			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return users;

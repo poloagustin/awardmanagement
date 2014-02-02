@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.com.donpepe.awardmanagement.services.SalesService;
-import ar.com.donpepe.awardmanagement.services.UserService;
 import ar.com.donpepe.awardmanagement.web.helpers.WebHelper;
 
 /**
@@ -29,14 +28,16 @@ public class ReportServlet extends BaseServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		this.salesService = (SalesService)WebHelper.getBean(config, "salesService");
+		try {
+			this.salesService = (SalesService)WebHelper.getBean(config, "salesService");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-//		List<ReportDto> dtos = this.salesService.getSalesReport(ids, period, year)
 	}
 
 }

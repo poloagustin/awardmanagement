@@ -21,9 +21,13 @@ public class GetUsersServlet extends UserServlet {
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<UserIndexDto> users = this.userService.getIndex();
-		String json = new Gson().toJson(users);
-		response.getWriter().write(json);
+		try {
+			List<UserIndexDto> users = this.userService.getIndex();
+			String json = new Gson().toJson(users);
+			response.getWriter().write(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

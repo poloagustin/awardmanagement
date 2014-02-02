@@ -45,7 +45,6 @@ public class SaleCommissionServiceImpl implements SaleCommissionService {
 
 	@Override
 	public Boolean deleteSaleCommission(SaleCommissionDto saleCommission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
