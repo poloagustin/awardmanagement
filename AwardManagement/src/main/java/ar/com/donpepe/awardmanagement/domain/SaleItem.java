@@ -33,6 +33,15 @@ public class SaleItem extends EntityWithId implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
+	private Product product;
+
+	@Column
+	private Integer amount;
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Sale.class)
+	private Sale sale;
+
 	public SaleItem() {
 	}
 
@@ -52,9 +61,11 @@ public class SaleItem extends EntityWithId implements Serializable {
 		this.amount = amount;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
-	private Product product;
+	public Sale getSale() {
+		return sale;
+	}
 
-	@Column
-	private Integer amount;
+	public void setSale(Sale sale) {
+		this.sale = sale;
+	}
 }

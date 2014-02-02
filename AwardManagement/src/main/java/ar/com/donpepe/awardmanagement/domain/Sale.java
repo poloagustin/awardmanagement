@@ -80,8 +80,6 @@ public class Sale extends EntityWithId implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 
-	//@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class)
 	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER,targetEntity = SaleItem.class)
-	@JoinTable(name = "Sale_SaleItem",joinColumns = @JoinColumn(name="SaleId"),inverseJoinColumns=@JoinColumn(name="SaleItemID"))
 	private List<SaleItem> saleItems;
 }
