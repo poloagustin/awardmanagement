@@ -30,6 +30,15 @@ public class SaleCommission extends EntityWithId implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@Column
+	private Integer minimumSalesAmount;
+
+	@Column(nullable=true)
+	private Integer maximumSalesAmount;
+
+	@Column
+	private Float saleCommission;
+
 	public SaleCommission() {
 	}
 
@@ -56,13 +65,4 @@ public class SaleCommission extends EntityWithId implements Serializable {
 	public void setSaleCommission(Float saleCommission) {
 		this.saleCommission = saleCommission;
 	}
-
-	@Column
-	private Integer minimumSalesAmount;
-
-	@Column
-	private Integer maximumSalesAmount;
-
-	@Column
-	private Float saleCommission;
 }
