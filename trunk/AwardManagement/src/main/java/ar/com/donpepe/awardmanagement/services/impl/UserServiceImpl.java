@@ -123,7 +123,6 @@ public class UserServiceImpl implements UserService {
 
 @Override
 	public List<UserIndexDto> getSalerMan() {
-		// TODO Auto-generated method stub
 		List<UserIndexDto> usersDto = new ArrayList<UserIndexDto>();
 		List<User>  users = null;
 		try {
@@ -137,7 +136,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		

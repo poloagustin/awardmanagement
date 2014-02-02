@@ -1,23 +1,17 @@
 package ar.com.donpepe.awardmanagement.services.impl;
 
 import java.util.*;
-import java.util.Map.Entry;
 
 import ar.com.donpepe.awardmanagement.daos.ProductDao;
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
 import ar.com.donpepe.awardmanagement.daos.UserDao;
 import ar.com.donpepe.awardmanagement.domain.BestSalesmanReport;
 import ar.com.donpepe.awardmanagement.domain.CampaignBestSalesmanReport;
-import ar.com.donpepe.awardmanagement.domain.Product;
 import ar.com.donpepe.awardmanagement.domain.ProductSaleCommissionReport;
-import ar.com.donpepe.awardmanagement.domain.Sale;
-import ar.com.donpepe.awardmanagement.domain.User;
 import ar.com.donpepe.awardmanagement.dtos.BestSalesmanReportDto;
 import ar.com.donpepe.awardmanagement.dtos.CampaignBestSalesmanReportDto;
 import ar.com.donpepe.awardmanagement.dtos.ProductSaleCommissionReportDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleCommissionReportDto;
-import ar.com.donpepe.awardmanagement.dtos.SalesmanCommissionDto;
-import ar.com.donpepe.awardmanagement.dtos.SalesmanPriceDto;
 import ar.com.donpepe.awardmanagement.services.CommissionService;
 
 public class CommissionServiceImpl implements CommissionService {
@@ -63,7 +57,7 @@ public class CommissionServiceImpl implements CommissionService {
 	// Integer saleAmount = 0;
 	// }
 	// } catch (Exception e) {
-	// // TODO: handle exception
+	// 
 	// }
 	// return prices;
 	// }
@@ -99,7 +93,6 @@ public class CommissionServiceImpl implements CommissionService {
 	// @Override
 	// public List<SalesmanCommissionDto> getSalesmanCommissions(
 	// List<Integer> userIds, int month, int year) {
-	// // TODO Auto-generated method stub
 	// return null;
 	// }
 
@@ -257,7 +250,6 @@ public class CommissionServiceImpl implements CommissionService {
 	@Override
 	public List<SaleCommissionReportDto> getSaleCommissionReport(
 			List<Integer> userIds, int month, int year) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

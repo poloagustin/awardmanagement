@@ -16,6 +16,11 @@ public abstract class UserServlet extends BaseServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		this.userService = (UserService)WebHelper.getBean(config, "userService");
+		try {
+			this.userService = (UserService)WebHelper.getBean(config, "userService");
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}	
 }

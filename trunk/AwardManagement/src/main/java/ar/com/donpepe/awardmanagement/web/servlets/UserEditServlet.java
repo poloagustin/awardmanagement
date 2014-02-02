@@ -18,28 +18,32 @@ public class UserEditServlet extends UserServlet {
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		UserDto dto = new UserDto();
-		String userId = request.getParameter("id");
-		Integer id = Integer.parseInt(userId);
-		String username = request.getParameter("username");
-		if (username != null) {
-			dto.setDni(request.getParameter("dni"));
-			dto.setFirstName(request.getParameter("firstName"));
-			dto.setId(id);
-			dto.setLastName(request.getParameter("lastName"));
-			dto.setPassword(request.getParameter("password"));
-			dto.setRole(request.getParameter("role"));
-			dto.setUserName(username);
+		try {
+			UserDto dto = new UserDto();
+			String userId = request.getParameter("id");
+			Integer id = Integer.parseInt(userId);
+			String username = request.getParameter("username");
+			if (username != null) {
+				dto.setDni(request.getParameter("dni"));
+				dto.setFirstName(request.getParameter("firstName"));
+				dto.setId(id);
+				dto.setLastName(request.getParameter("lastName"));
+				dto.setPassword(request.getParameter("password"));
+				dto.setRole(request.getParameter("role"));
+				dto.setUserName(username);
 
-			Boolean success = this.userService.updateUser(dto);
+				Boolean success = this.userService.updateUser(dto);
 
-			request.setAttribute("afterSaveBean", true);
-			request.setAttribute("successBean", success);
+				request.setAttribute("afterSaveBean", true);
+				request.setAttribute("successBean", success);
+			}
+
+			UserDto user = this.userService.getById(id);
+			request.setAttribute("userBean", user);
+			request.getRequestDispatcher("/user/edit.jsp").forward(request,
+					response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		UserDto user = this.userService.getById(id);
-		request.setAttribute("userBean", user);
-		request.getRequestDispatcher("/user/edit.jsp").forward(request,
-				response);
 	}
 }

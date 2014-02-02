@@ -3,27 +3,14 @@
  */
 package ar.com.donpepe.awardmanagement.services.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import ar.com.donpepe.awardmanagement.daos.ProductDao;
-import ar.com.donpepe.awardmanagement.daos.SaleCommissionDao;
-import ar.com.donpepe.awardmanagement.daos.SaleDao;
-import ar.com.donpepe.awardmanagement.domain.Product;
-import ar.com.donpepe.awardmanagement.domain.Sale;
-import ar.com.donpepe.awardmanagement.domain.SaleCommission;
-import ar.com.donpepe.awardmanagement.domain.SaleItem;
-import ar.com.donpepe.awardmanagement.dtos.PairDto;
-import ar.com.donpepe.awardmanagement.dtos.SaleDto;
-import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
-import ar.com.donpepe.awardmanagement.dtos.SaleReportDto;
-import ar.com.donpepe.awardmanagement.services.SalesService;
-import ar.com.donpepe.awardmanagement.services.mappers.SalesMapper;
+import ar.com.donpepe.awardmanagement.daos.*;
+import ar.com.donpepe.awardmanagement.domain.*;
+import ar.com.donpepe.awardmanagement.dtos.*;
+import ar.com.donpepe.awardmanagement.services.*;
+import ar.com.donpepe.awardmanagement.services.mappers.*;
 
 /**
  * @author Fernando
@@ -39,7 +26,6 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public Boolean addSale(SaleDto sales) {
-		// TODO Auto-generated method stub
 		Integer rows = null;
 		Sale sale = new Sale();
 		sale = SalesMapper.getSale(sales);
@@ -56,7 +42,6 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public List<SaleIndexDto> getSalesReport(Integer userId) {
-		// TODO Auto-generated method stub
 		List<SaleIndexDto> saleIndexDtos = new ArrayList<SaleIndexDto>();
 
 		for (Sale sale : this.saleDao.getSalesByUserId(userId)) {
@@ -68,7 +53,6 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public Boolean verifySaleNumber(String saleNumber) {
-		// TODO Auto-generated method stub
 		List<Sale> sale = null;
 		Boolean check = null;
 		sale = this.saleDao.getSaleByNumber(saleNumber);
@@ -82,7 +66,6 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public List<SaleIndexDto> getIndex() {
-		// TODO Auto-generated method stub
 		List<Sale> sales = new ArrayList<Sale>();
 		List<SaleIndexDto> saleIndexDto = new ArrayList<SaleIndexDto>();
 
@@ -97,7 +80,6 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public SaleDto getSaleByNumber(String saleNumber) {
-		// TODO Auto-generated method stub
 		List<Sale> sale = null;
 		SaleDto saleDto = null;
 		sale = this.saleDao.getSaleByNumber(saleNumber);
@@ -109,14 +91,13 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public SaleDto getById(Integer id) {
-		// TODO Auto-generated method stub
 		SaleDto saleDto = null;
 		try {
 
 			saleDto = SalesMapper.getSaleDto(this.saleDao.get(id));
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 
@@ -134,7 +115,6 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public List<SaleIndexDto> getSalesByPeriod(Date dateFrom, Date dateTo,
 			Integer userId) {
-		// TODO Auto-generated method stub
 		List<Sale> sales = null;
 		sales = this.saleDao.getSalesByPeriod(dateFrom, dateTo, userId);
 		return SalesMapper.getSaleIndexDto(sales);
@@ -143,7 +123,7 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public List<SaleReportDto> getSalesReport(List<Integer> ids, int period,
 			int year) {
-		List<SaleReportDto> report = null;
+		List<SaleReportDto> report = new ArrayList<SaleReportDto>();
 		try {
 			List<Sale> sales = this.saleDao.getSalesByPeriod(ids, period, year);
 			List<Product> products = this.productDao.getAll();

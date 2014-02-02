@@ -11,7 +11,7 @@ public class UserMapper {
 		UserIndexDto dto = new UserIndexDto();
 		dto.setId(user.getId());
 		dto.setDni(user.getDni());
-		dto.setFirstName(user.getFullName());
+		dto.setFirstName(user.getFirstName());
 		dto.setLastName(user.getLastName());
 		dto.setRole(getRoleAsString(user.getRole()));
 		dto.setUsername(user.getUsername());
