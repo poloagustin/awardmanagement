@@ -15,19 +15,31 @@ public class Sale extends EntityWithId implements Serializable {
 	public Sale() {
 	}
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	@Column()
+	private Date date;
+
+	@Column(length = 13, nullable = false)
+	private String number;
+
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+	private User salesman;
+
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = SaleItem.class, orphanRemoval = true, cascade = { CascadeType.ALL }, mappedBy = "sale")
+	private List<SaleItem> saleItems;
 
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
 
 	public Date getDate() {
 		return date;
@@ -60,15 +72,4 @@ public class Sale extends EntityWithId implements Serializable {
 	public void setSalesman(User salesman) {
 		this.salesman = salesman;
 	}
-
-	private Date date;
-
-	@Column(length = 13, nullable = false)
-	private String number;
-
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
-	private User salesman;
-
-	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER,targetEntity = SaleItem.class)
-	private List<SaleItem> saleItems;
 }

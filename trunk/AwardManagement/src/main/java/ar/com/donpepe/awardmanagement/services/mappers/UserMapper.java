@@ -2,6 +2,7 @@ package ar.com.donpepe.awardmanagement.services.mappers;
 
 import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.KeyValueDto;
 import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
@@ -85,5 +86,12 @@ public class UserMapper {
 		credential.setUsername(user.getUsername());
 		credential.setPassword(user.getPassword());
 		return credential;
+	}
+
+	public static KeyValueDto getKeyValueDto(User user) {
+		KeyValueDto keyValue = new KeyValueDto();
+		keyValue.setKey(user.getId());
+		keyValue.setValue(user.getFullName());
+		return keyValue;
 	}
 }

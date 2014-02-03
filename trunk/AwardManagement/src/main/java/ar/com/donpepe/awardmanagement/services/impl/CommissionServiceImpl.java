@@ -10,6 +10,7 @@ import ar.com.donpepe.awardmanagement.domain.CampaignBestSalesmanReport;
 import ar.com.donpepe.awardmanagement.domain.ProductSaleCommissionReport;
 import ar.com.donpepe.awardmanagement.dtos.BestSalesmanReportDto;
 import ar.com.donpepe.awardmanagement.dtos.CampaignBestSalesmanReportDto;
+import ar.com.donpepe.awardmanagement.dtos.CommissionReportItemDto;
 import ar.com.donpepe.awardmanagement.dtos.ProductSaleCommissionReportDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleCommissionReportDto;
 import ar.com.donpepe.awardmanagement.services.CommissionService;
@@ -250,6 +251,13 @@ public class CommissionServiceImpl implements CommissionService {
 	@Override
 	public List<SaleCommissionReportDto> getSaleCommissionReport(
 			List<Integer> userIds, int month, int year) {
+		return null;
+	}
+
+	@Override
+	public List<CommissionReportItemDto> getMonthlyReport(
+			List<Integer> userIds, Integer month, Integer year) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

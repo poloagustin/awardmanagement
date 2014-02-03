@@ -1,13 +1,18 @@
 package ar.com.donpepe.awardmanagement.daos.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.FetchMode;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.IntegerType;
 import org.springframework.dao.DataAccessException;
 
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
@@ -205,11 +210,12 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 			Integer userId) {
 		List<Sale> salesByUser = null;
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class); 
-		   criteria = criteria.add(Restrictions.and(Restrictions.eq("salesman.id",
-					userId), Restrictions.between("date", dateFrom,
-					dateTo)));
-			salesByUser = (List<Sale>) super.getHibernateTemplate().findByCriteria(criteria);
+			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
+			criteria = criteria.add(Restrictions.and(
+					Restrictions.eq("salesman.id", userId),
+					Restrictions.between("date", dateFrom, dateTo)));
+			salesByUser = (List<Sale>) super.getHibernateTemplate()
+					.findByCriteria(criteria);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();
 		}
@@ -219,28 +225,35 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sale> getSalesByPeriod(List<Integer> userIds, int month,
-			int year) {
+	public List<Sale> getSalesByPeriod(int month, int year) {
 		List<Sale> sales = null;
 		Date firstDayOfMonth = null;
 		Date lastDayOfMonth = null;
 
 		Calendar calendar = Calendar.getInstance();
 
-		calendar.set(year, month, 1);
+		calendar.set(year, month, 1, 0, 0, 0);
 		firstDayOfMonth = calendar.getTime();
 
-		calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance()
-				.getActualMaximum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.DAY_OF_MONTH,
+				calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 		lastDayOfMonth = calendar.getTime();
-		
+
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
-			criteria = criteria.add(Restrictions.and(Restrictions.in("salesman.id",
-					userIds), Restrictions.between("date", firstDayOfMonth,
-					lastDayOfMonth)));
-			criteria.setFetchMode("saleItems", FetchMode.JOIN);
-			sales = (List<Sale>)super.getHibernateTemplate().findByCriteria(criteria);
+			criteria = criteria.add(Restrictions.and(Restrictions
+					.sqlRestriction("MONTH(date) = ?", month,
+							IntegerType.INSTANCE), Restrictions.sqlRestriction(
+					"YEAR(date) = ?", year, IntegerType.INSTANCE)));
+			// criteria = criteria.add(Restrictions.between("date",
+			// firstDayOfMonthString, lastDayOfMonthString));
+			// criteria = criteria.add(Restrictions.between("date",
+			// firstDayOfMonth, lastDayOfMonth));
+			// criteria.setFetchMode("saleItems", FetchMode.JOIN);
+			sales = (List<Sale>) super.getHibernateTemplate().findByCriteria(
+					criteria);
+			Set<Sale> salesSet = new HashSet<Sale>(sales);
+			sales = new ArrayList<Sale>(salesSet);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();
 		}

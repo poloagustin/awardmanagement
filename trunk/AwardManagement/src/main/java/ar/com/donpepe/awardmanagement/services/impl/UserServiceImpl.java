@@ -6,6 +6,7 @@ import java.util.List;
 import ar.com.donpepe.awardmanagement.daos.UserDao;
 import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
+import ar.com.donpepe.awardmanagement.dtos.KeyValueDto;
 import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 import ar.com.donpepe.awardmanagement.dtos.UserDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
@@ -52,7 +53,8 @@ public class UserServiceImpl implements UserService {
 	public Boolean updateUser(UserDto user) {
 		Boolean success = false;
 		try {
-			this.userDao.update(UserMapper.getUser(user));;
+			this.userDao.update(UserMapper.getUser(user));
+			;
 			success = true;
 		} catch (Exception e) {
 			success = false;
@@ -100,14 +102,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto getById(Integer id) {
 		UserDto user = new UserDto();
-		
+
 		try {
-			User u =this.userDao.get(id);
+			User u = this.userDao.get(id);
 			user = UserMapper.getUserFormDto(u);
 		} catch (Exception e) {
 			user = null;
 		}
-		
+
 		return user;
 	}
 
@@ -121,25 +123,42 @@ public class UserServiceImpl implements UserService {
 		return credential;
 	}
 
-@Override
+	@Override
 	public List<UserIndexDto> getSalerMan() {
 		List<UserIndexDto> usersDto = new ArrayList<UserIndexDto>();
-		List<User>  users = null;
+		List<User> users = null;
 		try {
 			users = this.userDao.getUsersSalerMans();
-			
+
 			for (User user : users) {
-				if (user!=null) {
-					usersDto.add(UserMapper.getUserIndexDto(user));	
+				if (user != null) {
+					usersDto.add(UserMapper.getUserIndexDto(user));
 				}
-				
+
 			}
-			
+
 		} catch (Exception e) {
-			
+
+			e.printStackTrace();
+		}
+
+		return usersDto;
+	}
+
+	@Override
+	public List<KeyValueDto> getKeyValues() {
+		List<KeyValueDto> result = new ArrayList<KeyValueDto>();
+		
+		try {
+			List<User> users = this.userDao.getAll();
+
+			for (User user : users) {
+				result.add(UserMapper.getKeyValueDto(user));
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return usersDto;
+		return result;
 	}
 }
