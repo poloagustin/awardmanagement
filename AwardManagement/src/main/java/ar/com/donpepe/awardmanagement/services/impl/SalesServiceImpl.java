@@ -21,10 +21,58 @@ public class SalesServiceImpl implements SalesService {
 	private SaleDao saleDao;
 	private ProductDao productDao;
 	private SaleCommissionDao saleCommissionDao;
+	private UserDao userDao;
 	private Float bestSalePrize;
 	private Float bestCampaignPrize;
 
-	@Override
+	public SaleDao getSaleDao() {
+		return saleDao;
+	}
+
+	public void setSaleDao(SaleDao saleDao) {
+		this.saleDao = saleDao;
+	}
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+
+	public SaleCommissionDao getSaleCommissionDao() {
+		return saleCommissionDao;
+	}
+
+	public void setSaleCommissionDao(SaleCommissionDao saleCommissionDao) {
+		this.saleCommissionDao = saleCommissionDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public Float getBestSalePrize() {
+		return bestSalePrize;
+	}
+
+	public void setBestSalePrize(Float bestSalePrize) {
+		this.bestSalePrize = bestSalePrize;
+	}
+
+	public Float getBestCampaignPrize() {
+		return bestCampaignPrize;
+	}
+
+	public void setBestCampaignPrize(Float bestCampaignPrize) {
+		this.bestCampaignPrize = bestCampaignPrize;
+	}
+
 	public Boolean addSale(SaleDto sales) {
 		Integer rows = null;
 		Sale sale = new Sale();
@@ -97,19 +145,11 @@ public class SalesServiceImpl implements SalesService {
 			saleDto = SalesMapper.getSaleDto(this.saleDao.get(id));
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
 		return saleDto;
-	}
-
-	public SaleDao getSaleDao() {
-		return saleDao;
-	}
-
-	public void setSaleDao(SaleDao saleDao) {
-		this.saleDao = saleDao;
 	}
 
 	@Override
@@ -125,42 +165,65 @@ public class SalesServiceImpl implements SalesService {
 			int year) {
 		List<SaleReportDto> report = new ArrayList<SaleReportDto>();
 		try {
-			List<Sale> sales = this.saleDao.getSalesByPeriod(ids, period, year);
+			// Get all sales for the given period.
+			List<Sale> sales = this.saleDao.getSalesByPeriod(period, year);
+
+			// Get all products.
 			List<Product> products = this.productDao.getAll();
-			List<String> salesmen = this.getSellers(ids, sales);
+
+			// Get all sale commissions.
 			List<SaleCommission> commissions = this.saleCommissionDao.getAll();
-			Map<String, Float> bestSellers = this.getBestSellers(sales,
-					salesmen);
-			Map<String, Float> bestCampaignSellers = this
-					.getBestCampaignSellers(sales, salesmen, products);
-			Map<String, Float> commissionBySellers = this
-					.getSellerCommission(sales, salesmen, commissions);
-			Map<String, Float> commissionProductSellers = this
-					.getCommissionProductSellers(sales, salesmen, products);
-			for (String salesman : salesmen) {
+
+			// Get sellers.
+			List<User> users = this.userDao.getByIds(ids);
+			
+			// Get all sellers that reached the maximum amount of sales
+			Map<Integer, Float> bestSellers = this.getBestSellers(sales, ids);
+
+			// Get all sellers that reached the maximum amount of sales by
+			// product
+			Map<Integer, Float> bestCampaignSellers = this
+					.getBestCampaignSellers(sales, ids, products);
+
+			// Get all sellers with their commissions.
+			Map<Integer, Float> commissionBySellers = this.getSellerCommission(
+					sales, ids, commissions);
+			
+			// Get all sellers commission for selling specific products.
+			Map<Integer, Float> commissionProductSellers = this
+					.getCommissionProductSellers(sales, ids, products);
+			for (Integer id : ids) {
 				Float amount = new Float(0);
-				for (Entry<String, Float> item : bestSellers.entrySet()) {
-					if (item.getKey() == salesman) {
+				for (Entry<Integer, Float> item : bestSellers.entrySet()) {
+					if (item.getKey() == id) {
 						amount += item.getValue();
 					}
 				}
-				for (Entry<String, Float> item : bestCampaignSellers.entrySet()) {
-					if (item.getKey() == salesman) {
+				for (Entry<Integer, Float> item : bestCampaignSellers.entrySet()) {
+					if (item.getKey() == id) {
 						amount += item.getValue();
 					}
 				}
-				for (Entry<String, Float> item : commissionBySellers.entrySet()) {
-					if (item.getKey() == salesman) {
+				for (Entry<Integer, Float> item : commissionBySellers.entrySet()) {
+					if (item.getKey() == id) {
 						amount += item.getValue();
 					}
 				}
-				for (Entry<String, Float> item : commissionProductSellers.entrySet()) {
-					if (item.getKey() == salesman) {
+				for (Entry<Integer, Float> item : commissionProductSellers
+						.entrySet()) {
+					if (item.getKey() == id) {
 						amount += item.getValue();
 					}
 				}
 				SaleReportDto dto = new SaleReportDto();
-				dto.setSalesman(salesman);
+				String salesmanName = "";
+				for (User user : users) {
+					if (user.getId() == id) {
+						salesmanName = user.getFullName();
+						break;
+					}
+				}
+				dto.setSalesman(salesmanName);
 				dto.setAward(amount);
 				report.add(dto);
 			}
@@ -170,23 +233,24 @@ public class SalesServiceImpl implements SalesService {
 		return report;
 	}
 
-	private Map<String, Float> getCommissionProductSellers(List<Sale> sales,
-			List<String> salesmen, List<Product> products) {
-		List<PairDto<String, Float>> bestCampaignSellers = new ArrayList<PairDto<String, Float>>();
-		for (String salesman : salesmen) {
-			PairDto<String, Float> entry = new PairDto<String, Float>();
+	private Map<Integer, Float> getCommissionProductSellers(List<Sale> sales,
+			List<Integer> salesmen, List<Product> products) {
+		List<PairDto<Integer, Float>> bestCampaignSellers = new ArrayList<PairDto<Integer, Float>>();
+		for (Integer salesman : salesmen) {
+			PairDto<Integer, Float> entry = new PairDto<Integer, Float>();
 			entry.key = salesman;
 			entry.value = new Float(0);
 			bestCampaignSellers.add(entry);
 		}
 		for (Product product : products) {
-			Map<String, Integer> productAmountBySalesman = new HashMap<String, Integer>();
-			for (String string : salesmen) {
+			Map<Integer, Integer> productAmountBySalesman = new HashMap<Integer, Integer>();
+			for (Integer string : salesmen) {
 				Integer productAmount = 0;
 				for (Sale sale : sales) {
-					if (sale.getSalesman().getFullName() == string) {
+					if (sale.getSalesman().getId() == string) {
 						for (SaleItem saleItem : sale.getSaleItems()) {
-							if (saleItem.getProduct().getId() == product.getId()) {
+							if (saleItem.getProduct().getId() == product
+									.getId()) {
 								productAmount += saleItem.getAmount();
 							}
 						}
@@ -194,30 +258,37 @@ public class SalesServiceImpl implements SalesService {
 				}
 				productAmountBySalesman.put(string, productAmount);
 			}
-			for (PairDto<String, Float> pairDto : bestCampaignSellers) {
-				pairDto.value += (productAmountBySalesman.get(pairDto.key) * product.getSaleCommission());
+			for (PairDto<Integer, Float> pairDto : bestCampaignSellers) {
+				pairDto.value += (productAmountBySalesman.get(pairDto.key) * product
+						.getSaleCommission());
 			}
 		}
-		Map<String, Float> res = new HashMap<String, Float>();
-		for (PairDto<String, Float> pairDto : bestCampaignSellers) {
+		Map<Integer, Float> res = new HashMap<Integer, Float>();
+		for (PairDto<Integer, Float> pairDto : bestCampaignSellers) {
 			res.put(pairDto.key, pairDto.value);
 		}
 		return res;
 	}
 
-	private Map<String, Float> getSellerCommission(List<Sale> sales,
-			List<String> salesmen, List<SaleCommission> commissions) {
-		Map<String, Float> salesmenSaleAmount = new HashMap<String, Float>();
-		for (String id : salesmen) {
+	private Map<Integer, Float> getSellerCommission(List<Sale> sales,
+			List<Integer> salesmen, List<SaleCommission> commissions) {
+		Map<Integer, Float> salesmenSaleAmount = new HashMap<Integer, Float>();
+		for (Integer id : salesmen) {
+
+			// Get amount of sales for the given seller.
 			Integer count = 0;
 			for (Sale sale : sales) {
-				if (sale.getSalesman().getFullName() == id) {
+				if (sale.getSalesman().getId() == id) {
 					count++;
 				}
 			}
+
+			// Set commission for the seller
 			Float commission = new Float(0);
 			for (SaleCommission saleCommission : commissions) {
-				if (saleCommission.getMaximumSalesAmount() <= count && saleCommission.getMinimumSalesAmount() >= count) {
+				if (saleCommission.getMinimumSalesAmount() <= count
+						&& (saleCommission.getMaximumSalesAmount() == null ? count
+								: saleCommission.getMaximumSalesAmount()) >= count) {
 					commission = saleCommission.getSaleCommission();
 				}
 			}
@@ -226,92 +297,113 @@ public class SalesServiceImpl implements SalesService {
 		return salesmenSaleAmount;
 	}
 
-	private Map<String, Float> getBestCampaignSellers(List<Sale> sales,
-			List<String> salesmen, List<Product> products) {
-		List<PairDto<String, Float>> bestCampaignSellers = new ArrayList<PairDto<String, Float>>();
-		for (String salesman : salesmen) {
-			PairDto<String, Float> entry = new PairDto<String, Float>();
+	private Map<Integer, Float> getBestCampaignSellers(List<Sale> sales,
+			List<Integer> salesmen, List<Product> products) {
+		List<PairDto<Integer, Float>> bestCampaignSellers = new ArrayList<PairDto<Integer, Float>>();
+
+		// Initiate collection of sellers.
+		for (Integer salesman : salesmen) {
+			PairDto<Integer, Float> entry = new PairDto<Integer, Float>();
 			entry.key = salesman;
 			entry.value = new Float(0);
 			bestCampaignSellers.add(entry);
 		}
+
+		// Calculate amount of products each seller has sold.
 		for (Product product : products) {
-			Map<String, Integer> productAmountBySalesman = new HashMap<String, Integer>();
-			for (String string : salesmen) {
-				Integer productAmount = 0;
-				for (Sale sale : sales) {
-					if (sale.getSalesman().getFullName() == string) {
-						for (SaleItem saleItem : sale.getSaleItems()) {
-							if (saleItem.getProduct().getId() == product.getId()) {
-								productAmount += saleItem.getAmount();
-							}
-						}
-					}
-				}
-				productAmountBySalesman.put(string, productAmount);
-			}
+			// Calculate amount of the given product a seller sold.
+			Map<Integer, Integer> productAmountBySalesman = new HashMap<Integer, Integer>();
+
+			productAmountBySalesman = getAmountOfProductSoldBy(sales, salesmen,
+					product);
+
+			// Calculate the maximum amount sold for the given product.
 			Integer max = 0;
-			for (Entry<String, Integer> entry : productAmountBySalesman.entrySet()) {
+			for (Entry<Integer, Integer> entry : productAmountBySalesman
+					.entrySet()) {
 				if (entry.getValue() > max) {
 					max = entry.getValue();
 				}
 			}
-			for (PairDto<String, Float> pairDto : bestCampaignSellers) {
-				pairDto.value += productAmountBySalesman.get(pairDto.key) == max ? this.bestCampaignPrize : 0;
+
+			// Assign the best campaign prize to the sellers
+			for (PairDto<Integer, Float> pairDto : bestCampaignSellers) {
+				pairDto.value += productAmountBySalesman.get(pairDto.key) == max ? this.bestCampaignPrize
+						: 0;
 			}
 		}
-		Map<String, Float> res = new HashMap<String, Float>();
-		for (PairDto<String, Float> pairDto : bestCampaignSellers) {
-			res.put(pairDto.key, pairDto.value);
-		}
-		return res;
-	}
 
-	private List<String> getSellers(List<Integer> ids, List<Sale> sales) {
-		List<String> salesmen = new ArrayList<String>();
-		for (Integer id : ids) {
-			for (Sale sale : sales) {
-				if (sale.getSalesman().getId() == id) {
-					salesmen.add(sale.getSalesman().getFullName());
-					break;
+		// Get a distinct of only the
+		Map<Integer, Float> res = new HashMap<Integer, Float>();
+		for (PairDto<Integer, Float> pairDto : bestCampaignSellers) {
+			if (pairDto.value != 0) {
+				if (res.containsKey(pairDto.key)) {
+					res.put(pairDto.key, ((Float) res.get(pairDto.key))
+							+ pairDto.value);
+				} else {
+					res.put(pairDto.key, pairDto.value);
 				}
 			}
 		}
-		return salesmen;
+
+		return res;
 	}
 
-	private Map<String, Float> getBestSellers(List<Sale> sales, List<String> ids) {
-		Map<String, Integer> salesmenSaleAmount = new HashMap<String, Integer>();
-		for (String id : ids) {
+	private Map<Integer, Integer> getAmountOfProductSoldBy(List<Sale> sales,
+			List<Integer> salesmen, Product product) {
+		Map<Integer, Integer> productAmountBySalesman = new HashMap<Integer, Integer>();
+		for (Integer string : salesmen) {
+			Integer productAmount = 0;
+
+			// Calculate amount of sales by product and seller.
+			for (Sale sale : sales) {
+				// If the seller needs to be evaluated count the amount
+				// products he sold.
+				if (sale.getSalesman().getId() == string) {
+					for (SaleItem saleItem : sale.getSaleItems()) {
+						if (saleItem.getProduct().getId() == product.getId()) {
+							productAmount += saleItem.getAmount();
+						}
+					}
+				}
+			}
+			productAmountBySalesman.put(string, productAmount);
+		}
+		return productAmountBySalesman;
+	}
+
+	private Map<Integer, Float> getBestSellers(List<Sale> sales,
+			List<Integer> ids) {
+		Map<Integer, Integer> salesmenSaleAmount = new HashMap<Integer, Integer>();
+
+		// Count amount of sales by salesman.
+		for (Integer id : ids) {
 			Integer count = 0;
 			for (Sale sale : sales) {
-				if (sale.getSalesman().getFullName() == id) {
+				if (sale.getSalesman().getId() == id) {
 					count++;
 				}
 			}
 			salesmenSaleAmount.put(id, count);
 		}
+
+		// Calculate the biggest amount of sales
 		Integer max = 0;
-		for (Entry<String, Integer> salesmanSaleAmount : salesmenSaleAmount
+		for (Entry<Integer, Integer> salesmanSaleAmount : salesmenSaleAmount
 				.entrySet()) {
 			if (max < salesmanSaleAmount.getValue()) {
 				max = salesmanSaleAmount.getValue();
 			}
 		}
-		Map<String, Float> bestSellers = new HashMap<String, Float>();
-		for (Entry<String, Integer> salesmanSaleAmount : salesmenSaleAmount
+
+		// Make a collection of all sellers
+		// that have the biggest amount of sales.
+		Map<Integer, Float> bestSellers = new HashMap<Integer, Float>();
+		for (Entry<Integer, Integer> salesmanSaleAmount : salesmenSaleAmount
 				.entrySet()) {
 			bestSellers.put(salesmanSaleAmount.getKey(), salesmanSaleAmount
-					.getValue() == max ? this.bestSalePrize : 0);
+					.getValue() == max ? this.getBestSalePrize() : 0);
 		}
 		return bestSellers;
-	}
-
-	public ProductDao getProductDao() {
-		return productDao;
-	}
-
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
 	}
 }

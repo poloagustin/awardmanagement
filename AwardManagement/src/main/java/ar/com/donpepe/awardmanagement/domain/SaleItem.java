@@ -12,16 +12,6 @@ public class SaleItem extends EntityWithId implements Serializable {
 	 */
 	private static final long serialVersionUID = 7167627676701057181L;
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -31,11 +21,21 @@ public class SaleItem extends EntityWithId implements Serializable {
 
 	@Column
 	private Integer amount;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Sale.class)
 	private Sale sale;
 
 	public SaleItem() {
+	}
+
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Product getProduct() {

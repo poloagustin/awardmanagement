@@ -44,7 +44,7 @@ public class UserDaoImpl extends EntityWithIdDaoImpl<User> implements UserDao {
 							Restrictions.eq("password", password)));
 			List<User> users = (List<User>) super.getHibernateTemplate()
 					.findByCriteria(criteria, 0, 1);
-			
+
 			if (users.size() > 0) {
 				user = users.get(0);
 			}
@@ -58,10 +58,29 @@ public class UserDaoImpl extends EntityWithIdDaoImpl<User> implements UserDao {
 	public List<User> getUsersSalerMans() {
 		List<User> users = null;
 		try {
-			DetachedCriteria criteria = super.getMyCriteria().add(Restrictions.like("role", UserMapper.getRoleAsEnum("Vendedor")));
-			users = (List<User>)super.getHibernateTemplate().findByCriteria(criteria);			
+			DetachedCriteria criteria = super.getMyCriteria().add(
+					Restrictions.like("role",
+							UserMapper.getRoleAsEnum("Vendedor")));
+			users = (List<User>) super.getHibernateTemplate().findByCriteria(
+					criteria);
 		} catch (Exception e) {
-			
+
+			e.printStackTrace();
+		}
+		return users;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getByIds(List<Integer> ids) {
+		List<User> users = null;
+		try {
+			DetachedCriteria criteria = super.getMyCriteria().add(
+					Restrictions.in("id", ids.toArray()));
+			users = (List<User>) super.getHibernateTemplate().findByCriteria(
+					criteria);
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 		return users;

@@ -4,6 +4,7 @@ import java.util.*;
 
 import ar.com.donpepe.awardmanagement.dtos.BestSalesmanReportDto;
 import ar.com.donpepe.awardmanagement.dtos.CampaignBestSalesmanReportDto;
+import ar.com.donpepe.awardmanagement.dtos.CommissionReportItemDto;
 import ar.com.donpepe.awardmanagement.dtos.ProductSaleCommissionReportDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleCommissionReportDto;
 
@@ -12,4 +13,5 @@ public interface CommissionService {
 	List<CampaignBestSalesmanReportDto> getCampaignBestSalesmanReport(List<Integer> userIds, int month, int year);
 	List<ProductSaleCommissionReportDto> getProductSaleCommissionReport(List<Integer> userIds, int month, int year);
 	List<SaleCommissionReportDto> getSaleCommissionReport(List<Integer> userIds, int month, int year);
+	List<CommissionReportItemDto> getMonthlyReport(List<Integer> userIds, Integer month, Integer year);
 }

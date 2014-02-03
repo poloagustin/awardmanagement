@@ -33,8 +33,8 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-<!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 			</props>
 		</property>
 	</bean>
@@ -56,11 +56,12 @@
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
-	<bean id="saleCommissionDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
+	<bean id="saleCommissionDao"
+		class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
 
-<!-- End of Daos -->
+	<!-- End of Daos -->
 	<!-- Services -->
 	<bean id="userService"
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
@@ -78,6 +79,11 @@
 	<bean id="saleService"
 		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
 		<property name="saleDao" ref="saleDao"></property>
+		<property name="productDao" ref="productDao"></property>
+		<property name="saleCommissionDao" ref="saleCommissionDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="bestSalePrize" value="2000.00"></property>
+		<property name="bestCampaignPrize" value="1000.00"></property>
 	</bean>
 	<!-- End of Services -->
 </beans>
