@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 
 import ar.com.donpepe.awardmanagement.daos.UserDao;
+import ar.com.donpepe.awardmanagement.domain.Role;
 import ar.com.donpepe.awardmanagement.domain.User;
 import ar.com.donpepe.awardmanagement.services.mappers.UserMapper;
 
@@ -77,6 +78,22 @@ public class UserDaoImpl extends EntityWithIdDaoImpl<User> implements UserDao {
 		try {
 			DetachedCriteria criteria = super.getMyCriteria().add(
 					Restrictions.in("id", ids.toArray()));
+			users = (List<User>) super.getHibernateTemplate().findByCriteria(
+					criteria);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return users;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getByRole(Role role) {
+		List<User> users = null;
+		try {
+			DetachedCriteria criteria = super.getMyCriteria().add(
+					Restrictions.eq("role", role));
 			users = (List<User>) super.getHibernateTemplate().findByCriteria(
 					criteria);
 		} catch (Exception e) {

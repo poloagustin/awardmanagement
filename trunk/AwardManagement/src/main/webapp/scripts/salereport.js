@@ -41,7 +41,7 @@ function getReport() {
 };
 
 function setUsers() {
-	$.post(serverUrl + "/user/getmultiselect", null, function(data) {
+	$.post(serverUrl + "/user/getsalesmenmultiselect", null, function(data) {
 		var users = $("#users");
 		users.html("");
 		var options = "";

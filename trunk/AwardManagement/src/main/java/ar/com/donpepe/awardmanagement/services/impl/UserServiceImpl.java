@@ -161,4 +161,25 @@ public class UserServiceImpl implements UserService {
 		
 		return result;
 	}
+
+	@Override
+	public List<KeyValueDto> getSalesmenKeyValues() {
+		List<KeyValueDto> result = new ArrayList<KeyValueDto>();
+		
+		try {
+			List<User> users = this.getSalesmen();
+
+			for (User user : users) {
+				result.add(UserMapper.getKeyValueDto(user));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	private List<User> getSalesmen() {
+		return this.userDao.getByRole(Role.SALESMAN);
+	}
 }

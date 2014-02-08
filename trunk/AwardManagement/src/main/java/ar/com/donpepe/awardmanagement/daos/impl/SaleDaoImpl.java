@@ -227,17 +227,6 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	@Override
 	public List<Sale> getSalesByPeriod(int month, int year) {
 		List<Sale> sales = null;
-		Date firstDayOfMonth = null;
-		Date lastDayOfMonth = null;
-
-		Calendar calendar = Calendar.getInstance();
-
-		calendar.set(year, month, 1, 0, 0, 0);
-		firstDayOfMonth = calendar.getTime();
-
-		calendar.set(Calendar.DAY_OF_MONTH,
-				calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		lastDayOfMonth = calendar.getTime();
 
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
@@ -245,11 +234,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 					.sqlRestriction("MONTH(date) = ?", month,
 							IntegerType.INSTANCE), Restrictions.sqlRestriction(
 					"YEAR(date) = ?", year, IntegerType.INSTANCE)));
-			// criteria = criteria.add(Restrictions.between("date",
-			// firstDayOfMonthString, lastDayOfMonthString));
-			// criteria = criteria.add(Restrictions.between("date",
-			// firstDayOfMonth, lastDayOfMonth));
-			// criteria.setFetchMode("saleItems", FetchMode.JOIN);
+
 			sales = (List<Sale>) super.getHibernateTemplate().findByCriteria(
 					criteria);
 			Set<Sale> salesSet = new HashSet<Sale>(sales);
