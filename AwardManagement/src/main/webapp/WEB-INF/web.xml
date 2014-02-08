@@ -23,6 +23,10 @@
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserGetMultiselectServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>UserGetSalesmenMultiselect</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.UserGetSalesmenMultiselectServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>CommissionReport</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.CommissionReportServlet</servlet-class>
 	</servlet>
@@ -93,6 +97,10 @@
 	<servlet-mapping>
 		<servlet-name>UserGetMultiselect</servlet-name>
 		<url-pattern>/user/getmultiselect</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserGetSalesmenMultiselect</servlet-name>
+		<url-pattern>/user/getsalesmenmultiselect</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CommissionReport</servlet-name>

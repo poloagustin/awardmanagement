@@ -18,4 +18,5 @@ public interface UserService {
 	UserCredentialDto getCredentials(String username, String password);
 	List<UserIndexDto> getSalerMan();
 	List<KeyValueDto> getKeyValues();
+	List<KeyValueDto> getSalesmenKeyValues();
 }

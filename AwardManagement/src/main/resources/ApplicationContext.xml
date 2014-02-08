@@ -13,8 +13,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
-		<property name="username" value="ocio" />
-		<property name="password" value="ocio" />
+		<property name="username" value="root" />
+		<property name="password" value="thestral" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
