@@ -24,16 +24,11 @@
 				<tr>
 					<td>Numero de Venta:</td>
 					<td><input type="text" name="txtNumberSale" size="20"
-						value="<%=request.getSession().getAttribute("txtNumberSaleSave")%>"
 						required="required"></td>
 				</tr>
 				<tr>
 					<td>Vendedor:</td>
-					<td><select id="salerman" name="salerman">
-							<c:forEach items="${UsersBean}" var="user">
-								<option value="${user.username}">${user.username}</option>
-							</c:forEach>
-					</select></td>
+					<td>"${user.username}"</td>
 				</tr>
 				<tr>
 					<td>Fecha de Venta:</td>
@@ -60,7 +55,7 @@
 			</tbody>
 		</table>
 		<br>
-		<table id="SalesItem" border="1" hidden="false">
+		<table id="SalesItem" border="1">
 			<thead>
 				<tr>
 					<th>N Item</th>

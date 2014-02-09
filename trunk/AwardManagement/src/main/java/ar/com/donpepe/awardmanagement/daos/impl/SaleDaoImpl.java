@@ -209,6 +209,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 	public List<Sale> getSalesByPeriod(Date dateFrom, Date dateTo,
 			Integer userId) {
 		List<Sale> salesByUser = null;
+		List<Sale> sales = null;
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Sale.class);
 			criteria = criteria.add(Restrictions.and(
@@ -216,10 +217,12 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 					Restrictions.between("date", dateFrom, dateTo)));
 			salesByUser = (List<Sale>) super.getHibernateTemplate()
 					.findByCriteria(criteria);
+			Set<Sale> salesSet = new HashSet<Sale>(salesByUser);
+			sales = new ArrayList<Sale>(salesSet);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();
 		}
-		return salesByUser;
+		return sales;
 
 	}
 

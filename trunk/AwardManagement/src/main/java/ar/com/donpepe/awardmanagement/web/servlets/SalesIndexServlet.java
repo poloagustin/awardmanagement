@@ -6,13 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
+import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
 import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
 
 public class SalesIndexServlet extends SalesServlet {
@@ -25,33 +24,31 @@ public class SalesIndexServlet extends SalesServlet {
 	@Override
 	protected void doAction(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doAction(request, response);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			List<UserIndexDto> users = null;
-			users = this.userService.getSalerMan();
-			request.setAttribute("UsersBean", users);
-			request.getRequestDispatcher("/sale/index.jsp").forward(request,
-					response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/sale/index.jsp").forward(request,
+				response);
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String firstDate = request.getParameter("dateFrom");
 		String lastDate = request.getParameter("dateTo");
-		String salerMan = request.getParameter("salerMan");
+		UserCredentialDto salerMan = (UserCredentialDto)request.getSession().getAttribute("user");
 		List<SaleIndexDto> sales = null;
 
 		try {
-			// paresamos fecha
+
+			// Parseamos las fecha
 			Date dateTo = null;
 			Date dateFrom = null;
 
@@ -66,10 +63,7 @@ public class SalesIndexServlet extends SalesServlet {
 			cal.add(Calendar.DATE, +1);
 			newDateTo = cal.getTime();
 
-			Integer userId = new Integer(salerMan);
-
-			sales = this.saleService.getSalesByPeriod(dateFrom, newDateTo,
-					userId);
+			sales = this.saleService.getSalesByPeriod(dateFrom, newDateTo,salerMan.getUserId());
 
 			Boolean check = null;
 			request.setAttribute("salesBean", sales);
@@ -93,7 +87,8 @@ public class SalesIndexServlet extends SalesServlet {
 
 			this.doGet(request, response);
 
-		} catch (Exception e) {			
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 

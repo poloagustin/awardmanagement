@@ -1,8 +1,13 @@
 package ar.com.donpepe.awardmanagement.domain;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SaleItem extends EntityWithId implements Serializable {
@@ -12,22 +17,6 @@ public class SaleItem extends EntityWithId implements Serializable {
 	 */
 	private static final long serialVersionUID = 7167627676701057181L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
-	private Product product;
-
-	@Column
-	private Integer amount;
-
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Sale.class)
-	private Sale sale;
-
-	public SaleItem() {
-	}
-
 	@Override
 	public Integer getId() {
 		return this.id;
@@ -36,6 +25,13 @@ public class SaleItem extends EntityWithId implements Serializable {
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	public SaleItem() {
 	}
 
 	public Product getProduct() {
@@ -54,11 +50,9 @@ public class SaleItem extends EntityWithId implements Serializable {
 		this.amount = amount;
 	}
 
-	public Sale getSale() {
-		return sale;
-	}
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
+	private Product product;
 
-	public void setSale(Sale sale) {
-		this.sale = sale;
-	}
+	@Column
+	private Integer amount;
 }

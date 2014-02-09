@@ -15,23 +15,27 @@ $(document).ready(function() {
 });
 
 $(document).on('click','.EliminarItem',function(){
-	deleteRow();	
-});
+      $(this).parent().parent().remove();
+      $(".product").each(function(index) {
+    		var newProd= 'prod'+ index;
+    	    $(this).attr({
+				id:newProd,
+				name:newProd});
+	});
+	$(".cantidad").each(function(index) {
+    		var newCant= 'cant'+ index;
+    	    $(this).attr({
+				id:newCant,
+				name:newCant});
+	});
+		$(".nItems").each(function(index) {
+    	    $(this).text(index+1);
+	});
 
-function deleteRow() {
-	 var current = window.event.srcElement;
-	    //here we will delete the line
-	    while ( (current = current.parentElement)  && current.tagName !="TR");
-	         current.parentElement.removeChild(current);
-	         if ($("#SalesItem tbody tr").length == 0) {
-	        	 $("#SalesItem").hide();
-	         } else{
-	        	 
-	        	 OrderTable();
-	         }
-}
 
-function OrderTable(){
+ });
+
+/*function OrderTable(){
 	
 }
 
@@ -41,7 +45,7 @@ $(document).ready(function() {
 		getProduct($("#prod").val());	
 	});
 });
-
+*/
 
 function getProduct(id){	
 	var serverUrl = $("#serverUrl").val();
@@ -65,7 +69,7 @@ function addTable() {
 	var sumItem = parseInt(lastItemName.substr(5, 6)) + 1;
 	var ammountSelected = product.ammount;
 	var subTotal = ammountSelected * cantSelected;
-	var row = '<tr>' + '<td id="' + (lastItemName.substr(0, 5) + sumItem)
+	var row = '<tr>' + '<td class="nItems" id="' + (lastItemName.substr(0, 5) + sumItem)
 			+ '">' + sumItem + '</td><td><input class="product" type="hidden" value="'
 			+ productoSelected + '" id="'
 			+ (lastProdName.substr(0, 4) + sumProd) + '" name="'
@@ -78,6 +82,7 @@ function addTable() {
 			+ 'class="EliminarItem"></td></tr>';
 
 	tableBody.append(row);
+	
 }
 
 function createTable() {
@@ -89,7 +94,7 @@ function createTable() {
 	var cantSelected = $("#cant").val();
 	var ammountSelected = product.ammount;
 	var subTotal = ammountSelected * cantSelected;
-	var row = '<tr>' + '<td id="'
+	var row = '<tr>' + '<td class="nItems" id="'
 			+ lastItemName
 			+ '">'
 			+ 1
