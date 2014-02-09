@@ -21,16 +21,12 @@
 
 	<div align="center">
 		<form action="<%=request.getContextPath()%>/sale/index" method="post">
-			<b>TimeFrame: From <input type="date" id="dateFrom"
-				name="dateFrom"
-				value="<%=request.getSession().getAttribute("dateFromSave")%>" required="required">
-				To <input type="date" id="dateTo" name="dateTo"
-				value="<%=request.getSession().getAttribute("dateToSave")%>" required="required">  
-				<select id="salerMan" name="salerMan">
-					<c:forEach items="${UsersBean}" var="user">
-						<option value="${user.username}">${user.username}</option>
-					</c:forEach>
-			</select> <input type="submit" id="btnGenerarReporte" value="Generar Reporte"></b>
+			<b>TimeFrame: <select id="salerMan" name="salerMan">
+					<option>Mes</option>
+			</select>From <input type="date" id="dateFrom"
+				name="dateFrom" required="required">
+				To <input type="date" id="dateTo" name="dateTo" required="required">  
+				 <input type="submit" id="btnGenerarReporte" value="Generar Reporte"></b>
 		</form>
 	</div>
 	<br>

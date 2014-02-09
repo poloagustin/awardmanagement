@@ -4,7 +4,7 @@ public class ProductoIndexDto {
 	
 	private Integer id;
 	private String name;
-	private Float saleCommission;
+
 	
 	public Integer getId() {
 		return id;
@@ -18,12 +18,4 @@ public class ProductoIndexDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Float getSaleCommission() {
-		return saleCommission;
-	}
-	public void setSaleCommission(Float saleCommission) {
-		this.saleCommission = saleCommission;
-	}
-
-
 }
