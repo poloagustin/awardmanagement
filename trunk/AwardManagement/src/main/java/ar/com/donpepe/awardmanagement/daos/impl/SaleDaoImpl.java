@@ -1,20 +1,15 @@
 package ar.com.donpepe.awardmanagement.daos.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.hibernate.FetchMode;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
 import org.springframework.dao.DataAccessException;
-
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
 import ar.com.donpepe.awardmanagement.daos.impl.EntityWithIdDaoImpl;
 import ar.com.donpepe.awardmanagement.domain.BestSalesmanReport;
@@ -68,7 +63,7 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 			DetachedCriteria criteria = super.getMyCriteria().add(
 					Restrictions.eq("number", number));
 			sale = (List<Sale>) super.getHibernateTemplate().findByCriteria(
-					criteria);
+					criteria);	
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}

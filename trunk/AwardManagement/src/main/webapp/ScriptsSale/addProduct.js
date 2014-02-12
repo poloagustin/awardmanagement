@@ -35,17 +35,6 @@ $(document).on('click','.EliminarItem',function(){
 
  });
 
-/*function OrderTable(){
-	
-}
-
-$(document).ready(function() {
-	getProduct($("#prod").val());
-	$("#prod").change(function(){
-		getProduct($("#prod").val());	
-	});
-});
-*/
 
 function getProduct(id){	
 	var serverUrl = $("#serverUrl").val();

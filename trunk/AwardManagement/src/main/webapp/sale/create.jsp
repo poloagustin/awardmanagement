@@ -12,7 +12,7 @@
 <script type="application/javascript"
 	src="<%=request.getContextPath()%>/ScriptsSale/addProduct.js"></script>
 <script type="application/javascript"
-	src="<%=request.getContextPath()%>/ScriptsSale/validateSale.js"></script>
+	src="<%=request.getContextPath()%>/ScriptsSale/validateCreateSale.js"></script>
 </head>
 <body>
 	<input type="hidden" id="serverUrl"
@@ -23,8 +23,8 @@
 			<tbody>
 				<tr>
 					<td>Numero de Venta:</td>
-					<td><input type="text" name="txtNumberSale" size="20"
-						required="required"></td>
+					<td><input id="txtNumberSale" type="text" name="txtNumberSale" size="20"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>Vendedor:</td>
