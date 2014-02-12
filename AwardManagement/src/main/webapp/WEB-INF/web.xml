@@ -67,6 +67,20 @@
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SalesIndexServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>GetSalerMan</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.GetSalerManServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetSale</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.GetSaleServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>SaleCheckOut</servlet-name>
+		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.SaleCheckOutNumberServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>ProductIndex</servlet-name>
 		<servlet-class>ar.com.donpepe.awardmanagement.web.servlets.GetProductServlet</servlet-class>
 	</servlet>
@@ -145,6 +159,18 @@
 	<servlet-mapping>
 		<servlet-name>SaleIndex</servlet-name>
 		<url-pattern>/sale/index</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetSale</servlet-name>
+		<url-pattern>/sale/getSale</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetSalerMan</servlet-name>
+		<url-pattern>/sale/getSalerMan</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SaleCheckOut</servlet-name>
+		<url-pattern>/sale/CheckOutNumber</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserLogin</servlet-name>
