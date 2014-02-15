@@ -14,7 +14,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
 		<property name="username" value="root" />
-		<property name="password" value="thestral" />
+		<property name="password" value="root" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -23,7 +23,6 @@
 			<list>
 				<value>ar.com.donpepe.awardmanagement.domain.EntityWithId</value>
 				<value>ar.com.donpepe.awardmanagement.domain.User</value>
-				<value>ar.com.donpepe.awardmanagement.domain.SaleCommission</value>
 				<value>ar.com.donpepe.awardmanagement.domain.Product</value>
 				<value>ar.com.donpepe.awardmanagement.domain.SaleItem</value>
 				<value>ar.com.donpepe.awardmanagement.domain.Sale</value>
@@ -33,8 +32,8 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+				 <prop key="hibernate.hbm2ddl.auto">validate</prop> 
 			</props>
 		</property>
 	</bean>
@@ -56,20 +55,16 @@
 	<bean id="saleDao" class="ar.com.donpepe.awardmanagement.daos.impl.SaleDaoImpl"
 		parent="genericHibernateDao">
 	</bean>
-	<bean id="saleCommissionDao"
-		class="ar.com.donpepe.awardmanagement.daos.impl.SaleCommissionDaoImpl"
-		parent="genericHibernateDao">
-	</bean>
 
 	<!-- End of Daos -->
 	<!-- Services -->
+	<!-- <bean id="salesService" -->
+	<!-- class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl"> -->
+	<!-- <property name="saleDao" ref="saleDao"></property> -->
+	<!-- </bean> -->
 	<bean id="userService"
 		class="ar.com.donpepe.awardmanagement.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
-	</bean>
-	<bean id="saleCommissionService"
-		class="ar.com.donpepe.awardmanagement.services.impl.SaleCommissionServiceImpl">
-		<property name="saleCommissionDao" ref="saleCommissionDao"></property>
 	</bean>
 	<bean id="productService"
 		class="ar.com.donpepe.awardmanagement.services.impl.ProductServiceImpl">
@@ -79,11 +74,6 @@
 	<bean id="saleService"
 		class="ar.com.donpepe.awardmanagement.services.impl.SalesServiceImpl">
 		<property name="saleDao" ref="saleDao"></property>
-		<property name="productDao" ref="productDao"></property>
-		<property name="saleCommissionDao" ref="saleCommissionDao"></property>
-		<property name="userDao" ref="userDao"></property>
-		<property name="bestSalePrize" value="2000.00"></property>
-		<property name="bestCampaignPrize" value="1000.00"></property>
 	</bean>
 	<!-- End of Services -->
 </beans>

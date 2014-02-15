@@ -43,14 +43,14 @@ function CheckNumberFormat() {
 	if (number.length == 0) {
 		$("#txtNumberSale")
 				.after(
-						'<div class="error-validate">Se debe ingresar un numero de venta.</div>');
+						'<div class="alert alert-warning">Se debe ingresar un numero de venta.</div>');
 		return false;
 	} else {
 		// allow caracters inside to []
 		var characterReg = /^\s*[0-9a-zA-Z-]+\s*$/;
 		if (!characterReg.test(number)) {
 			$("#txtNumberSale").after(
-					'<div class="error-validate">Caracteres Invalidos.</div>');
+					'<div class="alert alert-warning">Caracteres Invalidos.</div>');
 			return false;
 		}
 	}
@@ -76,7 +76,7 @@ function CheckOutNumber() {
 	if (!flag) {
 		$.get(serverUrl + "/sale/getSalerMan",{number:number},function(data) {					
 			$("#SalesItem").after(
-			'<div class="error-validate">Ya existe una venta registrada con el numero de venta ingresado.\n'
+			'<div class="alert alert-warning">Ya existe una venta registrada con el numero de venta ingresado.\n'
 			+ '<ul><li><b>Nombre del  Vendedor: </b>'
 			+ data[0] +' '
 			+ data[1]
