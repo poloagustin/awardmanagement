@@ -28,10 +28,9 @@ public class Sale extends EntityWithId implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 
-	//@ElementCollection(fetch = FetchType.LAZY, targetClass = SaleItem.class)
-		@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER,targetEntity = SaleItem.class)
-		private List<SaleItem> saleItems;
-
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = SaleItem.class, orphanRemoval = true, cascade = { CascadeType.ALL }, mappedBy = "sale")
+	private List<SaleItem> saleItems;
+	
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
