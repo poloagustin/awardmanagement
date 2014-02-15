@@ -2,7 +2,6 @@ package ar.com.donpepe.awardmanagement.services.impl;
 
 import java.util.*;
 
-import ar.com.donpepe.awardmanagement.daos.ProductDao;
 import ar.com.donpepe.awardmanagement.daos.SaleDao;
 import ar.com.donpepe.awardmanagement.daos.UserDao;
 import ar.com.donpepe.awardmanagement.domain.BestSalesmanReport;
@@ -18,8 +17,6 @@ import ar.com.donpepe.awardmanagement.services.CommissionService;
 public class CommissionServiceImpl implements CommissionService {
 
 	private SaleDao saleDao;
-
-	private ProductDao productDao;
 
 	private UserDao userDao;
 
@@ -257,7 +254,6 @@ public class CommissionServiceImpl implements CommissionService {
 	@Override
 	public List<CommissionReportItemDto> getMonthlyReport(
 			List<Integer> userIds, Integer month, Integer year) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

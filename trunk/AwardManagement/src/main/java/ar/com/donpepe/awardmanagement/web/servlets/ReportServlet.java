@@ -9,16 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.com.donpepe.awardmanagement.services.SalesService;
-import ar.com.donpepe.awardmanagement.web.helpers.WebHelper;
-
 /**
  * Servlet implementation class ReportServlet
  */
 @WebServlet("/ReportServlet")
 public class ReportServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-    private SalesService salesService;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,11 +24,6 @@ public class ReportServlet extends BaseServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		try {
-			this.salesService = (SalesService)WebHelper.getBean(config, "salesService");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
