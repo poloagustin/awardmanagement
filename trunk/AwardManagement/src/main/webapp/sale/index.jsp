@@ -7,37 +7,81 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ventas Realizadas</title>
-<script type="application/javascript"
-	src="<%=request.getContextPath()%>/ScriptsSale/jquery-2.0.3.js"></script>
-	<script type="application/javascript"
-	src="<%=request.getContextPath()%>/ScriptsSale/initDate.js"></script>
-	<script type="application/javascript"
-	src="<%=request.getContextPath()%>/ScriptsSale/validateIndexSale.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Nueva Venta</title>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap/css/bootstrap-responsive.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap/font-awesome/css/font-awesome.min.cs">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script type="application/javascript" src="<%=request.getContextPath()%>/bootstrap/js/jquery-2.0.3.js"></script>
+		<script type="application/javascript" src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+		<script type="application/javascript" src="<%=request.getContextPath()%>/bootstrap/js/jquery.mask.min.js"></script>
 </head>
 <body>
 	<input type="hidden" id="serverUrl"
 		value="<%=request.getContextPath()%>" />
-	<h1>Ventas Realizadas:</h1>
+	<form action="<%=request.getContextPath()%>/sale/index" method="post">
+		<div class="row-fluid">
+						<div class="span12">
 
-	<div align="center">
-		<form action="<%=request.getContextPath()%>/sale/index" method="post">
-			<b>TimeFrame: <select id="salerMan" name="salerMan">
-					<option>Mes</option>
-			</select>From <input type="date" id="dateFrom"
-				name="dateFrom" required="required">
-				To <input type="date" id="dateTo" name="dateTo" required="required">  
-				 <input type="submit" id="btnGenerarReporte" value="Generar Reporte"></b>
+							<div class="navbar navbar-fixed-top navbar-inverse">
+
+								<div class="navbar-inner">
+									<div class="container">
+									<a href="<%=request.getContextPath()%>/sale/create" class="brand">Agregar Venta</a>
+									<ul class="nav pull-right">
+										<a style="color:white" href="#">UserName(Saler) |</a>
+										<a href="#">Cerrar Session</a>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="navbar navbar-inverse">
+					<div class="navbar-inner">
+						<div class="container">
+							<ul class="nav pull-center">
+								<label>TimeFrame</label>
+								<select name="SelectTime" id="SelectTime">
+									<option>Month</option>
+									<option>Today</option>
+									<option>Week</option>
+									<option>Year</option>
+								</select>
+								<label>From</label>
+								<input type="date" id="dateFrom" required="required">
+								<label>To</label>
+								<input type="date" id="dateTo" required="required">
+								<input type="submit" class="btn btn-primary" value="Generar Reporte">
+							</ul>
+						</div>
+				</div>
+					
+				</div>
+			</div>
+		</div>					
 		</form>
-	</div>
-	<br>
-		<div>
+		<div class="row-fluid">
+			<div class="span12">
+				&nbsp;
+			</div>
+		</div>
+	<div>
 		<b style="color: blue;"> <c:if test="${afterSaveBean}">
 		<c:if test="${!succesBean}">No se encontraron ventas.
 		</c:if>
 		</c:if>
 	</b>
-	</div>	
-	<table id="SalesTable" border="1">
+	</div>
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span8">
+				
+	<table  class="table table-bordered table-striped table-hover table-condensed" id="SalesTable">
 		<thead>
 			<tr>
 				<th>Numero de Venta</th>
@@ -55,6 +99,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+			</div>
+		</div>
+	</div>
 	<br>
 	<br>
 	<a href="<%=request.getContextPath()%>/sale/index">&gt;== VOLVER</a>

@@ -4,6 +4,7 @@ public class ProductoIndexDto {
 	
 	private Integer id;
 	private String name;
+	private Float ammount;
 
 	
 	public Integer getId() {
@@ -17,5 +18,11 @@ public class ProductoIndexDto {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Float getAmmount() {
+		return ammount;
+	}
+	public void setAmmount(Float ammount) {
+		this.ammount = ammount;
 	}
 }

@@ -10,12 +10,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import ar.com.donpepe.awardmanagement.dtos.ProductoIndexDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleDto;
 import ar.com.donpepe.awardmanagement.dtos.SaleItemDto;
 import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
-import ar.com.donpepe.awardmanagement.dtos.UserDto;
 
 public class SalesCreateServlet extends SalesServlet {
 
@@ -37,15 +34,8 @@ public class SalesCreateServlet extends SalesServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<ProductoIndexDto> products = new ArrayList<ProductoIndexDto>();
-		
-
-		//users = this.userService.getSalerMan();
-		
+		// TODO Auto-generated method stub			
 		UserCredentialDto user = (UserCredentialDto) request.getSession().getAttribute("user");
-		
-		products = this.productService.getProductIndex();
 
 		// get current date time with Date()
 		Calendar cal = Calendar.getInstance();
@@ -54,8 +44,6 @@ public class SalesCreateServlet extends SalesServlet {
 		
 		request.setAttribute("dateBean", dateSale);
 		request.setAttribute("UsersBean", user);
-		request.setAttribute("ProductsBean", products);
-
 		request.getRequestDispatcher("/sale/create.jsp").forward(request,
 				response);
 	}
@@ -66,7 +54,7 @@ public class SalesCreateServlet extends SalesServlet {
 		// TODO Auto-generated method stub
 		UserCredentialDto salerMan = (UserCredentialDto)request.getSession().getAttribute("user");
 		String number = request.getParameter("txtNumberSale");
-		String dateSale = request.getParameter("dateSale");
+		//String dateSale = request.getParameter("dateSale");
 		List<String[]> paramsProd = new ArrayList<String[]>();
 		boolean prodEnded = false;
 		Integer i = 0;
@@ -85,16 +73,20 @@ public class SalesCreateServlet extends SalesServlet {
 
 		try {
 
-			// insertamos fecha de creacion de venta
-			
-			
+			// Parse Date from Sale
+		
+			// get current date time with Date()
+			Calendar cal = Calendar.getInstance();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			String dateSale = dateFormat.format(cal.getTime());
 			Date date = dateFormat.parse(dateSale);
-			// fin
 
+			//Insert Atributes
 			sale.setNumber(number);
 			sale.setSalesmanId(salerMan.getUserId());
 			sale.setDate(date);
+			
+			//Insert SaleItems to Sale
 			List<SaleItemDto> items = new ArrayList<SaleItemDto>();
 
 			for (String[] strings : paramsProd) {
@@ -103,23 +95,13 @@ public class SalesCreateServlet extends SalesServlet {
 				dto.setAmount(Integer.parseInt(strings[1]));
 				items.add(dto);
 			}
-			sale.setSaleItems(items);
-			boolean check = false;
-
-			/*
-			 * Verifico que no exita una venta registrada
-			 */
-			if (this.saleService.verifySaleNumber(number)) {
-				check = this.saleService.addSale(sale);
-				System.out.println(check);
-			} else {
-
-				SaleDto saleExist = this.saleService.getSaleByNumber(number);
-				UserDto saler = this.userService.getById(saleExist.getSalesmanId());
-				request.setAttribute("SaleBean", saleExist);
-				request.setAttribute("SalerManExist", saler);
-			}
 			
+			sale.setSaleItems(items);
+			/*
+			 * Save Sale
+			 */
+			Boolean check = this.saleService.addSale(sale);
+				
 			request.setAttribute("afterSaveBean", true);
 			request.setAttribute("succesBean", check);
 

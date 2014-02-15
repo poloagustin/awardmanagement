@@ -25,6 +25,7 @@ public class ProductMapper {
 		ProductoIndexDto productIndexDto = new ProductoIndexDto();
 		productIndexDto.setId(product.getId());
 		productIndexDto.setName(product.getName());
+		productIndexDto.setAmmount(product.getAmmount());
 		return productIndexDto;
 	}
 }
