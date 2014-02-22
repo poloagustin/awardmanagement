@@ -12,6 +12,7 @@ public class ProductMapper {
 		return product;		
 	}
 	
+		
 	public static ProductDto getProductDto(Product product){
 		ProductDto productDto = new ProductDto();
 		productDto.setId(product.getId());
@@ -27,5 +28,14 @@ public class ProductMapper {
 		productIndexDto.setName(product.getName());
 		productIndexDto.setAmmount(product.getAmmount());
 		return productIndexDto;
+	}
+	
+	public static Product getProductofromDto(ProductDto productDto){
+		Product product = new Product();
+		product.setId(productDto.getId());
+		product.setName(productDto.getName());
+		product.setAmmount(productDto.getAmmount());
+		product.setSaleCommission(productDto.getSaleCommission());
+		return product;
 	}
 }

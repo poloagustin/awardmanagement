@@ -2,6 +2,8 @@ package ar.com.donpepe.awardmanagement.dtos;
 
 import java.io.Serializable;
 
+import ar.com.donpepe.awardmanagement.domain.Role;
+
 public class UserCredentialDto implements Serializable {
 	/**
 	 * 
@@ -10,6 +12,7 @@ public class UserCredentialDto implements Serializable {
 	private Integer userId;
 	private String username;
 	private String password;
+	private int role;
 
 	public String getUsername() {
 		return username;
@@ -28,5 +31,12 @@ public class UserCredentialDto implements Serializable {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
 	} 
+	
 }

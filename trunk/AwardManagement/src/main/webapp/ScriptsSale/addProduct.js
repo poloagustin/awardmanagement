@@ -1,7 +1,7 @@
 $(document).ready(function() {
 });
 
-$(document).on('click','#btnAgregarItem',function(){
+	$(document).on('click','#btnAgregarItem',function(){
 	$("#itemsProd").show();
 	
 	//change button

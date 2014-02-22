@@ -11,7 +11,7 @@
 		<property name="show_sql">true</property>
 
 		<!-- ESTO CREA LA BASE A PARTIR DE LAS ENTIDADES -->
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<mapping class="ar.com.donpepe.awardmanagement.domain.Product"></mapping>
 		<mapping class="ar.com.donpepe.awardmanagement.domain.EntityWithId"></mapping>
 		<mapping class="ar.com.donpepe.awardmanagement.domain.Sale"></mapping>

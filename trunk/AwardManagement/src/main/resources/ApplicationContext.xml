@@ -13,8 +13,8 @@
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/awardmanagement" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="username" value="ocio" />
+		<property name="password" value="ocio" />
 	</bean>
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -33,8 +33,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
-				 <prop key="hibernate.hbm2ddl.auto">validate</prop> 
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 			</props>
 		</property>
 	</bean>

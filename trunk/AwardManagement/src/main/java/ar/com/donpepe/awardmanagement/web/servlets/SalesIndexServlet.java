@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ar.com.donpepe.awardmanagement.dtos.SaleIndexDto;
 import ar.com.donpepe.awardmanagement.dtos.UserCredentialDto;
-import ar.com.donpepe.awardmanagement.dtos.UserIndexDto;
+
 
 public class SalesIndexServlet extends SalesServlet {
 

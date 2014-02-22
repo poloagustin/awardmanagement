@@ -32,13 +32,13 @@ function getUsers() {
 			html = html + text.lastName;
 			html = html +"</td><td>"; 
 			html = html + text.dni;
-			html = html +"</td><td><a href='";
+			html = html +"</td><td align='center'><a href='";
 			html = html + serverUrl;
 			html = html +"/user/edit?id=";
 			html = html +text.id;
-			html = html +"'>Editar</a></td><td><a href='#' onclick='deleteUser(";
+			html = html +"' class='btn btn-primary'>Editar</a></td><td align='center'><a href='#' onclick='deleteUser(";
 			html = html + text.id;
-			html = html+ ")'>Eliminar</a></td></tr>";
+			html = html+ ")' class='btn btn-danger'>Eliminar</a></td></tr>";
 			table.html(table.html() + html);
 		});
 	}, "json");
