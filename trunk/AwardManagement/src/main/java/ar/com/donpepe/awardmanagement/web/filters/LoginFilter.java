@@ -51,7 +51,12 @@ public class LoginFilter extends BaseLogger<LoginFilter> implements Filter {
 			this.logger.debug("User not logged.");
 			String requestUri = req.getRequestURI();
 			
-			if (!requestUri.contains("/user/login")) {
+			if (
+					(!requestUri.contains("/user/login")) &&
+					(!requestUri.contains("/bootstrap/")) &&
+					(!requestUri.contains("/bootstrap3/")) &&
+					(!requestUri.contains("/scripts/")) &&
+					(!requestUri.contains("/ScriptsSale/"))) {
 				this.logger.debug("Redirecting to login page.");
 				req.setAttribute("isLoginRequest", "true");
 				req.getRequestDispatcher("/user/login").forward(req, resp);
