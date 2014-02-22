@@ -85,6 +85,8 @@ public class UserMapper {
 		credential.setUserId(user.getId());
 		credential.setUsername(user.getUsername());
 		credential.setPassword(user.getPassword());
+		credential.setRole(user.getRole().ordinal());
+		
 		return credential;
 	}
 

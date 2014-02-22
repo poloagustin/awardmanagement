@@ -1,6 +1,7 @@
 package ar.com.donpepe.awardmanagement.web.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +21,11 @@ public class CommissionEditServlet extends SaleCommissionServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			Integer id = Integer.parseInt(req.getParameter("inputIdCommission"));
 			SaleCommission sc = this.saleCommissionService.getById(id);
 			req.setAttribute("commission", sc);
 
-			req.getRequestDispatcher("/commission/edit.jsp").forward(req, resp);
+			req.getRequestDispatcher("/commission/list.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -33,14 +34,20 @@ public class CommissionEditServlet extends SaleCommissionServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+	
+		boolean save = false;
+		String error = "";
+		
 		try {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			Integer id = Integer.parseInt(req.getParameter("inputIdCommission"));
 			Float saleCommission = Float.parseFloat(req
 					.getParameter("saleCommission"));
-			boolean save = false;
+			
+					
+			
 			SaleCommission sc = this.saleCommissionService.getById(id);
 
-			if (saleCommission != null) {
+			if (saleCommission != null && saleCommission > 0) {
 				sc.setSaleCommission(saleCommission);
 				SaleCommissionDto scDto = new SaleCommissionDto();
 
@@ -50,16 +57,30 @@ public class CommissionEditServlet extends SaleCommissionServlet {
 				scDto.setSaleCommission(saleCommission);
 
 				save = this.saleCommissionService.updateSaleCommission(scDto);
+				req.setAttribute("commission", sc);
+				req.setAttribute("afterSaveBean", true);
+				req.setAttribute("successBean", save == true);
+				
+			}else{
+				error = "No se admiten valores negativos o nulos.";
+				req.setAttribute("afterSaveBean", true);
+				req.setAttribute("successBean", save);
+				req.setAttribute("error", error);
 			}
-
-			req.setAttribute("commission", sc);
-			req.setAttribute("afterSaveBean", true);
-			req.setAttribute("successBean", save == true);
-
-			req.getRequestDispatcher("/commission/edit.jsp").forward(req, resp);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
+			error = "El valor ingresado debe ser numérico.";
+			req.setAttribute("afterSaveBean", true);
+			req.setAttribute("successBean", save);
+			req.setAttribute("error", error);
 		}
+		
+		List<SaleCommission> commissions = this.saleCommissionService
+				.getAll();
+		req.setAttribute("commissions", commissions);
+		
+		req.getRequestDispatcher("/commission/list.jsp").forward(req, resp);
 	}
 
 	@Override
