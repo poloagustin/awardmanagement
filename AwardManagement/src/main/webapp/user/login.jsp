@@ -7,9 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap3/css/style.css" />
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap3/css/style.css" /> --%>
+<%@ include file="/shared/scripts.html"%>
 
-<script type="application/javascript" src="<%=request.getContextPath()%>/scripts/jquery-2.0.3.js"></script>
+<%-- <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/jquery-2.0.3.js"></script> --%>
 <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/utils.js"></script>
 <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/usercommon.js"></script>
 <script type="application/javascript" src="<%=request.getContextPath()%>/scripts/userlogin.js"></script>
