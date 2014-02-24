@@ -28,14 +28,14 @@ public class Sale extends EntityWithId implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	private User salesman;
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = SaleItem.class, orphanRemoval = true, cascade = { CascadeType.ALL }, mappedBy = "sale")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = SaleItem.class, orphanRemoval = true, cascade = { CascadeType.ALL })
+	@JoinColumn(name="sale_id")
 	private List<SaleItem> saleItems;
 	
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	@Override
 	public Integer getId() {
 		return this.id;

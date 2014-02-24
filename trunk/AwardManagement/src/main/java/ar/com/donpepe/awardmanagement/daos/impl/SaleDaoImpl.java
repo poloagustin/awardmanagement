@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
 import org.springframework.dao.DataAccessException;
@@ -211,9 +212,10 @@ public class SaleDaoImpl extends EntityWithIdDaoImpl<Sale> implements SaleDao {
 			criteria = criteria.add(Restrictions.and(
 					Restrictions.eq("salesman.id", userId),
 					Restrictions.between("date", dateFrom, dateTo)));
+			criteria.addOrder(Order.asc("date"));
 			salesByUser = (List<Sale>) super.getHibernateTemplate()
 					.findByCriteria(criteria);
-			Set<Sale> salesSet = new HashSet<Sale>(salesByUser);
+			LinkedHashSet<Sale> salesSet = new LinkedHashSet<Sale>(salesByUser);			
 			sales = new ArrayList<Sale>(salesSet);
 		} catch (DataAccessException exception) {
 			exception.printStackTrace();

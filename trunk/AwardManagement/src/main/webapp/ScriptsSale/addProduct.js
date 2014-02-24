@@ -1,19 +1,17 @@
 $(document).ready(function() {
 });
 
-	$(document).on('click','#btnAgregarItem',function(){
+$(document).on('click','#btnAgregarItem',function(){
 	$("#itemsProd").show();
 	
-	//change button
+	//change button	
 	$("#btnAgregarItem").text("Cerrar Items");
-	$("#btnAgregarItem").attr({
-		"id":"btnCerrarItem",
-	});
+	$("#btnAgregarItem").attr("id","btnCerrarItem");
+	
 });
 
 $(document).on('click','#btnCerrarItem',function(){
-	$("#itemsProd").hide();
-	
+	$("#itemsProd").hide();	
 	//change button
 	$("#btnCerrarItem").text("Agregar Items");
 	$("#btnCerrarItem").attr({
@@ -22,11 +20,6 @@ $(document).on('click','#btnCerrarItem',function(){
 });
 
 $(document).on('click','#AgregarCant',function(){
- 
- $("myModal").modal({
- 	backdrop:false,
- 	keyboard:false,
- 	show:false});
  
  // find attr product selected
  var id = $(this).closest("tr").find(".idProd").text();
@@ -41,14 +34,9 @@ $(document).on('click','#AgregarCant',function(){
 	 $("#txtProd").text(name);
 	 $("#myModal").modal("show");
  }
-	 else{
-	 	$("myModalValidate").modal({
- 		backdrop:false,
-	 	keyboard:false,
-	 	show:false});
-
+	 else{	 
 	 	//create and show error validate
-	 	$("#txtValideProd").text('El producto "'+name+'" ya se encuentra agregado');
+	 	$("#txtValidProd").text('El producto "'+name+'" ya se encuentra agregado.');
 	 	$("#myModalValidate").modal("show");
 	 }
  });
@@ -84,7 +72,6 @@ function validateProductExist(id){
 	$(".productset").each(function(index) {
     		if($(this).val()==id){
     			flag=true;
-    			
     		}    		
 	});
 	return flag;
@@ -96,18 +83,14 @@ $(document).on('click','#btnCantSend',function(){
  var idProd=$("#idProd").val();
  var nameProd=$("#nameProd").val();
  var ammountProd=$("#ammountProd").val();
- 
  addTable(cant,idProd,nameProd,ammountProd);
 });
-
-
 /*
  * Eliminar Sale Item
  */
 $(document).on('click','.EliminarItem',function(){
       $(this).parent().parent().remove();
-      sortTableItems();
-    
+      sortTableItems();   
  });
 
 function sortTableItems(){	
@@ -122,25 +105,24 @@ function sortTableItems(){
     	    $(this).attr({
 				id:newCant,
 				name:newCant});
-	});
+    });
 		$(".nItems").each(function(index) {
     	    $(this).text(index+1);
 	});
 }
-
 function addTable(cant,idProd,nameProd,ammountProd) {
-	var tableBody = $("#SalesItem tbody");
+	var tableBody=$("#SalesItem tbody");
 	var items=0;
-	var subTotal = ammountProd * cant;
+	var subTotal=ammountProd * cant;
 	var row ='<tr>'
-			+ '<td class="nItems">'+items+'</td>'
-			+ '<td class="Name" ><input class="productset" type="hidden" value="'+ idProd+ '" id="prod" name="prod">'+nameProd+'</td>' 
-			+ '<td>'+ammountProd +'</td>'
-			+ '<td class="Cant"><input class="cantset" type="hidden" value="'+ cant + '" id="cant" name="cant">'+cant+'</td>'
-			+ '<td>'+subTotal+'</td>'
-			+ '<td><input type="button" class="EditarItem btn btn-warning" value="Editar Item">'
-			+ '<input type="button" class="EliminarItem btn btn-danger" value="Eliminar Item"></td>'
-			+ '</tr>';
+			+ '<td class="nItems" align="center">'+items+'</td>'
+			+ '<td class="Name"align="center" ><input class="productset" type="hidden" value="'+ idProd+ '" id="prod" name="prod">'+nameProd+'</td>' 
+			+ '<td align="center">'+ammountProd+'</td>'
+			+ '<td class="Cant"align="center"><input class="cantset" type="hidden" value="'+ cant + '" id="cant" name="cant">'+cant+'</td>'
+			+ '<td align="center">'+subTotal+'</td>'
+			+ '<td align="center"><a class="btn btn-default btn-sm EditarItem"><span class="glyphicon glyphicon-pencil"></span> Editar</a>'
+			+ '<a class="btn btn-default btn-sm EliminarItem btn"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></td>'
+			+ '</tr>';	
 	tableBody.append(row);
 	sortTableItems();
 }

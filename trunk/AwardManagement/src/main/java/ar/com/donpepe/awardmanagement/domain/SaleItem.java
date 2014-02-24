@@ -21,8 +21,8 @@ public class SaleItem extends EntityWithId implements Serializable {
 
 	@Column
 	private Integer amount;
-
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Sale.class)
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Sale.class)	
 	private Sale sale;
 
 	public SaleItem() {
