@@ -36,25 +36,49 @@
 
 	<form action="<%=request.getContextPath()%>/user/login" method="post">
 		<fieldset>
-			<table class="table">
-				<tr>
-					<td><label for="1">Usuario:</label></td>
-					<td><input type="text" name="username" required="required" /></td>
-				</tr>
-				<tr>
-					<td><label for="2">Password:</label></td>
-					<td><input type="password" name="password" required="required" /></td>
-				</tr>
-				<tr>
-					<td><input class="btn btn-primary" type="submit" value="Guardar" /></td>
-				</tr>
-			</table>
+			<br>
+			<div class="row">
+				<div class="col-md-5"></div>
+				<div class="col-md-1">
+					<label for="1">Usuario:</label>
+				</div>
+				<div class="col-md-1">
+					<input type="text" name="username" required="required" />
+				</div>
+				<div class="col-md-5"></div>
+			</div>
+			<br>
+			<div class="row"></div>
+			<div class="row">
+				<div class="col-md-5"></div>
+				<div class="col-md-1">
+					<label for="2">Password:</label>
+				</div>
+				<div class="col-md-1">
+					<input type="password" name="password" required="required" />
+				</div>
+				<div class="col-md-5"></div>
+			</div>
+			<br>
+			<div class="row"></div>
+			<div class="row">
+				<div class="col-md-5"></div>
+				<div class="col-md-1">
+					
+				</div>
+				<div class="col-md-1"><input class="btn btn-primary" type="submit" value="Guardar" /></div>
+				<div class="col-md-5"></div>
+			</div>
+
+
+
+
 		</fieldset>
 	</form>
 	<br />
 	<b style="color: red;"> <c:if test="${requestFailed}">Los datos suministrados no fueron correctos.</c:if>
 	</b>
 	<br />
-	<a href="<%=request.getContextPath()%>/user/index">&lt;== VOLVER</a>
+
 </body>
 </html>
