@@ -1,8 +1,8 @@
 $(document).ready(function() {
-	$("form").submit(function(event) {
+	$("form").submit(function(event){
 		var flag = new Boolean();
 		// remove all errors before
-		$(".error-validate").remove();
+		$(".alert").remove();
 		/*
 		 * Check out each validate before send data form
 		 */
@@ -17,7 +17,6 @@ $(document).ready(function() {
 				}
 			}
 		}
-
 		// if flag = true -> stop sending data form
 		if (flag == true) {
 			event.preventDefault();
@@ -27,10 +26,12 @@ $(document).ready(function() {
 
 // Verify that saleItems not are empty
 function CheckSaleItemsEmptys() {
+	var flag=new Boolean();
 	if ($("#SalesItem tbody tr").length == 0) {
-		$("#SalesItem")
-				.after(
-						'<div class="error-validate">Se debe ingresar al menos un producto para la venta.</div>');
+		$("#SalesItem").before(
+		'<div class="alert alert-block alert-danger">'+
+		'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+		'<h4>Verificar!!:</h4> Se debe ingresar al menos un producto para la venta.');				
 		return false;
 	}
 	return true;
@@ -39,20 +40,11 @@ function CheckSaleItemsEmptys() {
 // validate that saleNumber is not empty and format
 function CheckNumberFormat() {
 	var number = $("#txtNumberSale").val();
-
 	if (number.length == 0) {
-		$("#txtNumberSale")
-				.after(
-						'<div class="alert alert-warning">Se debe ingresar un numero de venta.</div>');
+		$("p").html('<div class="alert alert-block alert-danger">'+
+			'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+			'<h4>Verificar!!:</h4> Se debe ingresar un numero de venta.');			
 		return false;
-	} else {
-		// allow caracters inside to []
-		var characterReg = /^\s*[0-9a-zA-Z-]+\s*$/;
-		if (!characterReg.test(number)) {
-			$("#txtNumberSale").after(
-					'<div class="alert alert-warning">Caracteres Invalidos.</div>');
-			return false;
-		}
 	}
 	return true;
 }
@@ -72,15 +64,16 @@ function CheckOutNumber() {
 			flag = check;
 		}
 	});
-
 	if (!flag) {
 		$.get(serverUrl + "/sale/getSalerMan",{number:number},function(data) {					
-			$("#SalesItem").after(
-			'<div class="alert alert-warning">Ya existe una venta registrada con el numero de venta ingresado.\n'
-			+ '<ul><li><b>Nombre del  Vendedor: </b>'
+			$("p").html(
+			'<div class="alert alert-block alert-danger">'+
+			'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+			'<h4>Numero de Venta Invalido:</h4> Ya existe una venta registrada con el numero de venta ingresado.\n'+
+			'<ul><li><strong>Nombre del  Vendedor:</strong>'
 			+ data[0] +' '
 			+ data[1]
-			+ '</li><li><b>Fecha de venta registrada: </b>'
+			+ '</li><li><strong>Fecha de venta registrada: </strong>'
 			+ data[2]
 			+ '</li></ul></div>');
 			}, "json");

@@ -44,15 +44,15 @@ public class SalesIndexServlet extends SalesServlet {
 		String firstDate = request.getParameter("dateFrom");
 		String lastDate = request.getParameter("dateTo");
 		UserCredentialDto salerMan = (UserCredentialDto)request.getSession().getAttribute("user");
-		List<SaleIndexDto> sales = null;
+		List<SaleIndexDto> sales = null;		
 
 		try {
 
 			// Parseamos las fecha
 			Date dateTo = null;
 			Date dateFrom = null;
-
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
 			dateFrom = dateFormat.parse(firstDate);
 			dateTo = dateFormat.parse(lastDate);
 
@@ -75,16 +75,10 @@ public class SalesIndexServlet extends SalesServlet {
 			}
 
 			request.setAttribute("afterSaveBean", true);
-			request.setAttribute("succesBean", check);
-			System.out.println(check);
-
+			request.setAttribute("succesBean", check);			
 			/*
 			 * Save sets atribute from user
-			 */
-			HttpSession session = request.getSession(true);
-			session.setAttribute("dateFromSave", firstDate);
-			session.setAttribute("dateToSave", lastDate);
-
+			 */			
 			this.doGet(request, response);
 
 		} catch (Exception e) {

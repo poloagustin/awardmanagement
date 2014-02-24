@@ -78,7 +78,7 @@ public class SalesServiceImpl implements SalesService {
 		Sale sale = new Sale();
 		sale = SalesMapper.getSale(sales);
 
-		try {
+		try {			
 			rows = this.saleDao.save(sale);
 
 		} catch (Exception e) {

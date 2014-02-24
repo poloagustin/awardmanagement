@@ -35,8 +35,8 @@ public class SalesCreateServlet extends SalesServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub			
-		UserCredentialDto user = (UserCredentialDto) request.getSession().getAttribute("user");
-
+		UserCredentialDto user = (UserCredentialDto) request.getSession().getAttribute("user");		
+		
 		// get current date time with Date()
 		Calendar cal = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -80,7 +80,7 @@ public class SalesCreateServlet extends SalesServlet {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String dateSale = dateFormat.format(cal.getTime());
 			Date date = dateFormat.parse(dateSale);
-
+			
 			//Insert Atributes
 			sale.setNumber(number);
 			sale.setSalesmanId(salerMan.getUserId());
