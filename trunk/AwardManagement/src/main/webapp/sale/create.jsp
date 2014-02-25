@@ -90,13 +90,13 @@
 		<div class="container">
 			<div class="span2">
 				<a id="btnAgregarItem" class="btn btn-primary">
-					<span id="iconAgregarItem" class="glyphicon-plus glyphicon-white"></span>
+					<span id="iconAgregarItem" class="glyphicon glyphicon-plus-sign"></span>
 					Agregar Items
 				</a>
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid colapsable" hidden="true" id="itemsProd">
+	<div class="row-fluid" hidden="true" id="itemsProd">
 		<div class="container">
 			<div class="span8">
 				&nbsp;	
@@ -108,8 +108,9 @@
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span8">
-						<table class="table table-bordered table-striped table-hover table-condensed" id="Products">
+					<div class="span8" data-spy="scroll">
+						<table class="table table-bordered table-striped table-hover table-condensed" 
+								id="Products">
 							<thead>
 								<tr>
 									<th>ID</th>
@@ -118,7 +119,7 @@
 									<th>Accion</th>
 								</tr>
 							</thead>
-							<tbody></tbody>
+							<tbody></tbody>							
 						</table>
 					</div>
 				</div>
@@ -139,7 +140,7 @@
 					<div class="row-fluid">
 						<div class="span8">							
 							<div class="group-form">
-								<label for="txtCant"><strong>Cantidad:</strong></label>
+								<label for="txtCant">Ingrese Cantidad:</label>
 								<input type="text" id="txtCant" class="form-control number">
 							</div>
 						</div>
@@ -178,14 +179,18 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;
 				</button>
-				<h4 id="txtProd"></h4>
+				<h4 id="txtProdEdit"></h4>
 				<input id="idProdEdit" type="hidden">
 			</div>				
-			<div class="modal-body" align="center">
-				<div class="group-form">
-				<label for="txtCantEdit">Cantidad:</label>
-				<input class="form-control number" id="txtCantEdit" name="txtCantEdit">
-			</div>
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span8">						
+						<div class="group-form">
+							<label for="txtCantEdit">Ingrese Cantidad:</label>
+							<input class="form-control number" id="txtCantEdit">
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar
@@ -214,14 +219,19 @@
 							<tr style="color:white">
 								<th>#</th>
 								<th>Producto</th>
-								<th>P.Unitario</th>
+								<th>P.Unitario($)</th>
 								<th>Cantidad</th>
-								<th>Total</th>
+								<th>Total($)</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
-						<tbody>						
-						</tbody>
+						<tbody></tbody>
+						<tfoot>
+							<tr class="info">
+								<td align="left"><strong>Total:</strong></td>
+								<td colspan="5" class="sumTotal" align="right">$ 0</td>
+							</tr>
+							</tfoot>
 					</table>
 				</div>
 				<div class="span1">&nbsp;</div>
