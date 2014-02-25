@@ -9,7 +9,7 @@ function setYears() {
 	var years = $("#year");
 	var thisYear = new Date().getFullYear();
 	var options = "";
-	for (var i = thisYear - 10; i < thisYear + 10; i++) {
+	for (var i = thisYear - 1; i < thisYear + 1; i++) {
 		options = options + "<option value='" + i + "'>" + i + "</option>";
 	}
 	years.html(years.html() + options);

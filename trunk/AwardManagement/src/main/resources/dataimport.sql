@@ -8,10 +8,10 @@ FROM (
 	SELECT 7 id, 'poloagustin' username, '123456789' dni, 'Agustin' firstName, 'Polo' lastName, 2 role, 'thestral' password UNION ALL
 	SELECT 1 id, 'botiukfranco' username, '123456789' dni, 'Franco' firstName, 'Botiuk' lastName, 2 role, 'password' password UNION ALL
 	SELECT 2 id, 'majericfernando' username, '123456789' dni, 'Fernando' firstName, 'Majeric' lastName, 2 role, 'password' password UNION ALL
-	SELECT 3 id, 'test01' username, '123456789' dni, 'Test' firstName, 'Test' lastName, 0 role, 'test' password UNION ALL
-	SELECT 4 id, 'test02' username, '123456789' dni, 'Test' firstName, 'Test' lastName, 1 role, 'test' password UNION ALL
-	SELECT 5 id, 'test03' username, '123456789' dni, 'Test' firstName, 'Test' lastName, 1 role, 'test' password UNION ALL
-	SELECT 6 id, 'test04' username, '123456789' dni, 'Test' firstName, 'Test' lastName, 1 role, 'test' password
+	SELECT 3 id, 'test01' username, '123456789' dni, 'Carla' firstName, 'Damiani' lastName, 0 role, 'test' password UNION ALL
+	SELECT 4 id, 'test02' username, '123456789' dni, 'Matias' firstName, 'Perez' lastName, 1 role, 'test' password UNION ALL
+	SELECT 5 id, 'test03' username, '123456789' dni, 'Juan' firstName, 'Garcia' lastName, 1 role, 'test' password UNION ALL
+	SELECT 6 id, 'test04' username, '123456789' dni, 'Jorge' firstName, 'Marco' lastName, 1 role, 'test' password
 ) aux;
 
 ALTER TABLE awardmanagement.product AUTO_INCREMENT = 6;
