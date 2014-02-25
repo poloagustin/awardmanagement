@@ -51,13 +51,15 @@
 								<div class="span3">
 										<div class="form-group">
 										<label for="selectTime">TimeFrame:</label>
-										<div class="input-group">											
-										<select name="selectTime" id="selectTime" class="form-control">
-											<option>Hoy</option>
-											<option>Ayer</option>
-											<option>Semana</option>
-											<option>Mes</option>
-											<option>Año</option>					
+										<div class="input-group">											<select name="selectTime" id="selectTime" class="form-control">
+											<option value="1">Hoy</option>
+											<option value="2">Ayer</option>
+											<option value="3">Semana</option>
+											<option value="4">Semana Anterior</option>
+											<option value="5">Mes</option>
+											<option value="6">Mes Anterior</option>
+											<option value="7">Año</option>					
+											<option value="8">Custom</option>					
 										</select>
 										</div>
 									</div>
@@ -122,6 +124,7 @@
 							<th>Numero de Venta</th>
 							<th>Fecha de Venta</th>
 							<th>Total</th>
+							<th>Detalle</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,11 +132,14 @@
 						<tr>
 							<td>${sale.number}</td>
 							<td>${sale.date}</td>
-							<td>${sale.total}</td>
+							<td class="success">${sale.total}</td>
+							<td><a href="#" class="link schSale">
+								<span class="glyphicon glyphicon-search"></span> Ver</a>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
-				</table>
+				</table>				
 			</div>
 			<div class="span1"></div>		
 	</div>

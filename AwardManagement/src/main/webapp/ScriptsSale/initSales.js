@@ -19,7 +19,7 @@
 			'<td class="nameProd" align="center">'+text.name +'</td>'+
 			'<td class="ammountProd" align="center">'+text.ammount+'</td>'+
 			'<td align="center"><a id="AgregarCant" data-toggle="modal" class="btn btn-primary">Agregar</a></td>'+
-			'</tr';
+			'</tr>';
 			tbody.append(row);	
 		});
 	},"json");

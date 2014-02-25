@@ -25,7 +25,7 @@ public class Sale extends EntityWithId implements Serializable {
 	@Column(length = 13, nullable = false)
 	private String number;
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class, cascade={ CascadeType.ALL})	
 	private User salesman;
 
 	@OneToMany(fetch = FetchType.EAGER, targetEntity = SaleItem.class, orphanRemoval = true, cascade = { CascadeType.ALL })
