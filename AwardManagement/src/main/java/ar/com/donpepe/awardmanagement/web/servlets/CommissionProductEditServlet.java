@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import ar.com.donpepe.awardmanagement.domain.Product;
 import ar.com.donpepe.awardmanagement.dtos.ProductDto;
 
-
 public class CommissionProductEditServlet extends ProductServlet {
 
 	/**
@@ -33,13 +32,21 @@ public class CommissionProductEditServlet extends ProductServlet {
 			ProductDto p = this.productService.getProductById(id);
 
 			if (productCommission != null && productCommission > 0) {
-				p.setSaleCommission(productCommission);
 
-				save = this.productService.updateProduct(p);
+				if (Float.compare(p.getSaleCommission(), productCommission) == 0) {
+					error = "La comisión ingresada no puede ser la misma.";
+					req.setAttribute("afterSaveBean", true);
+					req.setAttribute("successBean", save);
+					req.setAttribute("error", error);
+				} else {
+					p.setSaleCommission(productCommission);
 
-				req.setAttribute("producto", p);
-				req.setAttribute("afterSaveBean", true);
-				req.setAttribute("successBean", save == true);
+					save = this.productService.updateProduct(p);
+
+					req.setAttribute("producto", p);
+					req.setAttribute("afterSaveBean", true);
+					req.setAttribute("successBean", save == true);
+				}
 			} else {
 				error = "No se admiten valores negativos o nulos.";
 				req.setAttribute("afterSaveBean", true);
@@ -57,7 +64,7 @@ public class CommissionProductEditServlet extends ProductServlet {
 
 		List<Product> productos = this.productService.getAll();
 		req.setAttribute("productos", productos);
-		
+
 		req.getRequestDispatcher("/commission/listproducts.jsp").forward(req,
 				resp);
 	}
@@ -78,13 +85,20 @@ public class CommissionProductEditServlet extends ProductServlet {
 			ProductDto p = this.productService.getProductById(id);
 
 			if (productCommission != null && productCommission > 0) {
-				p.setSaleCommission(productCommission);
 
-				save = this.productService.updateProduct(p);
+				if (Float.compare(p.getSaleCommission(), productCommission) == 0) {
+					error = "La comisión ingresada no puede ser la misma.";
+					req.setAttribute("afterSaveBean", true);
+					req.setAttribute("successBean", save);
+					req.setAttribute("error", error);
+				} else {
 
-				req.setAttribute("producto", p);
-				req.setAttribute("afterSaveBean", true);
-				req.setAttribute("successBean", save == true);
+					p.setSaleCommission(productCommission);
+					save = this.productService.updateProduct(p);
+					req.setAttribute("producto", p);
+					req.setAttribute("afterSaveBean", true);
+					req.setAttribute("successBean", save == true);
+				}
 			} else {
 				error = "No se admiten valores negativos o nulos.";
 				req.setAttribute("afterSaveBean", true);
@@ -102,7 +116,7 @@ public class CommissionProductEditServlet extends ProductServlet {
 
 		List<Product> productos = this.productService.getAll();
 		req.setAttribute("productos", productos);
-		
+
 		req.getRequestDispatcher("/commission/listproducts.jsp").forward(req,
 				resp);
 	}
